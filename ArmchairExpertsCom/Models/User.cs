@@ -1,8 +1,15 @@
-﻿namespace ArmchairExpertsCom.Models
+﻿using Npgsql;
+
+namespace ArmchairExpertsCom.Models
 {
     public class User : IModel
     {
         public int Id { get; set; }
+        public void FillIn(NpgsqlDataReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public string FullName { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }

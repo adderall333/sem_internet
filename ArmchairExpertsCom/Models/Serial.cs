@@ -1,8 +1,15 @@
-﻿namespace ArmchairExpertsCom.Models
+﻿using Npgsql;
+
+namespace ArmchairExpertsCom.Models
 {
     public class Serial : IModel, IContent
     {
         public int Id { get; set; }
+        public void FillIn(NpgsqlDataReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public string Title { get; set; }
         public string Description { get; set; }
         public IGenre[] Genres { get; set; }
