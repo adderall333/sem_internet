@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Npgsql;
 
@@ -8,10 +9,23 @@ namespace ArmchairExpertsCom.Models
 {
     public static class ObjectsGetter
     {
-        public static NpgsqlConnection GetConnection()
+        private static NpgsqlConnection GetConnection()
         {
             var cs = "Host=localhost;Username=postgres;Password={{pass}};Database={{dbname}}";
             return new NpgsqlConnection(cs);
+        }
+
+        public static IModel FillIn<T>(NpgsqlDataReader reader)
+        where T : IModel
+        {
+            var instance = (T)Activator.CreateInstance(typeof(T));
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var i = 0;
+            while (reader.Read())
+            {
+                properties[i].SetValue(instance, reader.GetValue(i));
+            }
+            return instance;
         }
 
         public static int LastId(string type)
