@@ -27,8 +27,20 @@
 #topPictures {
     height:  355px;
     width:  150 px;  
-    margin-right: 30px;
-    
+    margin-right: 30px;    
+}
+
+#bookPictures {
+    height:  325px;
+    width:  125 px;  
+    margin-right: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#books_nameOfPictures {
+    margin-top: 15px;
+    color: wheat;
 }
 
 #leftControlButton {
