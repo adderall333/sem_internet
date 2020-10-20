@@ -4,6 +4,7 @@
 } 
 
 #carouselPictures {
+    margin-top: 10px;
     margin-left: 58px;
 }
 
@@ -24,6 +25,9 @@
     
 }
 
+#book_description{
+    color: wheat;
+}
 #topPictures {
     height:  355px;
     width:  150 px;  
