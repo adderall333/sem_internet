@@ -1,5 +1,5 @@
 #menuMargin {
-    width: 1150px;
+    width: 1100px;
     margin: auto;
 } 
 
@@ -17,19 +17,42 @@
 }
 
 .topBackground {
-    width: 1130px;
+    width: 1100px;
     margin: auto;
     margin-top: 15px;
     height: 100%;
-    background-color: cadetblue;
+    background-color: rgb(141, 200, 202);
     
+}
+.registration_backrond{
+    width: 1100px;
+    height: 523px;
+    margin: auto;
+    margin-top: 15px;    
+    background-color: rgb(141, 200, 202);
+
+}
+.login_backrond{
+    width: 1100px;
+    height: 430px;
+    margin: auto;
+    margin-top: 15px;    
+    background-color: rgb(141, 200, 202);
+}
+#login_backrondForm
+{
+    width: 1200px;
+    margin: auto;
+    margin-top: 15px;
+    height: 100%;
+    background-color:white;   
 }
 
 #book_description{
-    color: wheat;
+    color: white;
 }
 #topPictures {
-    height:  355px;
+    height:  350px;
     width:  150 px;  
     margin-right: 30px;    
 }
@@ -44,14 +67,14 @@
 
 #books_nameOfPictures {
     margin-top: 15px;
-    color: wheat;
+    color: white;
 }
 
 #leftControlButton {
-    margin-left: -50px;
+    margin-left: -100px;
 }
 
 #rightControlButton {
-    margin-right: -50px;
+    margin-right: -100px;
 }
 
