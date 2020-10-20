@@ -7,7 +7,8 @@ namespace ArmchairExpertsCom.Models
     public interface IModel
     {
         public int Id { get; set; }
-
-        public void FillIn(NpgsqlDataReader reader);
+        public bool IsInDataBase { get; set; }
+        public void Save();
+        public void Delete();
     }
 }

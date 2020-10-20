@@ -5,13 +5,27 @@ namespace ArmchairExpertsCom.Models
     public class Selection : IModel
     {
         public int Id { get; set; }
-        public void FillIn(NpgsqlDataReader reader)
+        public bool IsInDataBase { get; set; }
+
+        public void Save()
         {
-            throw new System.NotImplementedException();
+            if (IsInDataBase)
+                ObjectsGetter.Update<Selection>($"title = {Title}", Id);
+            else
+                ObjectsGetter.Insert<Selection>("title", $"{Title}");
+            IsInDataBase = true;
         }
 
-        public int UserId { get; set; }
+        public void Delete()
+        {
+            ObjectsGetter.Delete<Book>(Id);
+            IsInDataBase = false;
+        }
+        
         public string Title { get; set; }
+        
+        //from staging tables
+        public User User { get; set; }
         public IContent[] Contents { get; set; }
         public Comment[] Comments { get; set; }
     }

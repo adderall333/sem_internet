@@ -15,8 +15,8 @@ namespace ArmchairExpertsCom.Models
             return new NpgsqlConnection(cs);
         }
 
-        public static IModel FillIn<T>(NpgsqlDataReader reader)
-        where T : IModel
+        private static IModel FillIn<T>(NpgsqlDataReader reader)
+            where T : IModel
         {
             var instance = (T)Activator.CreateInstance(typeof(T));
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -39,28 +39,28 @@ namespace ArmchairExpertsCom.Models
             return reader.GetInt32(0);
         }
         
-        public static IEnumerable<IModel> All(string type)
+        public static IEnumerable<IModel> All<T>()
+            where T : IModel
         {
             var connection = GetConnection();
             connection.Open();
 
-            var query = $"select * from {type}";
+            var query = $"select * from {typeof(T)}";
             var reader = new NpgsqlCommand(query, connection).ExecuteReader();
 
             while (reader.Read())
             {
-                var instance = (IModel)new object();
-                instance.FillIn(reader);
-                yield return instance;
+                yield return FillIn<T>(reader);
             }
         }
         
-        public static IEnumerable<IModel> Filter(string type, params string[] conditions)
+        public static IEnumerable<IModel> Filter<T>(params string[] conditions)
+            where T : IModel
         {
             var connection = GetConnection();
             connection.Open();
 
-            var query = new StringBuilder($"select * from {type} where {conditions.First()} ");
+            var query = new StringBuilder($"select * from {typeof(T)} where {conditions.First()} ");
             foreach (var condition in conditions.Skip(1))
             {
                 query.Append($"and {condition} ");
@@ -69,36 +69,37 @@ namespace ArmchairExpertsCom.Models
 
             while (reader.Read())
             {
-                var instance = (IModel)new object();
-                instance.FillIn(reader);
-                yield return instance;
+                yield return FillIn<T>(reader);;
             }
         }
 
-        public static void Update(string type, string queryPart, int id)
+        public static void Update<T>(string queryPart, int id)
+            where T : IModel
         {
             var connection = GetConnection();
             connection.Open();
 
-            var query = $"update {type} set {queryPart} where id = {id}";
+            var query = $"update {typeof(T)} set {queryPart} where id = {id}";
             new NpgsqlCommand(query, connection).ExecuteNonQuery();
         }
 
-        public static void Insert(string type, string names, string values)
+        public static void Insert<T>(string names, string values)
+            where T : IModel
         {
             var connection = GetConnection();
             connection.Open();
 
-            var query = $"insert into {type} ({names}) values ({values})";
+            var query = $"insert into {typeof(T)} ({names}) values ({values})";
             new NpgsqlCommand(query, connection).ExecuteNonQuery();
         }
 
-        public static void Delete(string type, int id)
+        public static void Delete<T>(int id)
+            where T : IModel
         {
             var connection = GetConnection();
             connection.Open();
 
-            var query = $"delete from {type} where id = {id}";
+            var query = $"delete from {typeof(T)} where id = {id}";
             new NpgsqlCommand(query, connection).ExecuteNonQuery();
         }
     }
