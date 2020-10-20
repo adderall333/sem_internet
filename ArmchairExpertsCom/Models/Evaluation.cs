@@ -4,7 +4,15 @@ namespace ArmchairExpertsCom.Models
 {
     public class Evaluation : IModel
     {
+        //basic properties
         public int Id { get; set; }
+        public int Value { get; set; }
+        
+        //foreign keys etc. 
+        public User User { get; set; }
+        public IContent Content { get; set; }
+        
+        //methods etc.
         public bool IsInDataBase { get; set; }
 
         public void Save()
@@ -18,14 +26,8 @@ namespace ArmchairExpertsCom.Models
 
         public void Delete()
         {
-            ObjectsGetter.Delete<Book>(Id);
+            ObjectsGetter.Delete<Evaluation>(Id);
             IsInDataBase = false;
         }
-
-        public int Value { get; set; }
-        
-        //from staging tables
-        public User User { get; set; }
-        public IContent Content { get; set; }
     }
 }

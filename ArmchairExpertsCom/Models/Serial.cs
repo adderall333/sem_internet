@@ -4,7 +4,20 @@ namespace ArmchairExpertsCom.Models
 {
     public class Serial : IModel, IContent
     {
+        //basic properties
         public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int Rating { get; set; }
+        public int Year { get; set; }
+        public string Cast { get; set; }
+        
+        //foreign keys etc.
+        public Review[] Reviews { get; set; }
+        public IGenre[] Genres { get; set; }
+        public Image[] Images { get; set; }
+        
+        //methods etc.
         public bool IsInDataBase { get; set; }
 
         public void Save()
@@ -25,16 +38,5 @@ namespace ArmchairExpertsCom.Models
             ObjectsGetter.Delete<Serial>(Id);
             IsInDataBase = false;
         }
-
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public int Rating { get; set; }
-        public int Year { get; set; }
-        public string Cast { get; set; }
-        
-        //from staging tables
-        public Review[] Reviews { get; set; }
-        public IGenre[] Genres { get; set; }
-        //images
     }
 }

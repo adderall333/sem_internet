@@ -1,10 +1,18 @@
-﻿using Npgsql;
+﻿using System.Runtime.Serialization;
+using Npgsql;
 
 namespace ArmchairExpertsCom.Models
 {
     public class SerialGenre : IModel, IGenre
     {
+        //basic properties
         public int Id { get; set; }
+        public string Name { get; set; }
+        
+        //foreign keys etc.
+        public IContent[] Contents { get; set; }
+        
+        //methods etc.
         public bool IsInDataBase { get; set; }
 
         public void Save()
@@ -21,10 +29,5 @@ namespace ArmchairExpertsCom.Models
             ObjectsGetter.Delete<SerialGenre>(Id);
             IsInDataBase = false;
         }
-
-        public string Name { get; set; }
-        
-        //from staging tables
-        public IContent[] Contents { get; set; }
     }
 }

@@ -5,7 +5,17 @@ namespace ArmchairExpertsCom.Models
 {
     public class Review : IModel, IWriting
     {
+        //basic properties
         public int Id { get; set; }
+        public string Text { get; set; }
+        public DateTime Date { get; set; }
+        
+        //foreign keys etc.
+        public User User { get; set; }
+        public IContent ReviewTarget { get; set; }
+        public Comment[] Comments { get; set; }
+        
+        //methods etc.
         public bool IsInDataBase { get; set; }
 
         public void Save()
@@ -20,16 +30,8 @@ namespace ArmchairExpertsCom.Models
 
         public void Delete()
         {
-            ObjectsGetter.Delete<Book>(Id);
+            ObjectsGetter.Delete<Review>(Id);
             IsInDataBase = false;
         }
-        
-        public string Text { get; set; }
-        public DateTime Date { get; set; }
-        
-        //from staging tables
-        public User User { get; set; }
-        public IContent ReviewTarget { get; set; }
-        public Comment[] Comments { get; set; }
     }
 }

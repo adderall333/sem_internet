@@ -5,7 +5,14 @@ namespace ArmchairExpertsCom.Models
 {
     public class BookGenre : IModel, IGenre
     {
+        //basic properties
         public int Id { get; set; }
+        public string Name { get; set; }
+        
+        //foreign keys etc.
+        public IContent[] Contents { get; set; }
+        
+        //methods etc.
         public bool IsInDataBase { get; set; }
 
         public void Save()
@@ -19,13 +26,8 @@ namespace ArmchairExpertsCom.Models
 
         public void Delete()
         {
-            ObjectsGetter.Delete<Book>(Id);
+            ObjectsGetter.Delete<BookGenre>(Id);
             IsInDataBase = false;
         }
-
-        public string Name { get; set; }
-        
-        //from staging tables
-        public IContent[] Contents { get; set; }
     }
 }

@@ -1,31 +1,28 @@
-﻿using Npgsql;
-
-namespace ArmchairExpertsCom.Models
+﻿namespace ArmchairExpertsCom.Models
 {
-    public class FilmGenre : IModel, IGenre
+    public class Image : IModel
     {
         //basic properties
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Path { get; set; }
         
         //foreign keys etc.
-        public IContent[] Contents { get; set; }
         
         //methods etc.
         public bool IsInDataBase { get; set; }
-
+        
         public void Save()
         {
             if (IsInDataBase)
-                ObjectsGetter.Update<FilmGenre>($"name = {Name}", Id);
+                ObjectsGetter.Update<Image>($"path = {Path}", Id);
             else
-                ObjectsGetter.Insert<FilmGenre>("name", "{Name}");
+                ObjectsGetter.Insert<Image>("path", $"{Path}");
             IsInDataBase = true;
         }
 
         public void Delete()
         {
-            ObjectsGetter.Delete<FilmGenre>(Id);
+            ObjectsGetter.Delete<Image>(Id);
             IsInDataBase = false;
         }
     }
