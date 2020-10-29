@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Routing;
 using Npgsql;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
     public class Book : IModel, IContent
     {

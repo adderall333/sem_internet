@@ -1,9 +1,9 @@
 ﻿using System;
 using Npgsql;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
-    public class Comment : IModel, IWriting
+    public class Review : IModel, IWriting
     {
         //basic properties
         public int Id { get; set; }
@@ -12,7 +12,7 @@ namespace ArmchairExpertsCom.Models
         
         //foreign keys etc.
         public User User { get; set; }
-        public IWriting CommentTarget { get; set; }
+        public IContent ReviewTarget { get; set; }
         public Comment[] Comments { get; set; }
         
         //methods etc.
@@ -21,16 +21,16 @@ namespace ArmchairExpertsCom.Models
         public void Save()
         {
             if (IsInDataBase)
-                ObjectsGetter.Update<Comment>($"text = {Text}, " + 
-                                              $"date = {Date}, ", Id);
+                ObjectsGetter.Update<Review>($"text = {Text}, " +
+                                             $"date = {Date}", Id);
             else
-                ObjectsGetter.Insert<Comment>("text, date", $"{Text}, {Date}");
+                ObjectsGetter.Insert<Review>("text, date", $"{Text}, {Date}");
             IsInDataBase = true;
         }
 
         public void Delete()
         {
-            ObjectsGetter.Delete<Comment>(Id);
+            ObjectsGetter.Delete<Review>(Id);
             IsInDataBase = false;
         }
     }

@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Npgsql;
+﻿using Npgsql;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
-    public class BookGenre : IModel, IGenre
+    public class FilmGenre : IModel, IGenre
     {
         //basic properties
         public int Id { get; set; }
@@ -18,15 +17,15 @@ namespace ArmchairExpertsCom.Models
         public void Save()
         {
             if (IsInDataBase)
-                ObjectsGetter.Update<BookGenre>($"name = {Name}", Id);
+                ObjectsGetter.Update<FilmGenre>($"name = {Name}", Id);
             else
-                ObjectsGetter.Insert<BookGenre>("name", $"{Name}");
+                ObjectsGetter.Insert<FilmGenre>("name", "{Name}");
             IsInDataBase = true;
         }
 
         public void Delete()
         {
-            ObjectsGetter.Delete<BookGenre>(Id);
+            ObjectsGetter.Delete<FilmGenre>(Id);
             IsInDataBase = false;
         }
     }

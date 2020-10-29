@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using Npgsql;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
     public static class ObjectsGetter
     {
@@ -71,6 +71,13 @@ namespace ArmchairExpertsCom.Models
             {
                 yield return FillIn<T>(reader);;
             }
+        }
+
+        public static IModel Get<T>(params string[] conditions)
+            where T : IModel
+        {
+            //todo
+            return null;
         }
 
         public static void Update<T>(string queryPart, int id)

@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
     public class User : IModel
     {

@@ -1,8 +1,8 @@
 ﻿using Npgsql;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
-    public class Serial : IModel, IContent
+    public class Film : IModel, IContent
     {
         //basic properties
         public int Id { get; set; }
@@ -13,8 +13,8 @@ namespace ArmchairExpertsCom.Models
         public string Cast { get; set; }
         
         //foreign keys etc.
-        public Review[] Reviews { get; set; }
         public IGenre[] Genres { get; set; }
+        public Review[] Reviews { get; set; }
         public Image[] Images { get; set; }
         
         //methods etc.
@@ -22,20 +22,21 @@ namespace ArmchairExpertsCom.Models
 
         public void Save()
         {
-            if (IsInDataBase)
-                ObjectsGetter.Update<Serial>($"title = {Title}, " + 
-                                             $"description = {Description}, " +
-                                             $"rating = {Rating}, " + 
-                                             $"year = {Year}, " +
-                                             $"cast = {Cast}", Id);
+            if  (IsInDataBase)
+                ObjectsGetter.Update<Film>($"title = {Title}, " + 
+                                           $"description = {Description}, " +
+                                           $"rating = {Rating}, " + 
+                                           $"year = {Year}, " + 
+                                           $"cast = {Cast}", Id);
             else
-                ObjectsGetter.Insert<Serial>("title, description, rating, year, cast",
+                ObjectsGetter.Insert<Film>("title, description, rating, year, cast", 
                     $"{Title}, {Description}, {Rating}, {Year}, {Cast}");
+            IsInDataBase = true;
         }
 
         public void Delete()
         {
-            ObjectsGetter.Delete<Serial>(Id);
+            ObjectsGetter.Delete<Film>(Id);
             IsInDataBase = false;
         }
     }

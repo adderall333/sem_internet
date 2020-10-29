@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Npgsql;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
     public interface IModel
     {

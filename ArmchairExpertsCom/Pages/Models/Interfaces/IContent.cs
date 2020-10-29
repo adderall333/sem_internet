@@ -1,4 +1,4 @@
-﻿namespace ArmchairExpertsCom.Models
+﻿namespace ArmchairExpertsCom.Pages
 {
     public interface IContent
     {

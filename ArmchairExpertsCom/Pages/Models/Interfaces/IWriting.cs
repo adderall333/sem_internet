@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
     public interface IWriting
     {

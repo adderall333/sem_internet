@@ -1,9 +1,9 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using Npgsql;
 
-namespace ArmchairExpertsCom.Models
+namespace ArmchairExpertsCom.Pages
 {
-    public class SerialGenre : IModel, IGenre
+    public class BookGenre : IModel, IGenre
     {
         //basic properties
         public int Id { get; set; }
@@ -18,15 +18,15 @@ namespace ArmchairExpertsCom.Models
         public void Save()
         {
             if (IsInDataBase)
-                ObjectsGetter.Update<SerialGenre>($"name = {Name}", Id);
+                ObjectsGetter.Update<BookGenre>($"name = {Name}", Id);
             else
-                ObjectsGetter.Insert<SerialGenre>("name", $"{Name}");
+                ObjectsGetter.Insert<BookGenre>("name", $"{Name}");
             IsInDataBase = true;
         }
 
         public void Delete()
         {
-            ObjectsGetter.Delete<SerialGenre>(Id);
+            ObjectsGetter.Delete<BookGenre>(Id);
             IsInDataBase = false;
         }
     }
