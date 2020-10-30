@@ -2,6 +2,9 @@
     width: 1100px;
     margin: auto;
 } 
+#filterButton {
+    margin-left: 58px;
+}
 
 #carouselPictures {
     margin-top: 10px;
@@ -12,10 +15,21 @@
     color: white;
 }
 
+#widthForFilter{
+    width: 650px;
+}
+
+
 .navbar-brand {
     font-size: large;
 }
 
+.filterBackground{
+    width: 1100px;
+    margin: auto;
+    margin-top: 10px;
+    height: 55px;
+}
 .topBackground {
     width: 1100px;
     margin: auto;
