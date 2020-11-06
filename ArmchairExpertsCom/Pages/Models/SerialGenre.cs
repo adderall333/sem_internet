@@ -7,27 +7,12 @@ namespace ArmchairExpertsCom.Pages
     {
         //basic properties
         public int Id { get; set; }
+        public bool _isNew { get; set; }
+        public bool _isChanged { get; set; }
+        public bool _isDeleted { get; set; }
         public string Name { get; set; }
         
         //foreign keys etc.
         public IContent[] Contents { get; set; }
-        
-        //methods etc.
-        public bool IsInDataBase { get; set; }
-
-        public void Save()
-        {
-            if (IsInDataBase)
-                ObjectsGetter.Update<SerialGenre>($"name = {Name}", Id);
-            else
-                ObjectsGetter.Insert<SerialGenre>("name", $"{Name}");
-            IsInDataBase = true;
-        }
-
-        public void Delete()
-        {
-            ObjectsGetter.Delete<SerialGenre>(Id);
-            IsInDataBase = false;
-        }
     }
 }

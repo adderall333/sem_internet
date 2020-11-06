@@ -9,6 +9,10 @@ namespace ArmchairExpertsCom.Pages
     {
         //basic properties
         public int Id { get; set; }
+        public bool _isNew { get; set; }
+        public bool _isChanged { get; set; }
+        public bool _isDeleted { get; set; }
+
         public string Title { get; set; }
         public string Description { get; set; }
         public int Year { get; set; }
@@ -19,27 +23,5 @@ namespace ArmchairExpertsCom.Pages
         public IGenre[] Genres { get; set; }
         public int Rating { get; set; }
         public Review[] Reviews { get; set; }
-        
-        //methods etc.
-        public bool IsInDataBase { get; set; }
-
-        public void Save()
-        {
-            if (IsInDataBase)
-                ObjectsGetter.Update<Book>($"title = {Title}, " +
-                                             $"description = {Description}," +
-                                             $"year = {Year}," +
-                                             $"authors = {Authors}", Id);
-            else
-                ObjectsGetter.Insert<Book>("title, description, year, authors",
-                    $"{Title}, {Description}, {Year}, {Authors}");
-            IsInDataBase = true;
-        }
-
-        public void Delete()
-        {
-            ObjectsGetter.Delete<Book>(Id);
-            IsInDataBase = false;
-        }
     }
 }

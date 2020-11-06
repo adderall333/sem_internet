@@ -6,28 +6,13 @@ namespace ArmchairExpertsCom.Pages
     {
         //basic properties
         public int Id { get; set; }
+        public bool _isNew { get; set; }
+        public bool _isChanged { get; set; }
+        public bool _isDeleted { get; set; }
         public int Value { get; set; }
         
         //foreign keys etc. 
         public User User { get; set; }
         public IContent Content { get; set; }
-        
-        //methods etc.
-        public bool IsInDataBase { get; set; }
-
-        public void Save()
-        {
-            if (IsInDataBase)
-                ObjectsGetter.Update<Evaluation>($"value = {Value}", Id);
-            else
-                ObjectsGetter.Insert<Evaluation>("value", $"{Value}");
-            IsInDataBase = true;
-        }
-
-        public void Delete()
-        {
-            ObjectsGetter.Delete<Evaluation>(Id);
-            IsInDataBase = false;
-        }
     }
 }

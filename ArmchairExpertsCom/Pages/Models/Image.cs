@@ -4,26 +4,11 @@
     {
         //basic properties
         public int Id { get; set; }
+        public bool _isNew { get; set; }
+        public bool _isChanged { get; set; }
+        public bool _isDeleted { get; set; }
         public string Path { get; set; }
         
         //foreign keys etc.
-        
-        //methods etc.
-        public bool IsInDataBase { get; set; }
-        
-        public void Save()
-        {
-            if (IsInDataBase)
-                ObjectsGetter.Update<Image>($"path = {Path}", Id);
-            else
-                ObjectsGetter.Insert<Image>("path", $"{Path}");
-            IsInDataBase = true;
-        }
-
-        public void Delete()
-        {
-            ObjectsGetter.Delete<Image>(Id);
-            IsInDataBase = false;
-        }
     }
 }

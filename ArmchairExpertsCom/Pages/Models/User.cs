@@ -6,6 +6,9 @@ namespace ArmchairExpertsCom.Pages
     {
         //basic properties
         public int Id { get; set; }
+        public bool _isNew { get; set; }
+        public bool _isChanged { get; set; }
+        public bool _isDeleted { get; set; }
         public string FullName { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }
@@ -24,28 +27,5 @@ namespace ArmchairExpertsCom.Pages
         public Film[] WatchedFilms { get; set; }
         public Serial[] WatchedSerials { get; set; }
         public Book[] ReadBooks { get; set; }
-        
-        //methods etc.
-        
-        public bool IsInDataBase { get; set; }
-
-        public void Save()
-        {
-            if (IsInDataBase)
-                ObjectsGetter.Update<User>($"full_name = {FullName}, " +
-                                           $"login = {Login}, " +
-                                           $"password_hash = {PasswordHash}, " +
-                                           $"registration_date = {RegistrationDate}", Id);
-            else
-                ObjectsGetter.Insert<User>("full_name, login, password_hash, registration_date", 
-                    $"{FullName}, {Login}, {PasswordHash}, {RegistrationDate}");
-            IsInDataBase = true;
-        }
-
-        public void Delete()
-        {
-            ObjectsGetter.Delete<User>(Id);
-            IsInDataBase = false;
-        }
     }
 }
