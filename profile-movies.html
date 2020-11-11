@@ -17,7 +17,6 @@
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="script.js"></script>
     <title>Диванные эксперты - Книги</title>
 </head>
 
@@ -74,14 +73,15 @@
             </div>
         </div>
     </div>
-
+ 
     <div class="filterBackground bg-light my-0">
         <div class="container">
             <div class="row">
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
                         <a class="nav-link active" href="profile-wall.html">
-                            <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true">
+                            <button class="btn" type="button"
+                                id="dropdownMenuButton" aria-haspopup="true">
                                 Посты
                             </button>
                         </a>
@@ -107,7 +107,8 @@
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
                         <a class="nav-link active" href="profile-friends.html">
-                            <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true">
+                            <button class="btn" type="button"
+                                id="dropdownMenuButton" aria-haspopup="true">
                                 Друзья
                             </button>
                         </a>
@@ -116,7 +117,8 @@
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
                         <a class="nav-link active" href="profile-reviews.html">
-                            <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true">
+                            <button class="btn"  type="button" id="dropdownMenuButton"
+                                aria-haspopup="true">
                                 Рецензии
                             </button>
                         </a>
@@ -125,7 +127,8 @@
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
                         <a class="nav-link active" href="profie-collections.html">
-                            <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true">
+                            <button class="btn" type="button" id="dropdownMenuButton"
+                                aria-haspopup="true">
                                 Подборки
                             </button>
                         </a>
@@ -134,7 +137,8 @@
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
                         <a class="nav-link active" href="profile-deffered.html">
-                            <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true">
+                            <button class="btn" type="button"
+                            id="dropdownMenuButton" aria-haspopup="true">
                                 Отложенное
                             </button>
                         </a>
@@ -144,71 +148,54 @@
         </div>
     </div>
 
-    
-
+      
     <div id="pages">
         <div class="topBackground">
-
-            <div class="filterBackground bg-light my-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-center" id="wall">Просмотренные фильмы</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="topBackground">
+            <div class="topBackground">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3" id="filterButton">
-                            <a class="nav-link active" href="write-review.html">
-                                <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true">
-                                    Написать рецензию
-                                </button>
+                        <div class="col-md-3" id="carouselPictures">
+                            <a href="profile.html">
+                                <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
                             </a>
                         </div>
-                        <form class="form-inline mx-2 my-2 my-lg-0">
-                            <input id = "widthForFilter" class="form-control mr-sm-2"  type="search" placeholder="Поиск по названию" aria-label="Search">
-                            <button class="btn my-2 my-sm-0" type="submit">Найти</button>
-                        </form>
-                    </div>       
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h2 class="text-center" id="wall">Мои рецензии</h2>
+                        <div class="col">
+                            <a href="profile.html">
+                                <h3 class="text-center" id="books_nameOfPictures">Название фильма</h3>
+                            </a>
+                            <div class="col">
+                                <p class="text-center">Описание</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-    
-
-
         <div class="topBackground">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h5 class="text-center" id="wall">Название рекомендуемого фильма/сериала/книги</h5>
-                        <h6>Оценка: </h6>
-                        <p>Текст текст текст текст Текст текст текст текст Текст текст текст текст Текст текст текст
-                            текст
-                            Текст текст текст текстТекст текст текст текстТекст текст текст текст</p>
-                        <div class="text-center">
-                            <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
+            <div class="topBackground">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3" id="carouselPictures">
+                            <a href="profile.html">
+                                <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
+                            </a>
                         </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="topBackground">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h5 class="text-center" id="wall">Название рекомендуемого фильма/сериала/книги</h5>
-                        <h6>Оценка: </h6>
-                        <p>Текст текст текст текст Текст текст текст текст Текст текст текст текст Текст текст текст
-                            текст
-                            Текст текст текст текстТекст текст текст текстТекст текст текст текст</p>
-                        <div class="text-center">
-                            <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
+                        <div class="col">
+                            <a href="profile.html">
+                                <h3 class="text-center" id="books_nameOfPictures">Название фильма</h3>
+                            </a>
+                            <div class="col">
+                                <p class="text-center">Описание</p>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
