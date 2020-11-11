@@ -17,6 +17,7 @@
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="script.js"></script>	
     <title>Диванные эксперты - Книги</title>
 </head>
 
@@ -73,70 +74,76 @@
             </div>
         </div>
     </div>
+    
     <div class="filterBackground bg-light my-0">
         <div class="container">
             <div class="row">
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
-                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
-                            aria-expanded="false">
-                            Посты
-                        </button>
+                        <a class="nav-link active" href="profile-wall.html">
+                            <button class="btn" type="button"
+                                id="dropdownMenuButton" aria-haspopup="true">
+                                Посты
+                            </button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-1" id="filterButton">
+                    <p></p>
+                    <p></p>
                     <div class="dropdown text-center my-2">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                            aria-haspopup="true">
                             Всё
                         </button>
+
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Фильмы</a>
-                            <a class="dropdown-item" href="#">Книги</a>
-                            <a class="dropdown-item" href="#">Сериалы</a>
+                            <a class="dropdown-item" href="profile-movies.html">Фильмы</a>
+                            <a class="dropdown-item" href="profile-books.html">Книги</a>
+                            <a class="dropdown-item" href="profile-serials">Сериалы</a>
                         </div>
                     </div>
+
                 </div>
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
-                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
-                            aria-expanded="false">
-                            Друзья
-                        </button>
+                        <a class="nav-link active" href="profile-friends.html">
+                            <button class="btn" type="button"
+                                id="dropdownMenuButton" aria-haspopup="true">
+                                Друзья
+                            </button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
-                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
-                            aria-expanded="false">
-                            Рецензии
-                        </button>
+                        <a class="nav-link active" href="#">
+                            <button class="btn"  type="button" id="dropdownMenuButton"
+                                aria-haspopup="true">
+                                Рецензии
+                            </button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
-                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
-                            aria-expanded="false">
-                            Подборки
-                        </button>
+                        <a class="nav-link active" href="#">
+                            <button class="btn" type="button" id="dropdownMenuButton"
+                                aria-haspopup="true">
+                                Подборки
+                            </button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-1" id="filterButton">
                     <div class="text-center my-2">
-                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
-                            aria-expanded="false">
-                            Отложенное
-                        </button>
+                        <a class="nav-link active" href="profile-deffered.html">
+                            <button class="btn"type="button" id="dropdownMenuButton"
+                                aria-haspopup="true">
+                                Отложенное
+                            </button>
+                        </a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="topBackground">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h4 class="text-center" id="wall">Моя стена</h4>
                 </div>
             </div>
         </div>
@@ -147,7 +154,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h5 class="text-center" id="wall">Название рекомендуемого фильма/сериала/книги</h5>
+                        <h5 class="text-center" id="wall">Заголовок поста</h5>
                         <p>Текст текст текст текст Текст текст текст текст Текст текст текст текст Текст текст текст
                             текст
                             Текст текст текст текстТекст текст текст текстТекст текст текст текст</p>
@@ -165,7 +172,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h5 class="text-center" id="wall">Название рекомендуемого фильма/сериала/книги</h5>
+                        <h5 class="text-center" id="wall">Заголовок поста</h5>
                         <p>Текст текст текст текст Текст текст текст текст Текст текст текст текст Текст текст текст
                             текст
                             Текст текст текст текстТекст текст текст текстТекст текст текст текст</p>
