@@ -22,7 +22,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container" id="menuMargin">
-            <a class="navbar-brand" href="#">ДИВАННЫЕ ЭКСПЕРТЫ.COM</a>
+            <a class="navbar-brand" href="main page.html">ДИВАННЫЕ ЭКСПЕРТЫ.COM</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active  mx-2 ">
@@ -51,54 +51,128 @@
     <div class="registration_backrond">
         <div class="container">
             <div class="row">
-                <div class="col-md-5 rounded border" id="login_backrondForm">
-                    <div class="col">
+                <div class="col-md-6 rounded border" id="login_backrondForm">
+                    <div class="col text-center">
                         <h1 class="text-center">Регистрация</h1>
                     </div>
-                    <div class="col">
-                        <p class="text-center">Почта</p>
-                    </div>
-                    <div class="col">
-                        <input class="form-control inputH" name="login">
-                    </div>
-                    <div class="col-md-3"></div>
+                    <form>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Имя</label>
+                                <input type="text" class="form-control" id="validationDefault01" placeholder="Имя"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="validationDefault02">Фамилия</label>
+                                <input type="text" class="form-control" id="validationDefault02" placeholder="Фамилия"
+                                    required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationDefault01">Дата рождения</label>
+                                <input type="text" class="form-control" id="validationDefault01" placeholder="Дата"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Пароль</label>
+                                <input type="text" class="form-control" id="validationDefault01" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="validationDefault02">Повторите пароль</label>
+                                <input type="text" class="form-control" id="validationDefault02" required>
+                            </div>
 
-                    <div class="col">
-                        <p class="text-center">Придумайте пароль</p>
+                            <div class="col-md-12 mb-3">
+                                <label for="mail">Почта</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="mail" placeholder="mail"
+                                        aria-describedby="inputGroupPrepend" required>
+                                    <div class="invalid-feedback">
+                                        Please choose a username.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="name">Любимый жанр фильмов</label>
+                                    <select class="form-control" id="name">
+                                        <option>Ужасы</option>
+                                        <option>Триллер</option>
+                                        <option>Комедия
+                                        <option>Роман</option>
+                                        <option>Детектив</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="name">Любимый жанр книг</label>
+                                    <select class="form-control" id="name">
+                                        <option>Ужасы</option>
+                                        <option>Триллер</option>
+                                        <option>Комедия
+                                        <option>Роман</option>
+                                        <option>Детектив</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="name">Любимый жанр сериалов</label>
+                                    <select class="form-control" id="name">
+                                        <option>Ужасы</option>
+                                        <option>Триллер</option>
+                                        <option>Комедия
+                                        <option>Роман</option>
+                                        <option>Детектив</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleFormControlFile1">Прикрепите свое фото</label>
+                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                </div>
+                            </form>
+
+                            <div class="col-md-8">
+                                <div class=" form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label" for="invalidCheck">
+                                        Согласен на обработку данных
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 text-center">
+                                <button class="btn btn-dark">Регистрация</button>
+                            </div>
+
+
+                        </div>
+
+                    </form>
+                    <div class="col-md-12" id="login_backrondForm">
+                        <div class="col">
+                            <h6 class="text-center">Уже зарегистрированы?</h6>
+                        </div>
+                        <p></p>
+                        <div class="col text-center">
+                            <a href="login.html">
+                                <button class="btn btn-dark">Войти</button>
+                            </a>
+                            <p></p>
+                        </div>
                     </div>
-                    <div class="col">
-                        <input type="password" class="form-control inputH" name="password">
-                    </div>
-                    <p></p>
-                    <div class="col">
-                        <p class="text-center">Повторите пароль</p>
-                    </div>
-                    <div class="col">
-                        <input type="password" class="form-control inputH" name="password">
-                    </div>
-                    <p></p>
-                    <div class="col text-center">
-                        <button class="btn btn-dark">Регистрация</button>
-                    </div>
-                    <p></p>
                 </div>
             </div>
-
-            <div class="col-md-5 rounded border" id="login_backrondForm">
-                <div class="col">
-                    <h4 class="text-center">Уже зарегистрированы?</h4>
-                </div>
-                <p></p>
-                <div class="col text-center">
-                    <a href="login.html">
-                        <button class="btn btn-dark">Войти</button>
-                    </a>
-                    <p></p>
-                </div>
-            </div>
-           
         </div>
-    </div>
 
 
 </body>

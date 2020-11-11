@@ -32,6 +32,14 @@
     font-size: large;
 }
 
+#collectionsFormBack
+{
+    width: 1100px;
+    margin: auto;
+    margin-top: 15px;
+    height: 550px;
+    background-color: rgb(141, 200, 202);
+}
 .filterBackground{
     width: 1100px;
     margin: auto;
@@ -48,15 +56,14 @@
 }
 .registration_backrond{
     width: 1100px;
-    height: 523px;
+    height: 950px;
     margin: auto;
     margin-top: 15px;    
     background-color: rgb(141, 200, 202);
-
 }
 .login_backrond{
     width: 1100px;
-    height: 450px;
+    height: 460px;
     margin: auto;
     margin-top: 15px;    
     background-color: rgb(141, 200, 202);
