@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    <html>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -17,7 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
-    <title>Диванные эксперты - Главная</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Диванные эксперты - Книги</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
             <a class="navbar-brand" href="#">ДИВАННЫЕ ЭКСПЕРТЫ.COM</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active  mx-2 ">
+                    <li class="nav-item mx-2 ">
                         <a class="nav-link" href="main page.html">Главная<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item mx-2">
@@ -43,15 +43,108 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
                     </form>
                 </ul>
-                <a class="nav-link" href="login.html">
+                <a class="nav-link active" href="login.html">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Профиль</button>
                 </a>
             </div>
         </div>
     </nav>
+
     <div class="topBackground">
         <div class="container">
-            <h3 class="text-center" id="titleText">Топ</h3>
+            <div class="row">
+                <div class="col-md-3" id="carouselPictures">
+                    <a href="profile.html">
+                        <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="profile.html">
+                        <h3 class="text-center" id="books_nameOfPictures">Фамилия Имя</h3>
+                    </a>
+                    <div class="col">
+                        <p class="text-center">Информация</p>
+                        <p id="book_description">Дата рождения???:</p>
+                        <p id="book_description">Любимый жанр фильмов:</p>
+                        <p id="book_description">Любимый жанр сериалов:</p>
+                        <p id="book_description">Любимый жанр книг:</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="filterBackground bg-light my-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1" id="filterButton">
+                    <div class="text-center my-2">
+                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
+                            aria-expanded="false">
+                            Посты
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-1" id="filterButton">
+                    <div class="dropdown text-center my-2">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Всё
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Фильмы</a>
+                            <a class="dropdown-item" href="#">Книги</a>
+                            <a class="dropdown-item" href="#">Сериалы</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1" id="filterButton">
+                    <div class="text-center my-2">
+                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
+                            aria-expanded="false">
+                            Друзья
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-1" id="filterButton">
+                    <div class="text-center my-2">
+                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
+                            aria-expanded="false">
+                            Рецензии
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-1" id="filterButton">
+                    <div class="text-center my-2">
+                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
+                            aria-expanded="false">
+                            Подборки
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-1" id="filterButton">
+                    <div class="text-center my-2">
+                        <button class="btn" type="button" id="dropdownMenuButton" aria-haspopup="true"
+                            aria-expanded="false">
+                            Отложенное
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pages">
+        <div class="topBackground">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-center" id="wall">Друзья</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="topBackground">
+            <h3 class="text-center" id="titleText">Возможно, вы подружитесь</h3>
             <div class="container">
                 <div id="carouselTOP" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators my-0">
@@ -152,119 +245,10 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="topBackground">
-        <div class="container">
-            <h3 class="text-center" id="titleText">Подборки</h3>
+        <div class="topBackground">
+            <h3 class="text-center" id="titleText">Мои друзья</h3>
             <div class="container">
-                <div id="carouselRECOMMEND" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators my-0">
-                        <li data-target="#carouselRECOMMEND" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselRECOMMEND" data-slide-to="1"></li>
-                        <li data-target="#carouselRECOMMEND" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <div class="col-md-3 " id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark "
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-                                <div class="col-md-3" id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark "
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-                                <div class="col-md-3 " id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark "
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-md-3" id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark mainbllock"
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-                                <div class="col-md-3" id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark mainbllock"
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-                                <div class="col-md-3" id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark mainbllock"
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-md-3" id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark mainbllock"
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-                                <div class="col-md-3" id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark mainbllock"
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-                                <div class="col-md-3" id="carouselPictures">
-                                    <a href="profile.html">
-                                        <img id="topPictures" class="rounded border border-dark mainbllock"
-                                            src="pictures/top1.jpg">
-                                    </a>
-                                    <p class="text-center">Название</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Элементы управления -->
-                    <a id="leftControlButton" class="carousel-control-prev" href="#carouselRECOMMEND" role="button"
-                        data-slide="prev">
-                        <span class="max-2 carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a id="rightControlButton" class="carousel-control-next" href="#carouselRECOMMEND" role="button"
-                        data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="topBackground" id="infinite-scroll">
-        <div class="container">
-            <h3 class="text-center" id="titleText">Друзья рекоммендуют</h3>
-
-            <div class="row">
+                <div class="row">
                 <div class="col-md-3" id="carouselPictures">
                     <a href="profile.html">
                         <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
@@ -272,17 +256,19 @@
                 </div>
                 <div class="col">
                     <a href="profile.html">
-                        <h3 class="text-center" id="books_nameOfPictures">Название книги</h3>
+                        <h3 class="text-center" id="books_nameOfPictures">Фамилия Имя</h3>
                     </a>
                     <div class="col">
-                        <p class="text-center">Описание</p>
+                        <p class="text-center">Информация</p>
+                        <p id="book_description">Оценок:</p>
                     </div>
                 </div>
-
+            </div>
             </div>
         </div>
     </div>
 
 </body>
+
 
 </html>
