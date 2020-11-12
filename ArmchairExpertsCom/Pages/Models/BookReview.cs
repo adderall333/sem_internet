@@ -1,11 +1,9 @@
-﻿using System;
-using ArmchairExpertsCom.Pages.Models.Interfaces;
+﻿using ArmchairExpertsCom.Pages.Models.Interfaces;
 using ArmchairExpertsCom.Pages.Models.Utilities;
-using Npgsql;
 
 namespace ArmchairExpertsCom.Pages.Models
 {
-    public class Review : IModel
+    public class BookReview : IModel
     {
         [MetaData]
         public bool IsNew { get; set; }
@@ -25,8 +23,8 @@ namespace ArmchairExpertsCom.Pages.Models
         [ForeignKey(typeof(User))]
         public DbSet User { get; set; }
         
-        //[ForeignKey(typeof(Book))]
-        //public DbSet Book { get; set; }
+        [ForeignKey(typeof(Book))]
+        public DbSet Book { get; set; }
 
         [ForeignKey(typeof(Comment))]
         public DbSet Comments { get; set; }

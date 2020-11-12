@@ -1,10 +1,9 @@
 ﻿using ArmchairExpertsCom.Pages.Models.Interfaces;
 using ArmchairExpertsCom.Pages.Models.Utilities;
-using Npgsql;
 
 namespace ArmchairExpertsCom.Pages.Models
 {
-    public class Serial : IModel
+    public class FilmReview : IModel
     {
         [MetaData]
         public bool IsNew { get; set; }
@@ -14,24 +13,21 @@ namespace ArmchairExpertsCom.Pages.Models
         
         [MetaData]
         public bool IsDeleted { get; set; }
-        
+
         
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public int Rating { get; set; }
-        public int Year { get; set; }
-        public string Cast { get; set; }
+        public string Text { get; set; }
+        public string Date { get; set; }
         
         
-        [ForeignKey(typeof(SerialReview))]
-        public DbSet Reviews { get; set; }
+        [ForeignKey(typeof(User))]
+        public DbSet User { get; set; }
         
-        [ForeignKey(typeof(SerialGenre))]
-        public DbSet Genres { get; set; }
-        
-        [ForeignKey(typeof(Image))]
-        public DbSet Images { get; set; }
+        [ForeignKey(typeof(Film))]
+        public DbSet Film { get; set; }
+
+        [ForeignKey(typeof(Comment))]
+        public DbSet Comments { get; set; }
         
         
         public void Save()

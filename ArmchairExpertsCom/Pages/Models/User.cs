@@ -28,22 +28,7 @@ namespace ArmchairExpertsCom.Pages.Models
         
         [ForeignKey(typeof(User))]
         public DbSet Friends { get; set; }
-        
-        [ForeignKey(typeof(Selection))]
-        public DbSet Selections { get; set; }
 
-        [ForeignKey(typeof(Review))]
-        public DbSet Reviews { get; set; }
-        
-        [ForeignKey(typeof(BookEvaluation))]
-        public DbSet BookEvaluations { get; set; }
-        
-        [ForeignKey(typeof(FilmEvaluation))]
-        public DbSet FilmEvaluations { get; set; }
-        
-        [ForeignKey(typeof(SerialEvaluation))]
-        public DbSet SerialEvaluations { get; set; }
-        
         [ForeignKey(typeof(Film))]
         public DbSet WatchedFilms { get; set; }
         

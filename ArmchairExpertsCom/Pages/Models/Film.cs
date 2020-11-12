@@ -24,7 +24,7 @@ namespace ArmchairExpertsCom.Pages.Models
         public string Cast { get; set; }
         
         
-        [ForeignKey(typeof(Review))]
+        [ForeignKey(typeof(FilmReview))]
         public DbSet Reviews { get; set; }
         
         [ForeignKey(typeof(FilmGenre))]
