@@ -1,17 +1,42 @@
-﻿using Npgsql;
+﻿using ArmchairExpertsCom.Pages.Models.Interfaces;
+using ArmchairExpertsCom.Pages.Models.Utilities;
 
-namespace ArmchairExpertsCom.Pages
+namespace ArmchairExpertsCom.Pages.Models
 {
-    public class FilmGenre : IModel, IGenre
+    public class FilmGenre : IModel
     {
-        //basic properties
+        [MetaData]
+        public bool IsNew { get; set; }
+        
+        [MetaData]
+        public bool IsChanged { get; set; }
+        
+        [MetaData]
+        public bool IsDeleted { get; set; }
+        
+        
         public int Id { get; set; }
-        public bool _isNew { get; set; }
-        public bool _isChanged { get; set; }
-        public bool _isDeleted { get; set; }
         public string Name { get; set; }
         
-        //foreign keys etc.
-        public IContent[] Contents { get; set; }
+        
+        [ForeignKey(typeof(Film))]
+        public DbSet Films { get; set; } = new DbSet();
+        
+        
+        public void Save()
+        {
+            if (!Repository.Contains(this))
+            {
+                Repository.Add(this);
+                IsNew = true;
+            }
+            else
+                IsChanged = true;
+        }
+        
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

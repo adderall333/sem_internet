@@ -1,8 +1,0 @@
-﻿namespace ArmchairExpertsCom.Pages
-{
-    public interface IGenre
-    {
-        public string Name { get; set; }
-        public IContent[] Contents { get; set; }
-    }
-}

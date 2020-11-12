@@ -3,26 +3,26 @@ using ArmchairExpertsCom.Pages.Models.Utilities;
 
 namespace ArmchairExpertsCom.Pages.Models
 {
-    public class SerialGenre : IModel
+    public class FilmEvaluation : IModel
     {
-        [MetaData]
-        public bool IsNew { get; set; }
-        
-        [MetaData]
-        public bool IsChanged { get; set; }
-        
-        [MetaData]
-        public bool IsDeleted { get; set; }
-        
-        
+        [MetaData] public bool IsNew { get; set; }
+
+        [MetaData] public bool IsChanged { get; set; }
+
+        [MetaData] public bool IsDeleted { get; set; }
+
+
         public int Id { get; set; }
-        public string Name { get; set; }
-        
-        
-        [ForeignKey(typeof(Serial))]
-        public DbSet Serials { get; set; } = new DbSet();
-        
-        
+        public int Value { get; set; }
+
+
+        [ForeignKey(typeof(User))] 
+        public DbSet User { get; set; }
+
+        [ForeignKey(typeof(Film))] 
+        public DbSet Film { get; set; }
+
+
         public void Save()
         {
             if (!Repository.Contains(this))
@@ -33,7 +33,7 @@ namespace ArmchairExpertsCom.Pages.Models
             else
                 IsChanged = true;
         }
-        
+
         public void Delete()
         {
             IsDeleted = true;

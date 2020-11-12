@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using ArmchairExpertsCom.Pages.Models.Interfaces;
 using Npgsql;
 
-namespace ArmchairExpertsCom.Pages
+namespace ArmchairExpertsCom.Pages.Models.Utilities
 {
     public static class ORM
     {
@@ -14,7 +15,7 @@ namespace ArmchairExpertsCom.Pages
             var connection = GetConnection();
             connection.Open();
 
-            var properties = model.GetProperties(); 
+            var properties = model.GetBasicProperties(); 
             var names = properties
                 .Skip(1)
                 .Select(p => p.Name)
@@ -36,7 +37,7 @@ namespace ArmchairExpertsCom.Pages
             connection.Open();
 
             var changes = model
-                .GetProperties()
+                .GetBasicProperties()
                 .Skip(1)
                 .Select(p => p.Name + " = " + p.GetValue(model).AddQuotationMarks())
                 .ToArray()
@@ -55,6 +56,28 @@ namespace ArmchairExpertsCom.Pages
             new NpgsqlCommand(query, connection).ExecuteNonQuery();
         }
 
+        public static void AddRelation(IModel model1, IModel model2)
+        {
+            var connection = GetConnection();
+            connection.Open();
+
+            var query = $"insert into {GetStagingTableName(model1.GetType(), model2.GetType())} " +
+                        $"({model1.GetType().Name}_id, {model2.GetType().Name}_id) " +
+                        $"values ({model1.Id}, {model2.Id})";
+            new NpgsqlCommand(query, connection).ExecuteNonQuery();
+        }
+
+        public static void DeleteRelation(IModel model1, IModel model2)
+        {
+            var connection = GetConnection();
+            connection.Open();
+
+            var query = $"delete from {GetStagingTableName(model1.GetType(), model2.GetType())} " +
+                              $"where {model1.GetType().Name}_id = {model1.Id} and " +
+                              $"{model2.GetType().Name}_id = {model2.Id}";
+            new NpgsqlCommand(query, connection).ExecuteNonQuery();
+        }
+
         public static IEnumerable<IModel> Select(Type type)
         {
             var connection = GetConnection();
@@ -69,9 +92,24 @@ namespace ArmchairExpertsCom.Pages
             }
         }
         
+        public static IEnumerable<int> GetRelations(IModel model, Type type)
+        {
+            var relations = new List<int>();
+            var reader = model.GetForeignReader(type);
+
+            var i = reader.GetName(0).StartsWith(type.Name.ToLower()) ? 0 : 1;
+            while (reader.Read())
+            {
+                relations.Add(reader.GetInt32(i));
+            }
+
+            return relations;
+        }
+        
         private static IModel FillIn(Type type, NpgsqlDataReader reader)
         {
             var instance = (IModel)Activator.CreateInstance(type);
+            
             var i = 0;
             while (i < reader.FieldCount)
             {
@@ -81,25 +119,27 @@ namespace ArmchairExpertsCom.Pages
                     .SetValue(instance, reader.GetValue(i));
                 i++;
             }
+
             return instance;
         }
         
         private static NpgsqlConnection GetConnection()
         {
-            var cs = "Host=localhost;Username=postgres;Password={{pass}};Database={{dbname}}";
+            var cs = "Host=localhost;Username=postgres;Password=qweasd123;Database=armchair_experts";
             return new NpgsqlConnection(cs);
         }
 
-        private static PropertyInfo[] GetProperties(this IModel model)
+        private static PropertyInfo[] GetBasicProperties(this IModel model)
         {
             var type = model.GetType();
             var properties = type
                 .GetProperties()
-                .Where(p => !p.Name.StartsWith("_"))
+                .Where(p => !p.GetCustomAttributes(typeof(MetaDataAttribute), false).Any())
+                .Where(p => !p.GetCustomAttributes(typeof(ForeignKeyAttribute), false).Any())
                 .ToArray();
             return properties;
         }
-        
+
         private static string PlaceCommas(this string[] parts)
         {
             var stringBuilder = new StringBuilder();
@@ -120,6 +160,30 @@ namespace ArmchairExpertsCom.Pages
             if (obj is string str)
                 return "'" + str + "'";
             return obj.ToString();
+        }
+        
+        private static NpgsqlDataReader GetForeignReader(this IModel model, Type type2)
+        {
+            var connection = GetConnection();
+            connection.Open();
+
+            var query = $"select * from {GetStagingTableName(model.GetType(), type2)} " +
+                        $"where {model.GetType().Name}_id = {model.Id}";
+            var reader = new NpgsqlCommand(query, connection).ExecuteReader();
+
+            return reader;
+        }
+
+        private static string GetStagingTableName(Type type1, Type type2)
+        {
+            return type1.Name.IsEarlierThan(type2.Name)
+                ? $"{type2.Name}_{type1.Name}"
+                : $"{type1.Name}_{type2.Name}";
+        }
+        
+        private static bool IsEarlierThan(this string str1, string str2)
+        {
+            return String.Compare(str1, str2, StringComparison.Ordinal) > 0;
         }
     }
 }

@@ -1,31 +1,73 @@
-﻿using Npgsql;
+﻿using ArmchairExpertsCom.Pages.Models.Interfaces;
+using ArmchairExpertsCom.Pages.Models.Utilities;
+using Npgsql;
 
-namespace ArmchairExpertsCom.Pages
+namespace ArmchairExpertsCom.Pages.Models
 {
     public class User : IModel
     {
-        //basic properties
+        [MetaData]
+        public bool IsNew { get; set; }
+        
+        [MetaData]
+        public bool IsChanged { get; set; }
+        
+        [MetaData]
+        public bool IsDeleted { get; set; }
+        
+        
         public int Id { get; set; }
-        public bool _isNew { get; set; }
-        public bool _isChanged { get; set; }
-        public bool _isDeleted { get; set; }
         public string FullName { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }
         public string RegistrationDate { get; set; }
         
-        //foreign keys etc.
-        public Image Image { get; set; }
-        public Recommendation Favourites { get; set; }
-        public User[] Friends { get; set; }
-        public string Settings { get; set; }
-        public Selection[] Selections { get; set; }
-        public Comment[] Comments { get; set; }
-        public Review[] Reviews { get; set; }
-        public Recommendation[] Recommendations { get; set; }
-        public Evaluation[] Evaluations { get; set; }
-        public Film[] WatchedFilms { get; set; }
-        public Serial[] WatchedSerials { get; set; }
-        public Book[] ReadBooks { get; set; }
+        
+        [ForeignKey(typeof(Image))]
+        public DbSet Image { get; set; }
+        
+        [ForeignKey(typeof(User))]
+        public DbSet Friends { get; set; }
+        
+        [ForeignKey(typeof(Selection))]
+        public DbSet Selections { get; set; }
+
+        [ForeignKey(typeof(Review))]
+        public DbSet Reviews { get; set; }
+        
+        [ForeignKey(typeof(BookEvaluation))]
+        public DbSet BookEvaluations { get; set; }
+        
+        [ForeignKey(typeof(FilmEvaluation))]
+        public DbSet FilmEvaluations { get; set; }
+        
+        [ForeignKey(typeof(SerialEvaluation))]
+        public DbSet SerialEvaluations { get; set; }
+        
+        [ForeignKey(typeof(Film))]
+        public DbSet WatchedFilms { get; set; }
+        
+        [ForeignKey(typeof(Serial))]
+        public DbSet WatchedSerials { get; set; }
+        
+        [ForeignKey(typeof(Book))]
+        public DbSet ReadBooks { get; set; }
+        
+        
+        public void Save()
+        {
+            if (!Repository.Contains(this))
+            {
+                Repository.Add(this);
+                IsNew = true;
+            }
+            else
+                IsChanged = true;
+        }
+        
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

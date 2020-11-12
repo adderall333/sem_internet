@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using ArmchairExpertsCom.Pages.Models;
+using ArmchairExpertsCom.Pages.Models.Utilities;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages
@@ -9,7 +12,9 @@ namespace ArmchairExpertsCom.Pages
         
         public void OnGet()
         {
-            AllBooks = Mocks.All<Book>();
+            Repository.LoadData();
+            Repository.LoadRelations();
+            AllBooks = Repository.All<Book>();
         }
     }
 }

@@ -3,7 +3,7 @@ using ArmchairExpertsCom.Pages.Models.Utilities;
 
 namespace ArmchairExpertsCom.Pages.Models
 {
-    public class SerialGenre : IModel
+    public class SerialEvaluation : IModel
     {
         [MetaData]
         public bool IsNew { get; set; }
@@ -16,11 +16,14 @@ namespace ArmchairExpertsCom.Pages.Models
         
         
         public int Id { get; set; }
-        public string Name { get; set; }
+        public int Value { get; set; }
         
+        
+        [ForeignKey(typeof(User))]
+        public DbSet User { get; set; }
         
         [ForeignKey(typeof(Serial))]
-        public DbSet Serials { get; set; } = new DbSet();
+        public DbSet Serial { get; set; }
         
         
         public void Save()
