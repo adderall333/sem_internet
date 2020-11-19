@@ -1,0 +1,36 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Serials.Index
+
+@{
+    ViewData["Title"] = "Сериалы";
+}
+
+@foreach (var serial in Model.AllSerials)
+{
+    <div class="topBackground">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" id="carouselPictures">
+                    <a asp-page="/Serials/Details" asp-route-id="@serial.Id">
+                        @foreach (Image image in serial.Images)
+                        {
+                            <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
+                        }
+                    </a>
+                </div>
+                <div class="col">
+                    <a asp-page="/Serials/Details" asp-route-id="@serial.Id"><h3 class="text-center" id ="books_nameOfPictures">@serial.Title</h3></a>
+                    <div class="col">
+                        <p class="text-center">@serial.Description</p>
+                        <p class="text-center">Жанры</p>
+                        @foreach (SerialGenre genre in serial.Genres)
+                        {
+                            <text>@genre.Name, </text>
+                        }
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+}

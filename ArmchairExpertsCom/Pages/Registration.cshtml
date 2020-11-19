@@ -1,0 +1,107 @@
+﻿@page
+@model ArmchairExpertsCom.Pages.Registration
+
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 rounded border" id="login_backrondForm">
+            <div class="col text-center">
+                <h1 class="text-center">Регистрация</h1>
+            </div>
+            @if (@Model.Status == null)
+            {
+                <form onsubmit="check()" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="col-12">
+                        <label for="login">Логин</label>
+                        <input type="text" class="form-control" id="login" name="login" placeholder="Логин"
+                            required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Имя"
+                               required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="surname">Фамилия</label>
+                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Фамилия"
+                               required>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="birthday">Дата рождения</label>
+                        <input type="text" class="form-control" id="birthday" name="birthday" placeholder="Дата"
+                               required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="password">Пароль</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="password2">Повторите пароль</label>
+                        <input type="password" class="form-control" id="password2" required>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label for="mail">Почта</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                            </div>
+                            <input type="text" class="form-control" id="mail" placeholder="mail"
+                                   aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Прикрепите свое фото</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+                    </div>
+                    
+
+                    <div class="col-md-8">
+                        <div class=" form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                            <label class="form-check-label" for="invalidCheck">
+                                Согласен на обработку данных
+                            </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        <input type="submit" class="btn btn-dark" value="Регистрация">
+                    </div>
+
+
+                </div>
+
+            </form>
+            }
+            else
+            {
+                <h2>@Model.Status</h2>
+            }
+            <div class="col-md-12" id="login_backrondForm">
+                <div class="col">
+                    <h6 class="text-center">Уже зарегистрированы?</h6>
+                </div>
+                <p></p>
+                <div class="col text-center">
+                    <a asp-page="/Login">
+                        <button class="btn btn-dark">Войти</button>
+                    </a>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿@page
+@model ArmchairExpertsCom.Pages.Login
+
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<div class="login_backrond">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 rounded border" id="login_backrondForm">
+                    @if (@Model.Status == null)
+                    {
+                        <form method="post">
+                            <div class="col">
+                                <h1 class="text-center">Вход</h1>
+                            </div>
+                            <div class="col">
+                                <p class="text-center">Логин</p>
+                            </div>
+                            <div class="col">
+                                <input class="form-control inputH" name="login">
+                            </div>
+                            <div class="col-md-3"></div>
+    
+                            <div class="col">
+                                <p class="text-center">Пароль</p>
+                            </div>
+                            <div class="col">
+                                <input type="password" class="form-control inputH" name="password">
+                            </div>
+                            <p></p>
+                            <div class="col text-center">
+                                <button class="btn btn-dark">Войти</button>
+                            </div>
+                            <p></p>
+                            <div class="col text-center">
+                                <input type="checkbox" class="form-check-input" id="dropdownCheck" name="isPersistent">
+                                <label class="form-check-label" for="dropdownCheck">
+                                    Remember me
+                                </label>
+                            </div>
+                            <input type="hidden" value="@Model.FromUrl" name="from">
+                        </form>
+                    }
+                    else
+                    {
+                        <h2>@Model.Status</h2>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-5 rounded border" id="login_backrondForm">
+                <div class="col">
+                    <h4 class="text-center">Еще не зарегистрированы?</h4>
+                </div>
+                <p></p>
+                <div class="col text-center">
+                    <a asp-page="/Registration">
+                        <button class="btn btn-dark">Регистрация</button>
+                    </a>
+                    <p></p>
+                </div>
+            </div>
+
+        </div>
+    </div>

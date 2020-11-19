@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FileUploadAsync" Version="1.0.1" />
       <PackageReference Include="Npgsql" Version="5.0.0-preview1" />
     </ItemGroup>
 

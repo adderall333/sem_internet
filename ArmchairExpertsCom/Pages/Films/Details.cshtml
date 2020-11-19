@@ -1,0 +1,40 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Films.Details
+
+@{
+    ViewData["Title"] = Model.Film.Title;
+    var image = (Image) Model.Film.Images.First();
+}
+
+<div class="topBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mx-4" id="carouselPictures">
+                <a href="#">
+                    <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
+                </a>
+            </div>
+            <div class="col-md-8">
+                <a href="#">
+                    <h3 class="text-center" id="books_nameOfPictures">@Model.Film.Title</h3>
+                </a>
+                <p id="book_description">Авторы: @Model.Film.Producers</p>
+                <p id="book_description">Авторы: @Model.Film.Actors</p>
+                <p id="book_description">Жанры:</p>
+                @foreach (FilmGenre genre in @Model.Film.Genres)
+                {
+                    <text>@genre.Name, </text>
+                }
+                <p id="book_description">Год: @Model.Film.Year</p>
+                <p id="book_description">@Model.Film.Description</p>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mx-4" id="carouselPictures">
+                <h2 id="book_description">Рейтинг: @Model.Film.Rating</h2>
+            </div>
+        </div>
+    </div>
+</div>

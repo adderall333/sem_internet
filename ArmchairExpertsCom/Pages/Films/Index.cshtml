@@ -1,0 +1,36 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Films.Index
+
+@{
+    ViewData["Title"] = "Фильмы";
+}
+
+@foreach (var film in Model.AllFilms)
+{
+    <div class="topBackground">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" id="carouselPictures">
+                    <a asp-page="/Films/Details" asp-route-id="@film.Id">
+                        @foreach (Image image in film.Images)
+                        {
+                            <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
+                        }
+                    </a>
+                </div>
+                <div class="col">
+                    <a asp-page="/Films/Details" asp-route-id="@film.Id"><h3 class="text-center" id ="books_nameOfPictures">@film.Title</h3></a>
+                    <div class="col">
+                        <p class="text-center">@film.Description</p>
+                        <p class="text-center">Жанры</p>
+                        @foreach (FilmGenre genre in film.Genres)
+                        {
+                            <text>@genre.Name, </text>
+                        }
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+}

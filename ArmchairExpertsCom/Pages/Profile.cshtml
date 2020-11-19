@@ -1,0 +1,159 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Profile
+
+@{
+    ViewData["Title"] = "Профиль";
+}
+
+<div class="topBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" id="carouselPictures">
+                @foreach (Image image in Model.User.Images)
+                {
+                    <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
+                }
+            </div>
+            <div class="col">
+                <h3 class="text-center" id="books_nameOfPictures">@Model.User.FullName</h3>
+                <div class="col">
+                    <p class="text-center">Информация</p>
+                    <p id="book_description">Дата рождения: @Model.User.BirthDate</p>
+                    @*<p id="book_description">Любимый жанр фильмов:</p>
+                    <p id="book_description">Любимый жанр сериалов:</p>
+                    <p id="book_description">Любимый жанр книг:</p>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="filterBackground bg-light my-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1" id="filterButton">
+                <div class="text-center my-2">
+                    <a class="nav-link active" href="profile-wall.html">
+                        <button class="btn" type="button"
+                            id="dropdownMenuButton" aria-haspopup="true">
+                            Посты
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-1" id="filterButton">
+                <p></p>
+                <p></p>
+                <div class="dropdown text-center my-2">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true">
+                        Всё
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="profile-movies.html">Фильмы</a>
+                        <a class="dropdown-item" href="profile-books.html">Книги</a>
+                        <a class="dropdown-item" href="profile-serials.html">Сериалы</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-1" id="filterButton">
+                <div class="text-center my-2">
+                    <a class="nav-link active" href="profile-friends.html">
+                        <button class="btn" type="button"
+                            id="dropdownMenuButton" aria-haspopup="true">
+                            Друзья
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-1" id="filterButton">
+                <div class="text-center my-2">
+                    <a class="nav-link active" href="profile-reviews.html">
+                        <button class="btn"  type="button" id="dropdownMenuButton"
+                            aria-haspopup="true">
+                            Рецензии
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-1" id="filterButton">
+                <div class="text-center my-2">
+                    <a class="nav-link active" href="profie-collections.html">
+                        <button class="btn" type="button" id="dropdownMenuButton"
+                            aria-haspopup="true">
+                            Подборки
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-1" id="filterButton">
+                <div class="text-center my-2">
+                    <a class="nav-link active" href="profile-deffered.html">
+                        <button class="btn" type="button"
+                        id="dropdownMenuButton" aria-haspopup="true">
+                            Отложенное
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+<div id="pages">
+    <div class="topBackground">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center" id="wall">Просмотренные фильмы</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="topBackground">
+        <div class="topBackground">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" id="carouselPictures">
+                        <a href="profile.html">
+                            <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="profile.html">
+                            <h3 class="text-center" id="books_nameOfPictures">Название книги</h3>
+                        </a>
+                        <div class="col">
+                            <p class="text-center">Описание</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="topBackground">
+            <div class="topBackground">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3" id="carouselPictures">
+                            <a href="profile.html">
+                                <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="profile.html">
+                                <h3 class="text-center" id="books_nameOfPictures">Название книги</h3>
+                            </a>
+                            <div class="col">
+                                <p class="text-center">Описание</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
