@@ -3,7 +3,7 @@ using ArmchairExpertsCom.Models.Utilities;
 
 namespace ArmchairExpertsCom.Models
 {
-    public class Serial : IModel
+    public class Serial : IModel, IArtwork
     {
         [MetaData]
         public bool IsNew { get; set; }
@@ -49,6 +49,11 @@ namespace ArmchairExpertsCom.Models
         public void Delete()
         {
             IsDeleted = true;
+        }
+        
+        public override string ToString()
+        {
+            return $"{Id}.{Title} ({StartYear}-{EndYear})";
         }
     }
 }

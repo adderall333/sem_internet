@@ -1,0 +1,23 @@
+﻿@page
+@using ArmchairExpertsCom.Services
+@model ArmchairExpertsCom.Pages.Admin.Edit
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Редактирование модели</title>
+</head>
+<body>
+<div>
+    <form method="post">
+        @Html.Edit(Model.Model)
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+</body>
+</html>

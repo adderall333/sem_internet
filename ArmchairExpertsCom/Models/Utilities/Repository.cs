@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using ArmchairExpertsCom.Models.Interfaces;
@@ -8,30 +9,41 @@ namespace ArmchairExpertsCom.Models.Utilities
 {
     public static class Repository
     {
-        private static readonly Type[] Types = 
+        private static readonly Type[] UserCreatedTypes = 
         {
-            typeof(Book),
             typeof(Comment),
             typeof(BookEvaluation),
             typeof(FilmEvaluation),
             typeof(SerialEvaluation),
+            typeof(BookReview),
+            typeof(FilmReview),
+            typeof(SerialReview),
+            typeof(Selection)
+        };
+        
+        private static readonly Type[] AdminCreatedTypes = 
+        {
+            typeof(Book),
             typeof(Film),
             typeof(BookGenre),
             typeof(FilmGenre),
             typeof(SerialGenre),
             typeof(Image),
-            typeof(BookReview),
-            typeof(FilmReview),
-            typeof(SerialReview),
-            typeof(Selection),
             typeof(Serial),
             typeof(User)
         };
+
+        private static Type[] Types => UserCreatedTypes.Concat(AdminCreatedTypes).ToArray();
         
         private static Dictionary<Type, List<IModel>> Data { get; set; } 
             = new Dictionary<Type, List<IModel>>();
 
-        public static bool IsLoaded { get; private set; } 
+        public static bool IsLoaded { get; private set; }
+
+        public static Type GetType(string typeName)
+        {
+            return Types.First(t => t.Name.ToLower() == typeName);
+        }
         
         public static bool Contains<T>(T model)
         {
@@ -72,13 +84,21 @@ namespace ArmchairExpertsCom.Models.Utilities
             foreach (var model in models)
             {
                 if (model.IsNew)
+                {
                     ORM.Insert(model);
-                
+                    model.IsNew = false;
+                }
+
                 if (model.IsChanged)
+                {
                     ORM.Update(model);
-                
+                    model.IsChanged = false;
+                }
+
                 if (model.IsDeleted)
+                {
                     ORM.Delete(model);
+                }
             }
 
             var dbSets = models.SelectMany(m => m.GetType()
@@ -112,6 +132,25 @@ namespace ArmchairExpertsCom.Models.Utilities
             LoadData();
             LoadRelations();
             IsLoaded = true;
+        }
+
+        public static Dictionary<Type, List<IModel>> GetAdminCreatedData()
+        {
+            LoadDataAndRelations();
+            var data = new Dictionary<Type, List<IModel>>();
+            foreach (var type in AdminCreatedTypes)
+            {
+                data[type] = Data[type];
+            }
+            return data;
+        }
+
+        public static List<IModel> GetModelsByTypeName(string typeName, bool isAdminCreated)
+        {
+            var type = isAdminCreated 
+                ? AdminCreatedTypes.First(t => t.Name.ToLower() == typeName)
+                : Types.First(t => t.Name.ToLower() == typeName);
+            return Data[type];
         }
         
         private static void LoadData()

@@ -3,7 +3,7 @@ using ArmchairExpertsCom.Models.Utilities;
 
 namespace ArmchairExpertsCom.Models
 {
-    public class Film : IModel
+    public class Film : IModel, IArtwork
     {
         [MetaData]
         public bool IsNew { get; set; }
@@ -48,6 +48,11 @@ namespace ArmchairExpertsCom.Models
         public void Delete()
         {
             IsDeleted = true;
+        }
+        
+        public override string ToString()
+        {
+            return $"{Id}.{Title} ({Year})";
         }
     }
 }

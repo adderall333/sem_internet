@@ -1,0 +1,25 @@
+﻿@page
+@model ArmchairExpertsCom.Pages.Admin.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Модели</title>
+</head>
+<body>
+<div>
+    <a asp-page="/Admin/Add" asp-route-type="@Model.Type.Name"><button>Добавить</button></a>
+    <br>
+    @foreach (var e in Model.ModelsList)
+    {
+        <a asp-page="/Admin/Edit" asp-route-type="@e.GetType().Name" asp-route-id="@e.Id">@e.ToString()</a>
+        <br>
+    }
+</div>
+</body>
+</html>

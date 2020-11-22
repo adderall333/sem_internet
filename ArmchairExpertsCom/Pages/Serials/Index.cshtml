@@ -6,31 +6,38 @@
     ViewData["Title"] = "Сериалы";
 }
 
+<p></p>
+<div class="filterBackground bg-light my-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" id="filterButton">
+                <div class="dropdown text-center my-2" >
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Фильтровать
+                    </button>
+                    <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">По возрастанию</a>
+                        <a class="dropdown-item" href="#">По убыванию</a>
+                        <a class="dropdown-item" href="#">...</a>
+                    </div>
+                </div>
+            </div>
+            <form class="form-inline mx-2 my-2 my-lg-0">
+                <input id = "widthForFilter" class="form-control mr-sm-2"  type="search" placeholder="Поиск" aria-label="Search">
+                <button class="btn my-2 my-sm-0" type="submit">Найти</button>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
 @foreach (var serial in Model.AllSerials)
 {
     <div class="topBackground">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3" id="carouselPictures">
-                    <a asp-page="/Serials/Details" asp-route-id="@serial.Id">
-                        @foreach (Image image in serial.Images)
-                        {
-                            <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
-                        }
-                    </a>
-                </div>
-                <div class="col">
-                    <a asp-page="/Serials/Details" asp-route-id="@serial.Id"><h3 class="text-center" id ="books_nameOfPictures">@serial.Title</h3></a>
-                    <div class="col">
-                        <p class="text-center">@serial.Description</p>
-                        <p class="text-center">Жанры</p>
-                        @foreach (SerialGenre genre in serial.Genres)
-                        {
-                            <text>@genre.Name, </text>
-                        }
-                    </div>
-                </div>
-            </div>  
+            @await Html.PartialAsync("PreviewPartial", serial)
         </div>
     </div>
 }

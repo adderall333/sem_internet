@@ -1,0 +1,22 @@
+﻿@using ArmchairExpertsCom.Models.Interfaces
+@using ArmchairExpertsCom.Models
+@model IArtwork
+
+@{
+    var detailsPageUrl = Model switch
+        {
+            Book book => "/Books/Details",
+            Film film => "/Films/Details",
+            Serial serial => "/Serials/Details",
+            _ => throw new ArgumentException()
+        };
+
+    var image = (Image) @Model.Images.First();
+}
+
+<div class="col-md-3" id="carouselPictures">
+    <a asp-page="@detailsPageUrl">
+        <img id="topPictures" class="rounded border border-dark" src="@image.Path">
+    </a>
+    <p class="text-center">Название</p>
+</div>

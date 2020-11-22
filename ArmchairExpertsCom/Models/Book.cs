@@ -1,9 +1,11 @@
-﻿using ArmchairExpertsCom.Models.Interfaces;
+﻿using System.Linq;
+using System.Reflection;
+using ArmchairExpertsCom.Models.Interfaces;
 using ArmchairExpertsCom.Models.Utilities;
 
 namespace ArmchairExpertsCom.Models
 {
-    public class Book : IModel
+    public class Book : IModel, IArtwork
     { 
         [MetaData]
         public bool IsNew { get; set; }
@@ -31,7 +33,7 @@ namespace ArmchairExpertsCom.Models
         
         [ForeignKey(typeof(BookReview))]
         public DbSet Reviews { get; set; } = new DbSet();
-        
+
         
         public void Save()
         {
@@ -47,6 +49,11 @@ namespace ArmchairExpertsCom.Models
         public void Delete()
         {
             IsDeleted = true;
+        }
+
+        public override string ToString()
+        {
+            return $"{Id}.{Title} ({Authors})";
         }
     }
 }

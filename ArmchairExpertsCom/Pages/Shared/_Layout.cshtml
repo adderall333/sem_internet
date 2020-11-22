@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -14,7 +13,7 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container" id="menuMargin">
-            <a class="navbar-brand" asp-page="/Index">ArmchairExpertsCom</a>
+            <a class="navbar-brand" asp-page="/Index">Диванные эксперты</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active  mx-2 ">
@@ -34,24 +33,9 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
                     </form>
                 </ul>
-                @if (Context.Session.GetString("authKey") != null)
-                {
-                    <a class="nav-link" asp-page="/Profile">
+                    <a class="nav-link" asp-page="/Profile/Index">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Профиль</button>
                     </a>
-                    <a class="nav-link" asp-page="/Logout">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выйти</button>
-                    </a>
-                }
-                else
-                {
-                    <a class="nav-link" asp-page="/Login">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
-                    </a>
-                    <a class="nav-link" asp-page="/Registration">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Зарегестрироваться</button>
-                    </a>
-                }
             </div>
         </div>
     </nav>

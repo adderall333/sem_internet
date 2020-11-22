@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using ArmchairExpertsCom.Models.Interfaces;
@@ -10,13 +9,16 @@ using Npgsql;
 namespace ArmchairExpertsCom.Models.Utilities
 {
     public static class ORM
-    {
+    { 
+        private const string ConnectionString =
+            "Host=localhost;Username=postgres;Password=qweasd123;Database=armchair_experts";
+        
         public static void Insert(IModel model)
         {
             var connection = GetConnection();
             connection.Open();
 
-            var properties = model.GetBasicProperties(); 
+            var properties = IModel.GetBasicProperties(model); 
             var names = properties
                 .Skip(1)
                 .Select(p => p.Name)
@@ -32,6 +34,7 @@ namespace ArmchairExpertsCom.Models.Utilities
             var reader = new NpgsqlCommand(query, connection).ExecuteReader();
             if (reader.Read())
                 model.Id = reader.GetInt32(0);
+            connection.Close();
         }
 
         public static void Update(IModel model)
@@ -39,8 +42,8 @@ namespace ArmchairExpertsCom.Models.Utilities
             var connection = GetConnection();
             connection.Open();
 
-            var changes = model
-                .GetBasicProperties()
+            var changes = IModel
+                .GetBasicProperties(model)
                 .Skip(1)
                 .Select(p => p.Name + " = " + p.GetValue(model).AddQuotationMarks())
                 .ToArray()
@@ -48,6 +51,7 @@ namespace ArmchairExpertsCom.Models.Utilities
             
             var query = $"update {GetTableName(model)} set {changes} where id = {model.Id}";
             new NpgsqlCommand(query, connection).ExecuteNonQuery();
+            connection.Close();
         }
         
         public static void Delete(IModel model)
@@ -57,6 +61,7 @@ namespace ArmchairExpertsCom.Models.Utilities
 
             var query = $"delete from {GetTableName(model)} where id = {model.Id}";
             new NpgsqlCommand(query, connection).ExecuteNonQuery();
+            connection.Close();
         }
 
         public static void AddRelation(IModel model1, IModel model2)
@@ -74,6 +79,7 @@ namespace ArmchairExpertsCom.Models.Utilities
                         $"({model1.GetType().Name}_id, {model2.GetType().Name}_id) " +
                         $"values ({model1.Id}, {model2.Id})";
             new NpgsqlCommand(query, connection).ExecuteNonQuery();
+            connection.Close();
         }
 
         public static void DeleteRelation(IModel model1, IModel model2)
@@ -91,6 +97,7 @@ namespace ArmchairExpertsCom.Models.Utilities
                         $"where {model1.GetType().Name}_id = {model1.Id} and " +
                         $"{model2.GetType().Name}_id = {model2.Id}";
             new NpgsqlCommand(query, connection).ExecuteNonQuery();
+            connection.Close();
         }
 
         public static IEnumerable<IModel> Select(Type type)
@@ -105,6 +112,7 @@ namespace ArmchairExpertsCom.Models.Utilities
             {
                 yield return FillIn(type, reader);
             }
+            connection.Close();
         }
         
         public static IEnumerable<int> GetRelations(IModel model, Type type)
@@ -151,19 +159,7 @@ namespace ArmchairExpertsCom.Models.Utilities
         
         private static NpgsqlConnection GetConnection()
         {
-            var cs = "Host=localhost;Username=postgres;Password=qweasd123;Database=armchair_experts";
-            return new NpgsqlConnection(cs);
-        }
-
-        private static PropertyInfo[] GetBasicProperties(this IModel model)
-        {
-            var type = model.GetType();
-            var properties = type
-                .GetProperties()
-                .Where(p => !p.GetCustomAttributes(typeof(MetaDataAttribute), false).Any())
-                .Where(p => !p.GetCustomAttributes(typeof(ForeignKeyAttribute), false).Any())
-                .ToArray();
-            return properties;
+            return new NpgsqlConnection(ConnectionString);
         }
 
         private static string PlaceCommas(this string[] parts)
@@ -201,7 +197,6 @@ namespace ArmchairExpertsCom.Models.Utilities
                  query = $"select * from {GetStagingTableName(model.GetType(), type)} " +
                          $"where {model.GetType().Name}_id = {model.Id}";
             var reader = new NpgsqlCommand(query, connection).ExecuteReader();
-
             return reader;
         }
 

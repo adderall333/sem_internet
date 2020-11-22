@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
+using ArmchairExpertsCom.Models.Utilities;
 using Npgsql;
 
 namespace ArmchairExpertsCom.Models.Interfaces
@@ -16,5 +19,15 @@ namespace ArmchairExpertsCom.Models.Interfaces
 
         public void Save();
         public void Delete();
+        
+        public static PropertyInfo[] GetBasicProperties(IModel model)
+        {
+            return model
+                .GetType()
+                .GetProperties()
+                .Where(p => !p.GetCustomAttributes(typeof(MetaDataAttribute), false).Any())
+                .Where(p => !p.GetCustomAttributes(typeof(ForeignKeyAttribute), false).Any())
+                .ToArray();
+        }
     }
 }

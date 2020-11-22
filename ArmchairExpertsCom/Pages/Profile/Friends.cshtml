@@ -1,0 +1,144 @@
+﻿@page
+@model ArmchairExpertsCom.Pages.Profile.Friends
+
+@{
+    Layout = "Shared/_ProfileLayout";
+}
+
+<div id="pages">
+    <div class="topBackground">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center" id="wall">Друзья</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="topBackground">
+        <h3 class="text-center" id="titleText">Возможно, вы подружитесь</h3>
+        <div class="container">
+            <div id="carouselTOP" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators my-0">
+                    <li data-target="#carouselTOP" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselTOP" data-slide-to="1"></li>
+                    <li data-target="#carouselTOP" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-3 offset-1" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark "
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+                            <div class="col-md-3" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark "
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+                            <div class="col-md-3" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark "
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-3" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark mainbllock"
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+                            <div class="col-md-3" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark mainbllock"
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+                            <div class="col-md-3" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark mainbllock"
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-3" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark mainbllock"
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+                            <div class="col-md-3" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark mainbllock"
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+                            <div class="col-md-3" id="carouselPictures">
+                                <a href="profile.html">
+                                    <img id="topPictures" class="rounded border border-dark mainbllock"
+                                        src="pictures/top1.jpg">
+                                </a>
+                                <p class="text-center">Название</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Элементы управления -->
+                <a id="leftControlButton" class="carousel-control-prev" href="#carouselTOP" role="button"
+                    data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a id="rightControlButton" class="carousel-control-next" href="#carouselTOP" role="button"
+                    data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="topBackground">
+        <div id="infinite-scroll">
+            <h3 class="text-center" id="titleText">Мои друзья</h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" id="carouselPictures">
+                        <a href="profile.html">
+                            <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="profile.html">
+                            <h3 class="text-center" id="books_nameOfPictures">Фамилия Имя</h3>
+                        </a>
+                        <div class="col">
+                            <p class="text-center">Информация</p>
+                            <p id="book_description">Оценок:</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

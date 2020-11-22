@@ -34,7 +34,10 @@ namespace ArmchairExpertsCom.Services
             var root = new PropertyNode(obj);
             foreach (var str in root
                 .Type
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => !p.GetCustomAttributes(typeof(MetaDataAttribute), false).Any())
+                .Where(p => !p.GetCustomAttributes(typeof(ForeignKeyAttribute), false).Any())
+                .Where(p => p.Name != "Id")
                 .SelectMany(p => Process(new PropertyNode(p.GetValue(obj), p, root))))
                 yield return str;
         }
@@ -59,6 +62,7 @@ namespace ArmchairExpertsCom.Services
                     .GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
                     .Where(p => !p.GetCustomAttributes(typeof(MetaDataAttribute), false).Any())
                     .Where(p => !p.GetCustomAttributes(typeof(ForeignKeyAttribute), false).Any())
+                    .Where(p => p.Name != "Id")
                     .SelectMany(p => Process(new PropertyNode(p.GetValue(node.Value), p, node))))
                     yield return str;
             }
@@ -106,7 +110,7 @@ namespace ArmchairExpertsCom.Services
         }
     }
 
-    class PropertyNode
+    internal class PropertyNode
     {
         public string Name { get; }
         public PropertyNode Parent { get; }
@@ -116,7 +120,7 @@ namespace ArmchairExpertsCom.Services
         public PropertyNode(object value, PropertyInfo property = null, PropertyNode parent = null)
         {
             Value = value;
-            Type = value.GetType();
+            Type = property is null ? value.GetType() : property.PropertyType;
             Name = property?.Name;
             Parent = parent;
         }

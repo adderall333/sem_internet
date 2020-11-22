@@ -60,5 +60,10 @@ namespace ArmchairExpertsCom.Models
         {
             IsDeleted = true;
         }
+        
+        public override string ToString()
+        {
+            return $"{Id}.{FullName}";
+        }
     }
 }

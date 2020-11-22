@@ -5,7 +5,7 @@ using ArmchairExpertsCom.Models.Interfaces;
 
 namespace ArmchairExpertsCom.Models.Utilities
 {
-    public class DbSet : IEnumerable
+    public class DbSet : IEnumerable<IModel>
     {
         [MetaData]
         public bool IsChanged { get; set; }

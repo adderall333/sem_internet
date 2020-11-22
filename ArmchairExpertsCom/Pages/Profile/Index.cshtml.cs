@@ -1,24 +1,24 @@
 ﻿using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
-using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ArmchairExpertsCom.Pages
+namespace ArmchairExpertsCom.Pages.Profile
 {
-    public class Profile : PageModel
+    public class Index : PageModel
     {
-        public User User { get; private set; }
+        public User CurrentUser { get; private set; }
         
         public IActionResult OnGet()
         {
-            var authKey = HttpContext.Session.GetString("authKey");
-            if (authKey == null)
+            if (HttpContext.Session.GetString("authKey") is null)
                 return Redirect("/login?from=profile");
+            
+            var authKey = HttpContext.Session.GetString("authKey");
                 
             Repository.LoadDataAndRelations();
-            User = Repository.Get<User>(user => user.PasswordKey == HttpContext.Session.GetString("authKey"));
+            CurrentUser = Repository.Get<User>(user => user.PasswordKey == authKey);
             return Page();
         }
     }

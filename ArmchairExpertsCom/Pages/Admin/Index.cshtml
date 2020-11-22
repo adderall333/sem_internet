@@ -1,0 +1,23 @@
+﻿@page
+@model ArmchairExpertsCom.Pages.Admin.Index
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Администрирование</title>
+</head>
+<body>
+<div>
+    @foreach (var type in Model.AllModels.Keys)
+    {
+        <a asp-page="Models" asp-route-type="@type.Name">@type.Name</a>
+        <br>
+    }
+</div>
+</body>
+</html>
