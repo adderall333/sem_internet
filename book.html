@@ -178,60 +178,7 @@
             </div>
         </div>
 
-        <!-- Шаблон "Вид комментариев" -->
-<div itemscope itemtype="//schema.org/Review" class="<?if($COMMENT_RATING$ >= 0)?>bg-success<?else?>bg-danger<?endif?> bg-review">
-    <div class="row">
-        <div class="col-xs-3 col-sm-2 col-md-1 text-center">
-            <?if($USER_AVATAR_URL$)?>
-                <?if($SOC_LINK$)?>
-                    <a rel="nofollow" href="$SOC_LINK$" title="$USERNAME$"><img src="$USER_AVATAR_URL$" alt="$USERNAME$" class="img-circle img-responsive"/></a>
-                <?else?>
-                    <a href="$PROFILE_URL$" title="$USERNAME$"><img src="$USER_AVATAR_URL$" alt="$USERNAME$" class="img-circle img-responsive"/></a>
-                <?endif?>
-            <?else?>
-                <img src="/.s/img/icon/social/noavatar.png" alt="$USERNAME$" class="img-circle img-responsive"/>
-            <?endif?>
-            <div class="<?if($COMMENT_RATING$ >= 0)?>text-success<?else?>text-danger<?endif?>">
-                <?if($GOOD_COMMENT_URL$)?>
-                <a href="$GOOD_COMMENT_URL$"><img alt="" src="/.s/img/icon/thumbu2.png" title="Хороший пост" style="margin:0 4px; vertical-align:middle;"></a>
-                <?if($COMMENT_RATING$ > 0)?><span itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-						<span itemprop="ratingValue">$COMMENT_RATING$</span>
-					</span>
-                <?else?>$COMMENT_RATING$<?endif?>
-
-                <a href="$BAD_COMMENT_URL$"><img alt="" src="/.s/img/icon/thumbd2.png" title="Плохой пост" style="margin:0 4px; vertical-align:middle;"></a>
-                <?else?>
-                <img alt="" src="/.s/img/icon/thumbu2_.png" title="Хороший пост" style="margin:0 4px; vertical-align:middle; opacity:.5; ">
-                <?if($COMMENT_RATING$ > 0)?><span itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-						<span itemprop="ratingValue">$COMMENT_RATING$</span>
-					</span>
-                <?else?>$COMMENT_RATING$<?endif?>
-
-                <img alt="" src="/.s/img/icon/thumbd2_.png" title="Плохой пост" style="margin:0 4px; vertical-align:middle; opacity:.5;">
-                <?endif?>
-            </div>
-        </div>
-        <div class="col-xs-9 col-sm-10 col-sm-11">
-            <?if($MODER_PANEL$)?><div class="pull-right">$MODER_PANEL$</div><?endif?>
-            <p>
-                <a href="#ent$ID$" onclick="prompt('', location.protocol + '//' + location.hostname + location.pathname + location.search + '#comEnt$ID$' ); if (document.getElementById('comEnt$ID$') ) { $('body').scrollTo({top:$('#comEnt$ID$').offset().top-54, left:0 }, 500 ); return false; }" name="ent$ID$"><b>$NUMBER$</b></a>
-                <?if($SOC_TYPE$)?><img src="/.s/img/icon/social/16/$SOC_TYPE$.png" alt="" /><?endif?>
-                <?if($USERNAME$)?><a itemprop="author" itemscope itemtype="https://schema.org/Person" href="$PROFILE_URL$" class="uc-profile-link"><span itemprop="name">$USERNAME$</span></a>
-                <?else?>
-                <?if($SOC_LINK$)?><a itemprop="author" itemscope itemtype="https://schema.org/Person" rel="nofollow" href="$SOC_LINK$" class="uc-profile-link"><span itemprop="name">$NAME$</span></a>
-                <?else?><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">$NAME$</span></span><?endif?>
-                <?endif?>
-                <span itemprop="datePublished" content="$DATE_FORMATTED$ $TIME$" class="uc-opacity">&#8226; $TIME$, $DATE$</span>
-            </p>
-            <div itemprop="reviewBody">
-
-                $MESSAGE$
-                <?if($ANSWER$)?><hr /><div><b>Ответ</b>: $ANSWER$</div><?endif?>
-                <?if($ANSWER_URL$)?><div><a href="$ANSWER_URL$" class="btn btn-success">Ответить</a></div><?endif?>
-            </div>
-        </div>
-    </div>
-</div>
+        
 
     </div>
     </div>
