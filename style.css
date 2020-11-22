@@ -14,6 +14,10 @@
     background-color: rgb(141, 200, 202);
 }
 
+#topOfReview {
+    margin-top: 15px;
+}
+
 #carouselPictures {
     margin-top: 10px;
     margin-left: 58px;
