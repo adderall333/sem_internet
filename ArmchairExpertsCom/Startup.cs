@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArmchairExpertsCom.Models.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,6 +17,7 @@ namespace ArmchairExpertsCom
     {
         public Startup(IConfiguration configuration)
         {
+            Repository.LoadDataAndRelations();
             Configuration = configuration;
         }
 

@@ -118,7 +118,11 @@ namespace ArmchairExpertsCom.Models.Utilities
         public static IEnumerable<int> GetRelations(IModel model, Type type)
         {
             var relations = new List<int>();
-            var reader = model.GetForeignReader(type);
+            var query = model.GetQueryForRelations(type);
+            
+            var connection = GetConnection();
+            connection.Open();
+            var reader = new NpgsqlCommand(query, connection).ExecuteReader();
 
             var i = reader.GetName(1).StartsWith(type.Name.ToLower()) || 
                     model.GetType() == typeof(User) && type == typeof(User) ? 1 : 0;
@@ -126,7 +130,8 @@ namespace ArmchairExpertsCom.Models.Utilities
             {
                 relations.Add(reader.GetInt32(i));
             }
-
+            
+            connection.Close();
             return relations;
         }
 
@@ -184,20 +189,11 @@ namespace ArmchairExpertsCom.Models.Utilities
             return obj.ToString();
         }
         
-        private static NpgsqlDataReader GetForeignReader(this IModel model, Type type)
+        private static string GetQueryForRelations(this IModel model, Type type)
         {
-            var connection = GetConnection();
-            connection.Open();
-
-            var query = "";
-            if (model.GetType() == typeof(User) && type == typeof(User))
-                query = $"select * from {GetStagingTableName(model.GetType(), type)} " +
-                        $"where subscriber_id = {model.Id}";
-            else
-                 query = $"select * from {GetStagingTableName(model.GetType(), type)} " +
-                         $"where {model.GetType().Name}_id = {model.Id}";
-            var reader = new NpgsqlCommand(query, connection).ExecuteReader();
-            return reader;
+            return model.GetType() == typeof(User) && type == typeof(User)
+                ? $"select * from {GetStagingTableName(model.GetType(), type)} where subscriber_id = {model.Id}"
+                : $"select * from {GetStagingTableName(model.GetType(), type)} where {model.GetType().Name}_id = {model.Id}";
         }
 
         private static string GetStagingTableName(Type type1, Type type2)

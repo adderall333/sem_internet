@@ -1,0 +1,13 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Profile.Serials
+
+@{
+    Layout = "Shared/_ProfileLayout";
+    ViewData["Title"] = "Просмотренные сериалы";
+}
+
+@foreach (var evaluation in Model.Evaluations)
+{
+    @await Html.PartialAsync("PreviewPartial", (Serial) evaluation.Serial.First());
+}

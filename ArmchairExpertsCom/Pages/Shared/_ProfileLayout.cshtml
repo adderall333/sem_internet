@@ -82,22 +82,21 @@
         
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" asp-page="/Profile/Films">Фильмы</a>
-                                <a class="dropdown-item" asp-page="/Profile/Books">Книги</a>
                                 <a class="dropdown-item" asp-page="/Profile/Serials">Сериалы</a>
                             </div>
                         </div>
                     </div>
                     
-                    @*<div class="col-md-1" id="filterButton">
+                    <div class="col-md-1" id="filterButton">
                         <div class="text-center my-2">
-                            <a class="nav-link active" href="profile-wall.html">
+                            <a class="nav-link active" asp-page="/Profile/Books">
                                 <button class="btn" type="button"
                                         id="dropdownMenuButton" aria-haspopup="true">
-                                    Посты
+                                    Прочитанное
                                 </button>
                             </a>
                         </div>
-                    </div>*@
+                    </div>
         
                     <div class="col-md-1" id="filterButton">
                         <div class="text-center my-2">

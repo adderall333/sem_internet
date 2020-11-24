@@ -1,4 +1,6 @@
-﻿using ArmchairExpertsCom.Models;
+﻿using System;
+using System.Collections.Generic;
+using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,9 +8,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages.Profile
 {
-    public class Index : PageModel
+    public class Films : PageModel
     {
         public User CurrentUser { get; private set; }
+        public IEnumerable<FilmEvaluation> Evaluations { get; private set; }
         
         public IActionResult OnGet()
         {
@@ -18,6 +21,7 @@ namespace ArmchairExpertsCom.Pages.Profile
             var authKey = HttpContext.Session.GetString("authKey");
             
             CurrentUser = Repository.Get<User>(user => user.PasswordKey == authKey);
+            Evaluations = Repository.Filter<FilmEvaluation>(fe => fe.User.First() == CurrentUser);
             return Page();
         }
     }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
+using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages.Serials
@@ -14,7 +16,7 @@ namespace ArmchairExpertsCom.Pages.Serials
         {
             Repository.LoadDataAndRelations();
             Serial = Repository.Get<Serial>(serial => serial.Id == id);
-            SimilarSerials = null; //todo
+            SimilarSerials = ContentMaker.GetSimilarSerials(Serial).ToList(); //todo
         }
     }
 }

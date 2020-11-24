@@ -35,9 +35,5 @@
 
 @foreach (var film in Model.AllFilms)
 {
-    <div class="topBackground">
-        <div class="container">
-            @await Html.PartialAsync("PreviewPartial", film)
-        </div>
-    </div>
+    @await Html.PartialAsync("PreviewPartial", film)
 }

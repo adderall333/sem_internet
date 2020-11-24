@@ -12,20 +12,23 @@
             _ => throw new ArgumentException()
         };
 }
-
-<div class="row">
-    <div class="col-md-3" id="carouselPictures">
-        <a asp-page="@detailsPageUrl" asp-route-id="@Model.Id">
-            @foreach (Image image in Model.Images)
-            {
-                <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
-            }
-        </a>
+<div class="topBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" id="carouselPictures">
+                <a asp-page="@detailsPageUrl" asp-route-id="@Model.Id">
+                    @foreach (Image image in Model.Images)
+                    {
+                        <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
+                    }
+                </a>
+            </div>
+            <div class="col">
+                <a asp-page="@detailsPageUrl" asp-route-id="@Model.Id"><h3 class="text-center" id ="books_nameOfPictures">@Model.Title</h3></a>
+                <div class="col">
+                    <p class="text-center">@Model.Description</p>
+                </div>
+            </div>
+        </div>  
     </div>
-    <div class="col">
-        <a asp-page="@detailsPageUrl" asp-route-id="@Model.Id"><h3 class="text-center" id ="books_nameOfPictures">@Model.Title</h3></a>
-        <div class="col">
-            <p class="text-center">@Model.Description</p>
-        </div>
-    </div>
-</div>  
+</div>

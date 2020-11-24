@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
+using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages.Books
@@ -14,7 +16,7 @@ namespace ArmchairExpertsCom.Pages.Books
         {
             Repository.LoadDataAndRelations();
             Book = Repository.Get<Book>(book => book.Id == id);
-            SimilarBooks = null; //todo
+            SimilarBooks = ContentMaker.GetSimilarBooks(Book).ToList();
         }
     }
 }

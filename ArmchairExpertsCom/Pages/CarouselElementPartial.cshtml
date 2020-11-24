@@ -15,8 +15,8 @@
 }
 
 <div class="col-md-3" id="carouselPictures">
-    <a asp-page="@detailsPageUrl">
+    <a asp-page="@detailsPageUrl" asp-route-id="@Model.Id">
         <img id="topPictures" class="rounded border border-dark" src="@image.Path">
     </a>
-    <p class="text-center">Название</p>
+    <p class="text-center">@Model.Title</p>
 </div>

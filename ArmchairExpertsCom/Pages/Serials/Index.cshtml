@@ -35,9 +35,5 @@
 
 @foreach (var serial in Model.AllSerials)
 {
-    <div class="topBackground">
-        <div class="container">
-            @await Html.PartialAsync("PreviewPartial", serial)
-        </div>
-    </div>
+    @await Html.PartialAsync("PreviewPartial", serial)
 }

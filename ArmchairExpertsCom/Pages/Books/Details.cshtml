@@ -21,11 +21,12 @@
                     <h3 class="text-center" id="books_nameOfPictures">@Model.Book.Title</h3>
                 </a>
                 <p id="book_description">Авторы: @Model.Book.Authors</p>
-                <p id="book_description">Жанры:</p>
+                <p id="book_description">Жанры:
                 @foreach (BookGenre genre in @Model.Book.Genres)
                 {
                     <text>@genre.Name, </text>
                 }
+                </p>
                 <p id="book_description">Год: @Model.Book.Year</p>
                 <p id="book_description">@Model.Book.Description</p>
 
@@ -33,7 +34,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 mx-4" id="carouselPictures">
-                <h2 id="book_description">Рейтинг: @Model.Book.Rating</h2>
+                <h2 id="book_description">Рейтинг: @ContentMaker.GetBookRating(Model.Book)</h2>
             </div>
         </div>
     </div>

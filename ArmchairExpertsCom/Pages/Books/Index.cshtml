@@ -35,9 +35,5 @@
 
 @foreach (var book in Model.AllBooks)
 {
-    <div class="topBackground">
-        <div class="container">
-            @await Html.PartialAsync("PreviewPartial", book)
-        </div>
-    </div>
+    @await Html.PartialAsync("PreviewPartial", book)
 }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
+using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages.Films
@@ -14,7 +16,7 @@ namespace ArmchairExpertsCom.Pages.Films
         {
             Repository.LoadDataAndRelations();
             Film = Repository.Get<Film>(film => film.Id == id);
-            SimilarFilms = null; //todo
+            SimilarFilms = ContentMaker.GetSimilarFilms(Film).ToList();
         }
     }
 }

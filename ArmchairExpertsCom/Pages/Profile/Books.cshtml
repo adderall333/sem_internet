@@ -1,0 +1,13 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Profile.Books
+
+@{
+    Layout = "Shared/_ProfileLayout";
+    ViewData["Title"] = "Прочитанные книги";
+}
+
+@foreach (var evaluation in Model.Evaluations)
+{
+    @await Html.PartialAsync("PreviewPartial", (Book) evaluation.Book.First());
+}

@@ -1,5 +1,6 @@
 ﻿@page
 @using ArmchairExpertsCom.Models
+@using ArmchairExpertsCom.Services
 @model ArmchairExpertsCom.Pages.Serials.Details
 
 @{
@@ -21,11 +22,12 @@
                 </a>
                 <p id="book_description">Авторы: @Model.Serial.Producers</p>
                 <p id="book_description">Авторы: @Model.Serial.Actors</p>
-                <p id="book_description">Жанры:</p>
+                <p id="book_description">Жанры:
                 @foreach (SerialGenre genre in @Model.Serial.Genres)
                 {
                     <text>@genre.Name, </text>
                 }
+                </p>
                 <p id="book_description">Года: @Model.Serial.StartYear - @Model.Serial.EndYear</p>
                 <p id="book_description">@Model.Serial.Description</p>
 
@@ -33,7 +35,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 mx-4" id="carouselPictures">
-                <h2 id="book_description">Рейтинг: @Model.Serial.Rating</h2>
+                <h2 id="book_description">Рейтинг: @ContentMaker.GetSerialRating(Model.Serial)</h2>
             </div>
         </div>
     </div>
@@ -50,7 +52,7 @@
                     <li data-target="#carouselTOP" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item">
+                    <div class="carousel-item active">
                         <div class="row">
                             @for (var i = 0; i < 3; i++)
                             {
@@ -60,7 +62,15 @@
                     </div>
                     <div class="carousel-item">
                         <div class="row">
-                            @for (var i = 0; i < 3; i++)
+                            @for (var i = 3; i < 6; i++)
+                            {
+                                @await Html.PartialAsync("CarouselElementPartial", Model.SimilarSerials[i]);
+                            }
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            @for (var i = 6; i < 9; i++)
                             {
                                 @await Html.PartialAsync("CarouselElementPartial", Model.SimilarSerials[i]);
                             }

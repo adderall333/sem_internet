@@ -1,0 +1,13 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Profile.Films
+
+@{
+    Layout = "Shared/_ProfileLayout";
+    ViewData["Title"] = "Просмотренные фильмы";
+}
+
+@foreach (var evaluation in Model.Evaluations)
+{
+    @await Html.PartialAsync("PreviewPartial", (Film) evaluation.Film.First());
+}
