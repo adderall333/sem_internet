@@ -1,19 +1,24 @@
 ﻿@page
+@using ArmchairExpertsCom.Models.Interfaces
 @model ArmchairExpertsCom.Pages.Profile.Reviews
 
 @{
-    Layout = null;
+    Layout = "Shared/_ProfileLayout";
+    ViewData["Title"] = "Ревью";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<div>
-    
+<div class="topBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center" id="wall">Рецензии</h2>
+            </div>
+        </div>
+    </div>
 </div>
-</body>
-</html>
+
+
+@foreach (IReview review in Model.AllReviews)
+{
+    @await Html.PartialAsync("ReviewPartial", review);
+}

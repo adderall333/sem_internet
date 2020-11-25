@@ -1,0 +1,64 @@
+﻿@using ArmchairExpertsCom.Models.Interfaces
+@using ArmchairExpertsCom.Models.Utilities
+@using ArmchairExpertsCom.Models
+@model IReview
+
+@{
+    var user = (User) Model.User.First();
+    var image = (Image) user.Images.First();
+
+    var evaluationType = Model.GetType().Name switch
+        {
+            "BookReview" => typeof(BookEvaluation), 
+            "FilmReview" => typeof(FilmEvaluation), 
+            "SerialReview" => typeof(SerialEvaluation), 
+            _ => throw new ArgumentException()
+        };
+
+    var evaluation = (IEvaluation) Repository.GetModelsByType(evaluationType, false).First();
+}
+
+<div class="topBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1" id="topOfReview">
+                <img src="@image.Path" style=" border-radius: 100%; height: 50px; width: 50px;">
+            </div>
+            <div class="col-md-4">
+                <h5 id="wall">@user.FullName</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <h6>Оценка: @evaluation.Value</h6>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>@Model.Text</p>
+            </div>
+        </div>         
+
+       
+
+        <div class="row">
+            <div class="col-md-12 dropdown">
+                <a class="nav-link active" id = "book_description" href="javascript:void(0)" onclick="showHide('hidden')">Посмотреть комментарии</a>
+            </div>
+        </div>
+        <div id="hidden" style="display: none;">
+            Тут будут комментарии
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 dropdown">
+                <a class="nav-link active" id = "book_description" href="javascript:void(0)" onclick="showHide('hidden')">Посмотреть комментарии</a>
+            </div>
+        </div>
+        <div id="hidden" style="display: none;">
+            Тут будут комментарии
+        </div>
+    </div>
+</div>

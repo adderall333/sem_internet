@@ -3,7 +3,7 @@ using ArmchairExpertsCom.Models.Utilities;
 
 namespace ArmchairExpertsCom.Models
 {
-    public class BookReview : IModel
+    public class BookReview : IModel, IReview
     {
         [MetaData]
         public bool IsNew { get; set; }

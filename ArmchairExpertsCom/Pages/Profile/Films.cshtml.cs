@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
+using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,12 +16,11 @@ namespace ArmchairExpertsCom.Pages.Profile
         
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetString("authKey") is null)
-                return Redirect("/login?from=profile");
+            CurrentUser = Auth.GetUser(HttpContext);
             
-            var authKey = HttpContext.Session.GetString("authKey");
+            if (CurrentUser is null)
+                return Redirect("/login?from=profile/films");
             
-            CurrentUser = Repository.Get<User>(user => user.PasswordKey == authKey);
             Evaluations = Repository.Filter<FilmEvaluation>(fe => fe.User.First() == CurrentUser);
             return Page();
         }

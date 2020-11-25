@@ -2,6 +2,7 @@
 using System.Net.Http;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
+using ArmchairExpertsCom.Pages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
@@ -20,7 +21,7 @@ namespace ArmchairExpertsCom.Services
         {
             Repository.LoadDataAndRelations();
             var key = Cipher.GetKey(password);
-            authKey = key;
+            authKey = Cipher.GetKey(key + login);
             if (Repository.Filter<User>(p => p.Login == login).Any())
                 return false;
             
@@ -53,8 +54,19 @@ namespace ArmchairExpertsCom.Services
         {
             Repository.LoadDataAndRelations();
             var key = Cipher.GetKey(password);
-            authKey = key;
+            authKey = Cipher.GetKey(key + login);
             return Repository.Get<User>(p => p.Login == login && p.PasswordKey == key) != null;
+        }
+
+        private static bool IsCorrectAuthKey(string key, string login, string authKey)
+            => authKey == Cipher.GetKey(key + login);
+
+        public static User GetUser(HttpContext context)
+        {
+            var authKey = context.Session.GetString("authKey");
+            return authKey is null
+                ? null
+                : Repository.Get<User>(u => IsCorrectAuthKey(u.PasswordKey, u.Login, authKey));
         }
     }
 }

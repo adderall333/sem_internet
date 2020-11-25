@@ -3,6 +3,8 @@ using System.Linq;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
 using ArmchairExpertsCom.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages.Serials
@@ -14,9 +16,33 @@ namespace ArmchairExpertsCom.Pages.Serials
         
         public void OnGet(int id)
         {
-            Repository.LoadDataAndRelations();
             Serial = Repository.Get<Serial>(serial => serial.Id == id);
-            SimilarSerials = ContentMaker.GetSimilarSerials(Serial).ToList(); //todo
+            SimilarSerials = ContentMaker.GetSimilarSerials(Serial).ToList();
+        }
+
+        public IActionResult OnPost(int value, string text)
+        {
+            var user = Auth.GetUser(HttpContext);
+            
+            if (user is null)
+                return Redirect($"/login?from=serials/details?id={Request.Query["id"]}");
+
+            Serial = Repository.Get<Serial>(serial => serial.Id == int.Parse(Request.Query["id"]));
+
+            var review = new SerialReview {Text = text};
+            review.User = new DbSet(review, new [] {user});
+            review.Serial = new DbSet(review, new[] {Serial});
+            review.Save();
+            Serial.Reviews.Add(review);
+
+            var evaluation = new SerialEvaluation {Value = value};
+            evaluation.User = new DbSet(evaluation, new[] {user});
+            evaluation.Serial = new DbSet(evaluation, new[] {Serial});
+            evaluation.Save();
+            
+            Repository.SaveChanges();
+
+            return Redirect(Request.QueryString.Value);
         }
     }
 }

@@ -153,6 +153,14 @@ namespace ArmchairExpertsCom.Models.Utilities
             return Data[type];
         }
         
+        public static List<IModel> GetModelsByType(Type currentType, bool isAdminCreated)
+        {
+            var type = isAdminCreated 
+                ? AdminCreatedTypes.First(t => t == currentType)
+                : Types.First(t => t == currentType);
+            return Data[type];
+        }
+        
         private static void LoadData()
         {
             foreach (var type in Types)

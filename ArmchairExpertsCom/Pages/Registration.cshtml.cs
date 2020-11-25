@@ -55,7 +55,7 @@ namespace ArmchairExpertsCom.Pages
 
             if (image != null)
             {
-                var path = Path.Combine(environment.ContentRootPath, "wwwroot", "img" , image.FileName);
+                var path = Path.Combine(environment.ContentRootPath, "wwwroot", "img\\" , image.FileName);
                 using var fileStream = new FileStream(path, FileMode.Create);
                 image.CopyToAsync(fileStream);
             }
