@@ -1,0 +1,12 @@
+﻿@page
+@using ArmchairExpertsCom.Models.Interfaces
+@model ArmchairExpertsCom.Pages.Search
+
+@{
+    ViewData["Title"] = "Поиск";
+}
+
+@foreach (var model in Model.FoundModels)
+{
+    @await Html.PartialAsync("PreviewPartial", model);
+}

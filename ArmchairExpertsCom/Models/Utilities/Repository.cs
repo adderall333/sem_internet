@@ -136,7 +136,6 @@ namespace ArmchairExpertsCom.Models.Utilities
 
         public static Dictionary<Type, List<IModel>> GetAdminCreatedData()
         {
-            LoadDataAndRelations();
             var data = new Dictionary<Type, List<IModel>>();
             foreach (var type in AdminCreatedTypes)
             {

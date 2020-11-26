@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
+using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages.Films
@@ -11,8 +12,12 @@ namespace ArmchairExpertsCom.Pages.Films
         
         public void OnGet()
         {
-            Repository.LoadDataAndRelations();
             AllFilms = Repository.All<Film>();
+        }
+
+        public void OnPost(string searchString)
+        {
+            AllFilms = ContentMaker.SearchFilms(searchString);
         }
     }
 }

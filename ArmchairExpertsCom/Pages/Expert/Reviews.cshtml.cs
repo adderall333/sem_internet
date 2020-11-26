@@ -8,19 +8,26 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ArmchairExpertsCom.Pages.Profile
+namespace ArmchairExpertsCom.Pages.Expert
 {
     public class Reviews : PageModel
     {
-        public User CurrentUser { get; private set; }
+        public User Expert { get; private set; }
         public IEnumerable<IReview> AllReviews { get; private set; }
         
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
-            CurrentUser = Auth.GetUser(HttpContext);
+            if (id is null)
+            {
+                Expert = Auth.GetUser(HttpContext);
             
-            if (CurrentUser is null)
-                return Redirect("/login?from=profile/reviews");
+                if (Expert is null)
+                    return Redirect("/login?from=expert/reviews");
+            }
+            else
+            {
+                Expert = Repository.Get<User>(u => u.Id == id);
+            }
             
             AllReviews = Repository
                 .GetModelsByType(typeof(BookReview), false)
@@ -30,7 +37,8 @@ namespace ArmchairExpertsCom.Pages.Profile
                     .Select(r => (IReview) r))
                 .Concat(Repository
                     .GetModelsByType(typeof(SerialReview), false)
-                    .Select(r => (IReview) r));
+                    .Select(r => (IReview) r))
+                .Where(r => r.User.First() == Expert);
             return Page();
         }
     }

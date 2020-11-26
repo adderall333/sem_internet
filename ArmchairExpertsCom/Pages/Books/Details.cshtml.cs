@@ -14,7 +14,6 @@ namespace ArmchairExpertsCom.Pages.Books
         
         public void OnGet(int id)
         {
-            Repository.LoadDataAndRelations();
             Book = Repository.Get<Book>(book => book.Id == id);
             SimilarBooks = ContentMaker.GetSimilarBooks(Book).ToList();
         }

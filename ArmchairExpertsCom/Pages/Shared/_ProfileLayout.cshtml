@@ -34,7 +34,7 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
                     </form>
                 </ul>
-                    <a class="nav-link" asp-page="/Profile">
+                    <a class="nav-link" asp-page="/Expert/Index">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Профиль</button>
                     </a>
             </div>
@@ -48,19 +48,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3" id="carouselPictures">
-                        @foreach (Image image in Model.CurrentUser.Images)
+                        @foreach (Image image in Model.Expert.Images)
                         {
                             <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
                         }
                     </div>
                     <div class="col">
-                        <h3 class="text-center" id="books_nameOfPictures">@Model.CurrentUser.FullName</h3>
+                        <h3 class="text-center" id="books_nameOfPictures">@Model.Expert.FullName</h3>
                         <div class="col">
                             <p class="text-center">Информация</p>
-                            <p id="book_description">Дата рождения: @Model.CurrentUser.BirthDate</p>
-                            @*<p id="book_description">Любимый жанр фильмов:</p>
-                            <p id="book_description">Любимый жанр сериалов:</p>
-                            <p id="book_description">Любимый жанр книг:</p>*@
+                            <p id="book_description">Дата рождения: @Model.Expert.BirthDate</p>
                         </div>
                     </div>
                 </div>
@@ -81,15 +78,15 @@
                             </button>
         
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" asp-page="/Profile/Films">Фильмы</a>
-                                <a class="dropdown-item" asp-page="/Profile/Serials">Сериалы</a>
+                                <a class="dropdown-item" asp-page="/Expert/Films" asp-route-id="@Model.Expert.Id">Фильмы</a>
+                                <a class="dropdown-item" asp-page="/Expert/Serials" asp-route-id="@Model.Expert.Id">Сериалы</a>
                             </div>
                         </div>
                     </div>
                     
                     <div class="col-md-1" id="filterButton">
                         <div class="text-center my-2">
-                            <a class="nav-link active" asp-page="/Profile/Books">
+                            <a class="nav-link active" asp-page="/Expert/Books" asp-route-id="@Model.Expert.Id">
                                 <button class="btn" type="button"
                                         id="dropdownMenuButton" aria-haspopup="true">
                                     Прочитанное
@@ -100,10 +97,10 @@
         
                     <div class="col-md-1" id="filterButton">
                         <div class="text-center my-2">
-                            <a class="nav-link active" asp-page="/Profile/Friends">
+                            <a class="nav-link active" asp-page="/Expert/Friends" asp-route-id="@Model.Expert.Id">
                                 <button class="btn" type="button"
                                         id="dropdownMenuButton" aria-haspopup="true">
-                                    Друзья
+                                    Подписки
                                 </button>
                             </a>
                         </div>
@@ -111,7 +108,7 @@
                     
                     <div class="col-md-1" id="filterButton">
                         <div class="text-center my-2">
-                            <a class="nav-link active" asp-page="/Profile/Reviews">
+                            <a class="nav-link active" asp-page="/Expert/Reviews" asp-route-id="@Model.Expert.Id">
                                 <button class="btn" type="button" id="dropdownMenuButton"
                                         aria-haspopup="true">
                                     Рецензии
@@ -122,7 +119,7 @@
                     
                     <div class="col-md-1" id="filterButton">
                         <div class="text-center my-2">
-                            <a class="nav-link active" asp-page="/Profile/Selections">
+                            <a class="nav-link active" asp-page="/Expert/Selections" asp-route-id="@Model.Expert.Id">
                                 <button class="btn" type="button" id="dropdownMenuButton"
                                         aria-haspopup="true">
                                     Подборки
@@ -133,7 +130,7 @@
                     
                     <div class="col-md-1" id="filterButton">
                         <div class="text-center my-2">
-                            <a class="nav-link active" asp-page="/Profile/Pending">
+                            <a class="nav-link active" asp-page="/Expert/Pending" asp-route-id="@Model.Expert.Id">
                                 <button class="btn" type="button"
                                         id="dropdownMenuButton" aria-haspopup="true">
                                     Отложенное

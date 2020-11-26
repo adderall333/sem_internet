@@ -19,7 +19,6 @@ namespace ArmchairExpertsCom.Services
             string imageName,
             out string authKey)
         {
-            Repository.LoadDataAndRelations();
             var key = Cipher.GetKey(password);
             authKey = Cipher.GetKey(key + login);
             if (Repository.Filter<User>(p => p.Login == login).Any())
@@ -52,7 +51,6 @@ namespace ArmchairExpertsCom.Services
 
         public static bool TryLogin(string login, string password, out string authKey)
         {
-            Repository.LoadDataAndRelations();
             var key = Cipher.GetKey(password);
             authKey = Cipher.GetKey(key + login);
             return Repository.Get<User>(p => p.Login == login && p.PasswordKey == key) != null;

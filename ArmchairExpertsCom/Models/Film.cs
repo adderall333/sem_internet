@@ -21,7 +21,6 @@ namespace ArmchairExpertsCom.Models
         public int Year { get; set; }
         public string Producers { get; set; }
         public string Actors { get; set; }
-        public int Rating { get; set; }
         
         
         [ForeignKey(typeof(FilmReview))]

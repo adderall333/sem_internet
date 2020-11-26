@@ -12,7 +12,6 @@ namespace ArmchairExpertsCom.Services
     {
         public static bool IsAdmin(string authKey)
         {
-            Repository.LoadDataAndRelations();
             return Repository.Get<User>(user => user.PasswordKey == authKey).Role == "admin";
         }
 

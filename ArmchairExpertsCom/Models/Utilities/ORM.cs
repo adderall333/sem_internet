@@ -124,7 +124,7 @@ namespace ArmchairExpertsCom.Models.Utilities
             connection.Open();
             var reader = new NpgsqlCommand(query, connection).ExecuteReader();
 
-            var i = reader.GetName(1).StartsWith(type.Name.ToLower()) || 
+            var i = reader.GetName(1).StartsWith(type.Name.ToLower() + "_") || 
                     model.GetType() == typeof(User) && type == typeof(User) ? 1 : 0;
             while (reader.Read())
             {

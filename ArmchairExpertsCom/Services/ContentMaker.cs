@@ -69,5 +69,43 @@ namespace ArmchairExpertsCom.Services
                 .Select(g => artwork2.Genres.Contains(g) ? 1 : 0)
                 .Sum();
         }
+
+        public static IEnumerable<Film> SearchFilms(string searchString)
+        {
+            return Repository
+                .Filter<Film>(f => f.Title.Contains(searchString) ||
+                                        f.Actors.Contains(searchString) ||
+                                        f.Description.Contains(searchString) ||
+                                        f.Producers.Contains(searchString));
+        }
+        
+        public static IEnumerable<Serial> SearchSerials(string searchString)
+        {
+            return Repository
+                .Filter<Serial>(s => s.Title.Contains(searchString) ||
+                                   s.Actors.Contains(searchString) ||
+                                   s.Description.Contains(searchString) ||
+                                   s.Producers.Contains(searchString));
+        }
+
+        public static IEnumerable<Book> SearchBooks(string searchString)
+        {
+            return Repository
+                .Filter<Book>(b => b.Title.Contains(searchString) ||
+                                   b.Description.Contains(searchString) ||
+                                   b.Authors.Contains(searchString));
+        }
+
+        public static IEnumerable<IArtwork> SearchAll(string searchString)
+        {
+            foreach (var film in SearchFilms(searchString))
+                yield return film;
+
+            foreach (var serial in SearchSerials(searchString))
+                yield return serial;
+
+            foreach (var book in SearchBooks(searchString))
+                yield return book;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
+using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages.Serials
@@ -11,8 +12,12 @@ namespace ArmchairExpertsCom.Pages.Serials
         
         public void OnGet()
         {
-            Repository.LoadDataAndRelations();
             AllSerials = Repository.All<Serial>();
+        }
+
+        public void OnPost(string searchString)
+        {
+            AllSerials = ContentMaker.SearchSerials(searchString);
         }
     }
 }

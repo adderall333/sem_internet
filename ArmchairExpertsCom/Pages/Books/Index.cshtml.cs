@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
+using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ArmchairExpertsCom.Pages.Books
@@ -11,8 +12,12 @@ namespace ArmchairExpertsCom.Pages.Books
         
         public void OnGet()
         {
-            Repository.LoadDataAndRelations();
             AllBooks = Repository.All<Book>();
+        }
+
+        public void OnPost(string searchString)
+        {
+            AllBooks = ContentMaker.SearchBooks(searchString);
         }
     }
 }

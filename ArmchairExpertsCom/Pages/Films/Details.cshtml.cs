@@ -14,7 +14,6 @@ namespace ArmchairExpertsCom.Pages.Films
         
         public void OnGet(int id)
         {
-            Repository.LoadDataAndRelations();
             Film = Repository.Get<Film>(film => film.Id == id);
             SimilarFilms = ContentMaker.GetSimilarFilms(Film).ToList();
         }

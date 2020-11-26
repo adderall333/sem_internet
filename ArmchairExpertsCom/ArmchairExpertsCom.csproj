@@ -9,4 +9,14 @@
       <PackageReference Include="Npgsql" Version="5.0.0-preview1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Profile\Books.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Profile\Films.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Profile\Friends.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Profile\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Profile\Reviews.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Profile\Selections.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Profile\Serials.cshtml" />
+    </ItemGroup>
+
 </Project>

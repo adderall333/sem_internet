@@ -22,7 +22,6 @@ namespace ArmchairExpertsCom.Models
         public int EndYear { get; set; }
         public string Producers { get; set; }
         public string Actors { get; set; }
-        public int Rating { get; set; }
         
         
         [ForeignKey(typeof(SerialReview))]

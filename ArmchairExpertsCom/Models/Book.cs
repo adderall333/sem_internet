@@ -22,7 +22,6 @@ namespace ArmchairExpertsCom.Models
         public string Description { get; set; }
         public int Year { get; set; }
         public string Authors { get; set; }
-        public int Rating { get; set; }
         
         
         [ForeignKey(typeof(Image))]
