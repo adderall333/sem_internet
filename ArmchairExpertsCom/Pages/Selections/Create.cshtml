@@ -7,7 +7,17 @@
 }
 
 <div class="topBackground">
-    <div id="reviewFormBack">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center" id="wall">Создать подборку</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="topBackground">
+    <div id="reviewFormBack" style="height: 100%; padding-top: 50px; padding-bottom: 50px">
         <div class="container">
             <form method="post">
                 <div class="col-md-2">
@@ -24,22 +34,41 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Добавить книгу</label>
-                        @foreach (var book in Model.ReadBooks)
+                        @if (Model.ReadBooks.Any())
                         {
-                            <input type="checkbox" name="book"> @book.ToString();
+                            var i = 0;
+                            <div>
+                                <label>Добавить книгу</label>
+                                @foreach (var book in Model.ReadBooks)
+                                {
+                                    <div><input type="checkbox" name="Books" value="@i"> @book.ToString();</div>
+                                    i++;
+                                }
+                            </div>
                         }
-                        
-                        <label>Добавить фильм</label>
-                        @foreach (var film in Model.WatchedFilms)
+                        @if (Model.WatchedFilms.Any())
                         {
-                            <input type="checkbox" name="film"> @film.ToString();
+                            var i = 0;
+                            <div>
+                                <label>Добавить фильм</label>
+                                @foreach (var film in Model.WatchedFilms)
+                                {
+                                    <div><input type="checkbox" name="Films" value="@i"> @film.ToString();</div>
+                                    i++;
+                                }
+                            </div>
                         }
-                        
-                        <label>Добавить сериал</label>
-                        @foreach (var serial in Model.WatchedSerials)
+                        @if (Model.WatchedSerials.Any())
                         {
-                            <input type="checkbox" name="serial"> @serial.ToString();
+                            var i = 0;
+                            <div>
+                                <label>Добавить сериал</label>
+                                @foreach (var serial in Model.WatchedSerials)
+                                {
+                                    <div><input type="checkbox" name="Serials" value="@i"> @serial.ToString();</div>
+                                    i++;
+                                }
+                            </div>
                         }
                     </div>
                 </div>

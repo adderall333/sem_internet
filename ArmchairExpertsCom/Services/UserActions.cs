@@ -141,13 +141,15 @@ namespace ArmchairExpertsCom.Services
             Repository.SaveChanges();
         }
 
-        public static void CreateSelection(User user, string title, string text)
+        public static Selection CreateSelection(User user, string title, string text)
         {
             var selection = new Selection {Title = title, Text = text};
             selection.User.Add(user);
             selection.Save();
             
             user.Selections.Add(selection);
+            Repository.SaveChanges();
+            return selection;
         }
 
         public static void AddToSelection(User user, Selection selection, IArtwork artwork)
@@ -169,6 +171,8 @@ namespace ArmchairExpertsCom.Services
                 default:
                     throw new ArgumentException();
             }
+            
+            Repository.SaveChanges();
         }
     }
 }
