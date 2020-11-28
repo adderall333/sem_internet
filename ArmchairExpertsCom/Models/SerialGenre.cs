@@ -5,6 +5,11 @@ namespace ArmchairExpertsCom.Models
 {
     public class SerialGenre : IModel
     {
+        public SerialGenre()
+        {
+            Serials = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -20,7 +25,7 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(Serial))]
-        public DbSet Serials { get; set; } = new DbSet();
+        public DbSet Serials { get; private set; }
         
         
         public void Save()

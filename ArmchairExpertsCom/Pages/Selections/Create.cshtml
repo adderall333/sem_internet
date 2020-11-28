@@ -1,0 +1,52 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Selections.Create
+
+@{
+    ViewData["Title"] = "Создать подборку";
+}
+
+<div class="topBackground">
+    <div id="reviewFormBack">
+        <div class="container">
+            <form method="post">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="title">Название</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="description">Описание</label>
+                        <textarea class="form-control" id="description" rows="15" name="text"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Добавить книгу</label>
+                        @foreach (var book in Model.ReadBooks)
+                        {
+                            <input type="checkbox" name="book"> @book.ToString();
+                        }
+                        
+                        <label>Добавить фильм</label>
+                        @foreach (var film in Model.WatchedFilms)
+                        {
+                            <input type="checkbox" name="film"> @film.ToString();
+                        }
+                        
+                        <label>Добавить сериал</label>
+                        @foreach (var serial in Model.WatchedSerials)
+                        {
+                            <input type="checkbox" name="serial"> @serial.ToString();
+                        }
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <button class="btn btn-outline-light">Опубликовать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

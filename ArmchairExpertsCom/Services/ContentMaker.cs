@@ -8,7 +8,7 @@ namespace ArmchairExpertsCom.Services
 {
     public static class ContentMaker
     {
-        public static double GetBookRating(Book book)
+        public static double GetRating(Book book)
         {
             return Repository
                 .Filter<BookEvaluation>(be => be.Book.First() == book)
@@ -16,7 +16,7 @@ namespace ArmchairExpertsCom.Services
                 .Average();
         }
         
-        public static double GetFilmRating(Film film)
+        public static double GetRating(Film film)
         {
             return Repository
                 .Filter<FilmEvaluation>(fe => fe.Film.First() == film)
@@ -24,7 +24,7 @@ namespace ArmchairExpertsCom.Services
                 .Average();
         }
         
-        public static double GetSerialRating(Serial serial)
+        public static double GetRating(Serial serial)
         {
             return Repository
                 .Filter<SerialEvaluation>(se => se.Serial.First() == serial)

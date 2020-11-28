@@ -1,0 +1,26 @@
+﻿@page
+@model ArmchairExpertsCom.Pages.Selections.Details
+
+@{
+    ViewData["Title"] = "Подборка";
+}
+
+<div class="topBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @Model.Selection.Title
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Model.Selection.Text
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach (var artwork in Model.Selection.GetArtworks())
+{
+    @await Html.PartialAsync("PreviewPartial", artwork);
+}

@@ -1,10 +1,19 @@
-﻿using ArmchairExpertsCom.Models.Interfaces;
+﻿using System.Linq;
+using ArmchairExpertsCom.Models.Interfaces;
 using ArmchairExpertsCom.Models.Utilities;
 
 namespace ArmchairExpertsCom.Models
 {
-    public class Selection : IModel
+    public class Selection : IModel, ICommentable
     {
+        public Selection()
+        {
+            User = new DbSet(this);
+            Books = new DbSet(this);
+            Films = new DbSet(this);
+            Serials = new DbSet(this);
+            Comments = new DbSet(this);
+        }
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -17,22 +26,23 @@ namespace ArmchairExpertsCom.Models
         
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Text { get; set; }
         
         
         [ForeignKey(typeof(User))]
-        public DbSet User { get; set; }
+        public DbSet User { get; private set; }
         
         [ForeignKey(typeof(Book))]
-        public DbSet Books { get; set; }
+        public DbSet Books { get; private set; }
         
         [ForeignKey(typeof(Film))]
-        public DbSet Films { get; set; }
+        public DbSet Films { get; private set; }
         
         [ForeignKey(typeof(Serial))]
-        public DbSet Serials { get; set; }
+        public DbSet Serials { get; private set; }
 
         [ForeignKey(typeof(Comment))]
-        public DbSet Comments { get; set; }
+        public DbSet Comments { get; private set; }
         
         
         public void Save()
@@ -49,6 +59,15 @@ namespace ArmchairExpertsCom.Models
         public void Delete()
         {
             IsDeleted = true;
+        }
+
+        public IArtwork[] GetArtworks()
+        {
+            return Books
+                .Concat(Films)
+                .Concat(Serials)
+                .Select(e => (IArtwork) e)
+                .ToArray();
         }
     }
 }

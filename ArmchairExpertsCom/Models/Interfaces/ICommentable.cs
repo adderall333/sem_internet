@@ -2,9 +2,8 @@
 
 namespace ArmchairExpertsCom.Models.Interfaces
 {
-    public interface IEvaluation
+    public interface ICommentable
     {
-        public int Value { get; set; }
-        public DbSet User { get; }
+        public DbSet Comments { get; }
     }
 }

@@ -5,6 +5,12 @@ namespace ArmchairExpertsCom.Models
 {
     public class BookEvaluation : IModel, IEvaluation
     {
+        public BookEvaluation()
+        {
+            User = new DbSet(this);
+            Book = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -20,10 +26,10 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(User))]
-        public DbSet User { get; set; }
+        public DbSet User { get; private set; }
         
         [ForeignKey(typeof(Book))]
-        public DbSet Book { get; set; }
+        public DbSet Book { get; private set; }
         
         
         public void Save()

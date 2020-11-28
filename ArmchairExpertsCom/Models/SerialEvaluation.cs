@@ -5,6 +5,12 @@ namespace ArmchairExpertsCom.Models
 {
     public class SerialEvaluation : IModel, IEvaluation
     {
+        public SerialEvaluation()
+        {
+            User = new DbSet(this);
+            Serial = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -20,10 +26,10 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(User))]
-        public DbSet User { get; set; }
+        public DbSet User { get; private set; }
         
         [ForeignKey(typeof(Serial))]
-        public DbSet Serial { get; set; }
+        public DbSet Serial { get; private set; }
         
         
         public void Save()

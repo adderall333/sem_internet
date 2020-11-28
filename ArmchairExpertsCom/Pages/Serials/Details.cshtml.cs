@@ -29,18 +29,7 @@ namespace ArmchairExpertsCom.Pages.Serials
 
             Serial = Repository.Get<Serial>(serial => serial.Id == int.Parse(Request.Query["id"]));
 
-            var review = new SerialReview {Text = text};
-            review.User = new DbSet(review, new [] {user});
-            review.Serial = new DbSet(review, new[] {Serial});
-            review.Save();
-            Serial.Reviews.Add(review);
-
-            var evaluation = new SerialEvaluation {Value = value};
-            evaluation.User = new DbSet(evaluation, new[] {user});
-            evaluation.Serial = new DbSet(evaluation, new[] {Serial});
-            evaluation.Save();
-            
-            Repository.SaveChanges();
+            UserActions.WriteReview(user, Serial, text, value);
 
             return Redirect(Request.QueryString.Value);
         }

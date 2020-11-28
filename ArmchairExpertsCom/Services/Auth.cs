@@ -40,7 +40,7 @@ namespace ArmchairExpertsCom.Services
                     Path = "\\img" + imageName
                 };
                 image.Save();
-                user.Images = new DbSet(user, new[] {image});
+                user.Images.Add(image);
             }
             
             user.Save();

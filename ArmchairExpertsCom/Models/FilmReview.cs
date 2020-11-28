@@ -3,8 +3,15 @@ using ArmchairExpertsCom.Models.Utilities;
 
 namespace ArmchairExpertsCom.Models
 {
-    public class FilmReview : IModel, IReview
+    public class FilmReview : IModel, IReview, ICommentable
     {
+        public FilmReview()
+        {
+            User = new DbSet(this);
+            Film = new DbSet(this);
+            Comments = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -20,13 +27,13 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(User))]
-        public DbSet User { get; set; }
+        public DbSet User { get; private set; }
         
         [ForeignKey(typeof(Film))]
-        public DbSet Film { get; set; }
+        public DbSet Film { get; private set; }
 
         [ForeignKey(typeof(Comment))]
-        public DbSet Comments { get; set; }
+        public DbSet Comments { get; private set; }
         
         
         public void Save()

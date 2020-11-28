@@ -6,7 +6,14 @@ using ArmchairExpertsCom.Models.Utilities;
 namespace ArmchairExpertsCom.Models
 {
     public class Book : IModel, IArtwork
-    { 
+    {
+        public Book()
+        {
+            Images = new DbSet(this);
+            Genres = new DbSet(this);
+            Reviews = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -25,13 +32,13 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(Image))]
-        public DbSet Images { get; set; } = new DbSet();
+        public DbSet Images { get; private set; }
         
         [ForeignKey(typeof(BookGenre))]
-        public DbSet Genres { get; set; } = new DbSet();
+        public DbSet Genres { get; private set; }
         
         [ForeignKey(typeof(BookReview))]
-        public DbSet Reviews { get; set; } = new DbSet();
+        public DbSet Reviews { get; private set; } 
 
         
         public void Save()

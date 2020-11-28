@@ -5,6 +5,11 @@ namespace ArmchairExpertsCom.Models
 {
     public class FilmGenre : IModel
     {
+        public FilmGenre()
+        {
+            Films = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -20,7 +25,7 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(Film))]
-        public DbSet Films { get; set; } = new DbSet();
+        public DbSet Films { get; private set; }
         
         
         public void Save()

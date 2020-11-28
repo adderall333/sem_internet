@@ -5,6 +5,16 @@ namespace ArmchairExpertsCom.Models
 {
     public class User : IModel
     {
+        public User()
+        {
+            Images = new DbSet(this);
+            Subscribes = new DbSet(this);
+            PendingBooks = new DbSet(this);
+            PendingFilms = new DbSet(this);
+            PendingSerials = new DbSet(this);
+            Selections = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -24,25 +34,22 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(Image))]
-        public DbSet Images { get; set; }
+        public DbSet Images { get; private set;  }
         
         [ForeignKey(typeof(User))]
-        public DbSet Subscribes { get; set; }
+        public DbSet Subscribes { get; private set; }
         
         [ForeignKey(typeof(Book))]
-        public DbSet ReadBooks { get; set; }
+        public DbSet PendingBooks { get; private set; }
 
         [ForeignKey(typeof(Film))]
-        public DbSet WatchedFilms { get; set; }
-        
-        [ForeignKey(typeof(Serial))]
-        public DbSet WatchedSerials { get; set; }
-        
-        [ForeignKey(typeof(Comment))]
-        public DbSet Comments { get; set; }
-        
+        public DbSet PendingFilms { get; private set; }
+
+        [ForeignKey(typeof(Serial))] 
+        public DbSet PendingSerials { get; private set; }
+
         [ForeignKey(typeof(Selection))]
-        public DbSet Selections { get; set; }
+        public DbSet Selections { get; private set; }
         
         
         public void Save()

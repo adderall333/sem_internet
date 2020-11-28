@@ -34,7 +34,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 mx-4" id="carouselPictures">
-                <h2 id="book_description">Рейтинг: @ContentMaker.GetBookRating(Model.Book)</h2>
+                <h2 id="book_description">Рейтинг: @ContentMaker.GetRating(Model.Book)</h2>
             </div>
         </div>
     </div>
@@ -83,3 +83,83 @@
         </div>
     </div>
 </div>
+
+<div class="topBackground">
+    <div class="filterBackground bg-light my-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" id="filterButton">
+                    <a class="nav-link active">
+                        <button class="btn write-review-btn" type="button" id="dropdownMenuButton" aria-haspopup="true">
+                            Написать рецензию
+                        </button>
+                    </a>
+                </div>
+                <form class="form-inline mx-2 my-2 my-lg-0">
+                    <input id="widthForFilter" class="form-control mr-sm-2" type="search"
+                           placeholder="Поиск по имени пользователя" aria-label="Search">
+                    <button class="btn my-2 my-sm-0" type="submit">Найти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="topBackground">
+    <div id="reviewFormBack" style="display: none;">
+        <div class="container">
+            <form method="post">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="mark">Оценка</label>
+                        <select class="form-control" id="mark" name="value">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="review">Рецензия</label>
+                        <textarea class="form-control" id="review" rows="15" name="text"></textarea>
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <button class="btn btn-outline-light">Опубликовать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="topBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center" id="wall">Рецензии</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@foreach (BookReview review in Model.Book.Reviews)
+{
+    @await Html.PartialAsync("ReviewPartial", review);
+}
+
+<script>
+    window.onload = function() {
+        $(".write-review-btn").click(function() {
+            $("#reviewFormBack").slideToggle();
+        })
+    }
+</script>

@@ -5,6 +5,13 @@ namespace ArmchairExpertsCom.Models
 {
     public class Film : IModel, IArtwork
     {
+        public Film()
+        {
+            Reviews = new DbSet(this);
+            Genres = new DbSet(this);
+            Images = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -24,13 +31,13 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(FilmReview))]
-        public DbSet Reviews { get; set; }
+        public DbSet Reviews { get; private set; }
         
         [ForeignKey(typeof(FilmGenre))]
-        public DbSet Genres { get; set; }
+        public DbSet Genres { get; private set; }
         
         [ForeignKey(typeof(Image))]
-        public DbSet Images { get; set; }
+        public DbSet Images { get; private set; }
         
         
         public void Save()

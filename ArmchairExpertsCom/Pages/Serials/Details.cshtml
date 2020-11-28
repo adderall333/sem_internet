@@ -35,7 +35,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 mx-4" id="carouselPictures">
-                <h2 id="book_description">Рейтинг: @ContentMaker.GetSerialRating(Model.Serial)</h2>
+                <h2 id="book_description">Рейтинг: @ContentMaker.GetRating(Model.Serial)</h2>
             </div>
         </div>
     </div>
@@ -118,26 +118,10 @@
     <div id="reviewFormBack" style="display: none;">
         <div class="container">
             <form method="post">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="mark">Оценка</label>
-                        <select class="form-control" id="mark" name="value">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-                </div>
+                
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="review">Рецензия</label>
+                        <label for="review">Описание</label>
                         <textarea class="form-control" id="review" rows="15" name="text"></textarea>
                     </div>
                 </div>

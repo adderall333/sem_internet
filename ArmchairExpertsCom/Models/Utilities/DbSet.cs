@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArmchairExpertsCom.Models.Interfaces;
@@ -7,15 +8,21 @@ namespace ArmchairExpertsCom.Models.Utilities
 {
     public class DbSet : IEnumerable<IModel>
     {
-        [MetaData]
-        public bool IsChanged { get; set; }
-
         private readonly List<IModel> modelsList;
         
         public IModel Parent { get; }
+        
         public List<IModel> NewModels { get; }
         public List<IModel> RemovedModels { get; }
 
+        public DbSet(IModel parent)
+        {
+            Parent = parent;
+            modelsList = new List<IModel>();
+            NewModels = new List<IModel>();
+            RemovedModels = new List<IModel>();
+        }
+        
         public DbSet(IModel parent, IEnumerable<IModel> models)
         {
             Parent = parent;
@@ -52,7 +59,10 @@ namespace ArmchairExpertsCom.Models.Utilities
 
         public IModel First()
         {
-            return modelsList?[0];
+            if (modelsList is null)
+                return null;
+
+            return modelsList.Count == 0 ? null : modelsList[0];
         }
 
         public IEnumerator<IModel> GetEnumerator()

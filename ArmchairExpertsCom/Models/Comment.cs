@@ -6,6 +6,11 @@ namespace ArmchairExpertsCom.Models
 {
     public class Comment : IModel
     {
+        public Comment()
+        {
+            User = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -21,7 +26,7 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(User))]
-        public DbSet User { get; set; } = new DbSet();
+        public DbSet User { get; private set; }
         
         
         public void Save()

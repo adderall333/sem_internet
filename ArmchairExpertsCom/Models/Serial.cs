@@ -5,6 +5,13 @@ namespace ArmchairExpertsCom.Models
 {
     public class Serial : IModel, IArtwork
     {
+        public Serial()
+        {
+            Reviews = new DbSet(this);
+            Genres = new DbSet(this);
+            Images = new DbSet(this);
+        }
+        
         [MetaData]
         public bool IsNew { get; set; }
         
@@ -25,13 +32,13 @@ namespace ArmchairExpertsCom.Models
         
         
         [ForeignKey(typeof(SerialReview))]
-        public DbSet Reviews { get; set; }
+        public DbSet Reviews { get; private set; }
         
         [ForeignKey(typeof(SerialGenre))]
-        public DbSet Genres { get; set; }
+        public DbSet Genres { get; private set; }
         
         [ForeignKey(typeof(Image))]
-        public DbSet Images { get; set; }
+        public DbSet Images { get; private set; }
         
         
         public void Save()

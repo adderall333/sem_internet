@@ -1,28 +1,17 @@
 ﻿@page
 @using ArmchairExpertsCom.Models
-@model ArmchairExpertsCom.Pages.Expert.Selections
+@model ArmchairExpertsCom.Pages.Selections.Index
 
 @{
-    Layout = "Shared/_ProfileLayout";
     ViewData["Title"] = "Подборки";
 }
-
-<div class="topBackground">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="text-center" id="wall">Подборки</h2>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="topBackground">
     <div class="filterBackground bg-light my-0">
         <div class="container">
             <div class="row">
                 <div class="col-md-3" id="filterButton">
-                    <a class="nav-link active" asp-page="Selections/Create">
+                    <a class="nav-link active" asp-page="/Selections/Create">
                         <button class="btn write-review-btn" type="button" id="dropdownMenuButton" aria-haspopup="true">
                             Создать подборку
                         </button>
