@@ -14,7 +14,7 @@ namespace ArmchairExpertsCom.Services
         {
             if (value < 0 || value > 10)
                 throw new ArgumentException();
-            
+
             var evaluation = new BookEvaluation {Value = value};
             evaluation.Book.Add(book);
             evaluation.User.Add(user);
@@ -70,6 +70,24 @@ namespace ArmchairExpertsCom.Services
                     return;
                 case Serial _:
                     user.PendingSerials.Add(artwork);
+                    return;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        public static void UnDelay(User user, IModel artwork)
+        {
+            switch (artwork)
+            {
+                case Book _:
+                    user.PendingBooks.Remove(artwork);
+                    return;
+                case Film _:
+                    user.PendingFilms.Remove(artwork);
+                    return;
+                case Serial _:
+                    user.PendingSerials.Remove(artwork);
                     return;
                 default:
                     throw new ArgumentException();

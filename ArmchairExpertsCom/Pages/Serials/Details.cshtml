@@ -43,6 +43,47 @@
 
 <div class="topBackground">
     <div class="container">
+        <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+            <div class="col-md-2">
+                <form method="post" asp-page-handler="evaluate" asp-route-id="@Model.Serial.Id">
+                    <div class="form-group">
+                        <select class="form-control" id="mark" name="value">
+                            @for (var i = 1; i < 11; i++)
+                            {
+                                if (Model.Evaluation == i)
+                                {
+                                    <option value="@i" selected>@i</option>
+                                }
+                                else
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <button class="btn btn-light">Оценить</button>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <form method="post" asp-page-handler="delay" asp-route-id="@Model.Serial.Id">
+                    <div class="col-md-2">
+                        @if (Model.isPending)
+                        {
+                            <button class="btn btn-light">Убрать из отложенного</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-light">Отложить</button>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="topBackground">
+    <div class="container">
         <h3 class="text-center" id="titleText">Похожие сериалы</h3>
         <div class="container">
             <div id="carouselTOP" class="carousel slide" data-ride="carousel">
@@ -117,11 +158,27 @@
 <div class="topBackground">
     <div id="reviewFormBack" style="display: none;">
         <div class="container">
-            <form method="post">
-                
+            <form method="post" asp-page-handler="review" asp-route-id="@Model.Serial.Id">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="mark">Оценка</label>
+                        <select class="form-control" id="mark" name="value">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="review">Описание</label>
+                        <label for="review">Рецензия</label>
                         <textarea class="form-control" id="review" rows="15" name="text"></textarea>
                     </div>
                 </div>

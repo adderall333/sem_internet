@@ -22,10 +22,10 @@
                 </a>
                 <p id="book_description">Авторы: @Model.Book.Authors</p>
                 <p id="book_description">Жанры:
-                @foreach (BookGenre genre in @Model.Book.Genres)
-                {
-                    <text>@genre.Name, </text>
-                }
+                    @foreach (BookGenre genre in @Model.Book.Genres)
+                    {
+                        <text>@genre.Name, </text>
+                    }
                 </p>
                 <p id="book_description">Год: @Model.Book.Year</p>
                 <p id="book_description">@Model.Book.Description</p>
@@ -35,6 +35,47 @@
         <div class="row">
             <div class="col-md-3 mx-4" id="carouselPictures">
                 <h2 id="book_description">Рейтинг: @ContentMaker.GetRating(Model.Book)</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="topBackground">
+    <div class="container">
+        <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+            <div class="col-md-2">
+                <form method="post" asp-page-handler="evaluate" asp-route-id="@Model.Book.Id">
+                    <div class="form-group">
+                        <select class="form-control" id="mark" name="value">
+                            @for (var i = 1; i < 11; i++)
+                            {
+                                if (Model.Evaluation == i)
+                                {
+                                    <option value="@i" selected>@i</option>
+                                }
+                                else
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <button class="btn btn-light">Оценить</button>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <form method="post" asp-page-handler="delay" asp-route-id="@Model.Book.Id">
+                    <div class="col-md-2">
+                        @if (Model.isPending)
+                        {
+                            <button class="btn btn-light">Убрать из отложенного</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-light">Отложить</button>
+                        }
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -108,7 +149,7 @@
 <div class="topBackground">
     <div id="reviewFormBack" style="display: none;">
         <div class="container">
-            <form method="post">
+            <form method="post" asp-page-handler="review" asp-route-id="@Model.Book.Id">
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="mark">Оценка</label>

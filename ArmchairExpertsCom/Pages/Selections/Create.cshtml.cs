@@ -12,7 +12,7 @@ namespace ArmchairExpertsCom.Pages.Selections
 {
     public class Create : PageModel
     {
-        public User User { get; private set; }
+        public User CurrentUser { get; private set; }
         public List<Book> ReadBooks { get; private set; } 
         public List<Film> WatchedFilms { get; private set; } 
         public List<Serial> WatchedSerials { get; private set; } 
@@ -28,23 +28,23 @@ namespace ArmchairExpertsCom.Pages.Selections
         
         public IActionResult OnGet()
         {
-            User = Auth.GetUser(HttpContext);
+            CurrentUser = Auth.GetUser(HttpContext);
         
-            if (User is null)
+            if (CurrentUser is null)
                 return Redirect("/login?from=selections/create");
 
             ReadBooks = Repository
-                .Filter<BookEvaluation>(be => be.User.First() == User)
+                .Filter<BookEvaluation>(be => be.User.First() == CurrentUser)
                 .Select(be => (Book) be.Book.First())
                 .ToList();
             
             WatchedFilms = Repository
-                .Filter<FilmEvaluation>(fe => fe.User.First() == User)
+                .Filter<FilmEvaluation>(fe => fe.User.First() == CurrentUser)
                 .Select(fe => (Film) fe.Film.First())
                 .ToList();
             
             WatchedSerials = Repository
-                .Filter<SerialEvaluation>(se => se.User.First() == User)
+                .Filter<SerialEvaluation>(se => se.User.First() == CurrentUser)
                 .Select(se => (Serial) se.Serial.First())
                 .ToList();
 
@@ -53,38 +53,38 @@ namespace ArmchairExpertsCom.Pages.Selections
 
         public IActionResult OnPost(string title, string text)
         {
-            User = Auth.GetUser(HttpContext);
+            CurrentUser = Auth.GetUser(HttpContext);
             
-            if (User is null)
+            if (CurrentUser is null)
                 return Redirect("/login?from=selections/create");
             
             ReadBooks = Repository
-                .Filter<BookEvaluation>(be => be.User.First() == User)
+                .Filter<BookEvaluation>(be => be.User.First() == CurrentUser)
                 .Select(be => (Book) be.Book.First())
                 .ToList();
             
             WatchedFilms = Repository
-                .Filter<FilmEvaluation>(fe => fe.User.First() == User)
+                .Filter<FilmEvaluation>(fe => fe.User.First() == CurrentUser)
                 .Select(fe => (Film) fe.Film.First())
                 .ToList();
             
             WatchedSerials = Repository
-                .Filter<SerialEvaluation>(se => se.User.First() == User)
+                .Filter<SerialEvaluation>(se => se.User.First() == CurrentUser)
                 .Select(se => (Serial) se.Serial.First())
                 .ToList();
 
-            var selection = UserActions.CreateSelection(User, title, text);
+            var selection = UserActions.CreateSelection(CurrentUser, title, text);
             foreach (var book in Books.Select(b => ReadBooks[b]))
             {
-                UserActions.AddToSelection(User, selection, book);
+                UserActions.AddToSelection(CurrentUser, selection, book);
             }
             foreach (var film in Films.Select(f => WatchedFilms[f]))
             {
-                UserActions.AddToSelection(User, selection, film);
+                UserActions.AddToSelection(CurrentUser, selection, film);
             }
             foreach (var serial in Serials.Select(s => WatchedSerials[s]))
             {
-                UserActions.AddToSelection(User, selection, serial);
+                UserActions.AddToSelection(CurrentUser, selection, serial);
             }
             
             return Page();

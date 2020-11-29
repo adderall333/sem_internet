@@ -1,0 +1,14 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@using Microsoft.AspNetCore.Http
+@model ArmchairExpertsCom.Pages.Expert.Pending
+
+@{
+    Layout = "Shared/_ProfileLayout";
+    ViewData["Title"] = "Профиль";
+}
+
+@foreach (var artwork in Model.Artworks)
+{
+    @await Html.PartialAsync("PreviewPartial", artwork);
+}
