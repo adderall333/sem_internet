@@ -11,10 +11,6 @@ namespace ArmchairExpertsCom.Pages
         
         public void OnGet(string searchString)
         {
-        }
-        
-        public void OnPost(string searchString)
-        {
             FoundModels = ContentMaker.SearchAll(searchString);
         }
     }

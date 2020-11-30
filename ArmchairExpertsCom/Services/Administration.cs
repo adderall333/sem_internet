@@ -10,9 +10,9 @@ namespace ArmchairExpertsCom.Services
 {
     public static class Administration
     {
-        public static bool IsAdmin(string authKey)
+        public static bool IsAdmin(HttpContext context)
         {
-            return Repository.Get<User>(user => user.PasswordKey == authKey).Role == "admin";
+            return Auth.GetUser(context).Role == "admin";
         }
 
         public static void EditModel(string typeName, int id, IFormCollection changes)

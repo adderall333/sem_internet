@@ -23,9 +23,9 @@
                 <p id="book_description">Режиссеры: @Model.Film.Producers</p>
                 <p id="book_description">Актёры: @Model.Film.Actors</p>
                 <p id="book_description">Жанры:
-                @foreach (FilmGenre genre in @Model.Film.Genres)
+                @foreach (FilmGenre genre in Model.Film.Genres)
                 {
-                    <text>@genre.Name, </text>
+                    <a asp-page="/Films/Index" asp-route-genreid="@genre.Id">@genre.Name </a>
                 }
                 </p>
                 <p id="book_description">Год: @Model.Film.Year</p>
@@ -67,7 +67,7 @@
             <div class="col-md-2">
                 <form method="post" asp-page-handler="delay" asp-route-id="@Model.Film.Id">
                     <div class="col-md-2">
-                        @if (Model.isPending)
+                        @if (Model.IsPending)
                         {
                             <button class="btn btn-light">Убрать из отложенного</button>
                         }

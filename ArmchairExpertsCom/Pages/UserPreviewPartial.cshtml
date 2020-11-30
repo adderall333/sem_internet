@@ -1,0 +1,23 @@
+﻿@using ArmchairExpertsCom.Models
+@using ArmchairExpertsCom.Services
+@model User
+
+<div class="topBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" id="carouselPictures">
+                @foreach (Image image in Model.Images)
+                {
+                    <img id="bookPictures" class="rounded border border-dark " src="@image.Path">
+                }
+            </div>
+            <div class="col text-center">
+                <h3 id="books_nameOfPictures"><a asp-page="/Expert/Index" asp-route-id="@Model.Id">@Model.FullName</a></h3>
+                <div class="col">
+                    <div id="book_description">Дата рождения: @Model.BirthDate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

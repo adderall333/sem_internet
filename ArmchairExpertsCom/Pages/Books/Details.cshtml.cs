@@ -13,7 +13,7 @@ namespace ArmchairExpertsCom.Pages.Books
         public Book Book { get; private set; }
         public List<Book> SimilarBooks { get; private set; }
         public int? Evaluation { get; private set; }
-        public bool isPending { get; private set; }
+        public bool IsPending { get; private set; }
         
         public void OnGet(int id)
         {
@@ -25,7 +25,7 @@ namespace ArmchairExpertsCom.Pages.Books
             if (user == null) return;
             Evaluation = Repository
                 .Get<BookEvaluation>(e => e.User.First() == user && e.Book.First() == Book)?.Value;
-            isPending = user.PendingBooks.Contains(Book);
+            IsPending = user.PendingBooks.Contains(Book);
         }
         
         public IActionResult OnPostReview(int value, string text)

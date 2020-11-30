@@ -21,7 +21,7 @@ namespace ArmchairExpertsCom.Pages.Admin
             if (HttpContext.Session.GetString("authKey") is null)
                 return Redirect($"/login?from=admin/models?type={type}");
             
-            if (!Administration.IsAdmin(HttpContext.Session.GetString("authKey")))
+            if (!Administration.IsAdmin(HttpContext))
                 return Forbid();
 
             Type = Repository.GetType(type);

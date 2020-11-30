@@ -18,7 +18,7 @@ namespace ArmchairExpertsCom.Pages.Admin
             if (HttpContext.Session.GetString("authKey") is null)
                 return Redirect($"/login?from=admin/models?type={type}");
             
-            if (!Administration.IsAdmin(HttpContext.Session.GetString("authKey")))
+            if (!Administration.IsAdmin(HttpContext))
                 return Forbid();
             
             Model = (IModel) Activator.CreateInstance(Repository.GetType(type));
@@ -31,7 +31,7 @@ namespace ArmchairExpertsCom.Pages.Admin
             if (HttpContext.Session.GetString("authKey") is null)
                 return Redirect($"/login?from=admin/models?type={Request.Query["type"].First()}");
             
-            if (!Administration.IsAdmin(HttpContext.Session.GetString("authKey")))
+            if (!Administration.IsAdmin(HttpContext))
                 return Forbid();
             
             var model = Administration.CreateModel(

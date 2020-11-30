@@ -14,7 +14,7 @@ namespace ArmchairExpertsCom.Pages.Serials
         public Serial Serial { get; private set; }
         public List<Serial> SimilarSerials { get; private set; }
         public int? Evaluation { get; private set; }
-        public bool isPending { get; private set; }
+        public bool IsPending { get; private set; }
         
         public void OnGet(int id)
         {
@@ -26,7 +26,7 @@ namespace ArmchairExpertsCom.Pages.Serials
             if (user == null) return;
             Evaluation = Repository
                 .Get<SerialEvaluation>(e => e.User.First() == user && e.Serial.First() == Serial)?.Value;
-            isPending = user.PendingSerials.Contains(Serial);
+            IsPending = user.PendingSerials.Contains(Serial);
         }
         
         public IActionResult OnPostReview(int value, string text)

@@ -14,7 +14,7 @@ namespace ArmchairExpertsCom.Pages.Films
         public Film Film { get; private set; }
         public List<Film> SimilarFilms { get; private set; }
         public int? Evaluation { get; private set; }
-        public bool isPending { get; private set; }
+        public bool IsPending { get; private set; }
         
         public void OnGet(int id)
         {
@@ -26,7 +26,7 @@ namespace ArmchairExpertsCom.Pages.Films
             if (user == null) return;
             Evaluation = Repository
                 .Get<FilmEvaluation>(e => e.User.First() == user && e.Film.First() == Film)?.Value;
-            isPending = user.PendingFilms.Contains(Film);
+            IsPending = user.PendingFilms.Contains(Film);
         }
 
         public IActionResult OnPostReview(int value, string text)

@@ -37,5 +37,26 @@ namespace ArmchairExpertsCom.Pages.Expert
             
             return Page();
         }
+        
+        public IActionResult OnPost(int id)
+        {
+            var subscriber = Auth.GetUser(HttpContext);
+            
+            if (subscriber is null)
+                return Redirect("/login?from=expert");
+
+            var subscribe = Repository.Get<User>(u => u.Id == id);
+
+            if (Auth.IsSubscribed(HttpContext))
+            {
+                UserActions.UnSubscribe(subscriber, subscribe);
+            }
+            else
+            {
+                UserActions.Subscribe(subscriber, subscribe);
+            }
+
+            return Redirect(Request.QueryString.Value);
+        }
     }
 }

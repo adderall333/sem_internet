@@ -64,12 +64,15 @@ namespace ArmchairExpertsCom.Services
             {
                 case Book _:
                     user.PendingBooks.Add(artwork);
+                    Repository.SaveChanges();
                     return;
                 case Film _:
                     user.PendingFilms.Add(artwork);
+                    Repository.SaveChanges();
                     return;
                 case Serial _:
                     user.PendingSerials.Add(artwork);
+                    Repository.SaveChanges();
                     return;
                 default:
                     throw new ArgumentException();
@@ -82,12 +85,15 @@ namespace ArmchairExpertsCom.Services
             {
                 case Book _:
                     user.PendingBooks.Remove(artwork);
+                    Repository.SaveChanges();
                     return;
                 case Film _:
                     user.PendingFilms.Remove(artwork);
+                    Repository.SaveChanges();
                     return;
                 case Serial _:
                     user.PendingSerials.Remove(artwork);
+                    Repository.SaveChanges();
                     return;
                 default:
                     throw new ArgumentException();
@@ -98,12 +104,14 @@ namespace ArmchairExpertsCom.Services
         {
             if (subscriber.Subscribes.Contains(subscribe)) return;
             subscriber.Subscribes.Add(subscribe);
+            Repository.SaveChanges();
         }
 
         public static void UnSubscribe(User subscriber, User subscribe)
         {
             if (!subscriber.Subscribes.Contains(subscribe)) return;
             subscriber.Subscribes.Remove(subscribe);
+            Repository.SaveChanges();
         }
 
         public static void WriteReview(User user, Book book, string text, int value)

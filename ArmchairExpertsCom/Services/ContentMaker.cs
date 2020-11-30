@@ -37,7 +37,7 @@ namespace ArmchairExpertsCom.Services
             return Repository
                 .Filter<Book>(b => b != book)
                 .Select(b => (b, GetMatchingGenresCount(book, b)))
-                .OrderBy(t => t.Item2)
+                .OrderByDescending(t => t.Item2)
                 .Select(t => t.Item1)
                 .Take(9);
         }
@@ -47,7 +47,7 @@ namespace ArmchairExpertsCom.Services
             return Repository
                 .Filter<Film>(f => f != film)
                 .Select(f => (f, GetMatchingGenresCount(film, f)))
-                .OrderBy(t => t.Item2)
+                .OrderByDescending(t => t.Item2)
                 .Select(t => t.Item1)
                 .Take(9);
         }
@@ -57,7 +57,7 @@ namespace ArmchairExpertsCom.Services
             return Repository
                 .Filter<Serial>(s => s != serial)
                 .Select(s => (s, GetMatchingGenresCount(serial, s)))
-                .OrderBy(t => t.Item2)
+                .OrderByDescending(t => t.Item2)
                 .Select(t => t.Item1)
                 .Take(9);
         }

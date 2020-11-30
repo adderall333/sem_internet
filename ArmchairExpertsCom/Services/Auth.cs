@@ -66,5 +66,21 @@ namespace ArmchairExpertsCom.Services
                 ? null
                 : Repository.Get<User>(u => IsCorrectAuthKey(u.PasswordKey, u.Login, authKey));
         }
+
+        public static bool IsAuthenticated(HttpContext context)
+        {
+            var authKey = context.Session.GetString("authKey");
+            return Repository.Get<User>(u => IsCorrectAuthKey(u.PasswordKey, u.Login, authKey)) != null;
+        }
+        
+        public static bool IsOtherUser(HttpContext context) 
+            => IsAuthenticated(context) &&
+               context.Request.Query["id"].Count > 0 &&
+               GetUser(context).Id != int.Parse(context.Request.Query["id"]);
+
+        public static bool IsSubscribed(HttpContext context)
+            => IsOtherUser(context) && 
+               GetUser(context).Subscribes
+                .Contains(Repository.Get<User>(u => u.Id == int.Parse(context.Request.Query["id"])));
     }
 }

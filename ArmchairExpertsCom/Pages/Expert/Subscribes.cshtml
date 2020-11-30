@@ -1,4 +1,5 @@
 ﻿@page
+@using ArmchairExpertsCom.Models
 @model ArmchairExpertsCom.Pages.Expert.Friends
 
 @{
@@ -10,13 +11,13 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h2 class="text-center" id="wall">Друзья</h2>
+                    <h2 class="text-center" id="wall">Подписки</h2>
                 </div>
             </div>
         </div>
     </div>
     <div class="topBackground">
-        <h3 class="text-center" id="titleText">Возможно, вы подружитесь</h3>
+        <h3 class="text-center" id="titleText">Эксперты с похожими интересами</h3>
         <div class="container">
             <div id="carouselTOP" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators my-0">
@@ -118,27 +119,8 @@
         </div>
     </div>
 
-    <div class="topBackground">
-        <div id="infinite-scroll">
-            <h3 class="text-center" id="titleText">Мои друзья</h3>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3" id="carouselPictures">
-                        <a href="profile.html">
-                            <img id="bookPictures" class="rounded border border-dark " src="pictures/top1.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="profile.html">
-                            <h3 class="text-center" id="books_nameOfPictures">Фамилия Имя</h3>
-                        </a>
-                        <div class="col">
-                            <p class="text-center">Информация</p>
-                            <p id="book_description">Оценок:</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @foreach (var subscribe in Model.Expert.Subscribes)
+    {
+        @await Html.PartialAsync("UserPreviewPartial", (User) subscribe);
+    }
 </div>
