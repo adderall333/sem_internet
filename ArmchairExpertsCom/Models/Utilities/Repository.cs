@@ -18,7 +18,8 @@ namespace ArmchairExpertsCom.Models.Utilities
             typeof(BookReview),
             typeof(FilmReview),
             typeof(SerialReview),
-            typeof(Selection)
+            typeof(Selection),
+            typeof(PrivacySettings)
         };
         
         private static readonly Type[] AdminCreatedTypes = 

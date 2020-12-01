@@ -57,6 +57,19 @@ namespace ArmchairExpertsCom.Models.Utilities
                 RemovedModels.Add(model);
         }
 
+        public void Clear()
+        {
+            foreach (var model in modelsList)
+            {
+                if (NewModels.Contains(model))
+                    NewModels.Remove(model);
+                else
+                    RemovedModels.Add(model);
+            }
+            
+            modelsList.Clear();
+        }
+
         public IModel First()
         {
             if (modelsList is null)

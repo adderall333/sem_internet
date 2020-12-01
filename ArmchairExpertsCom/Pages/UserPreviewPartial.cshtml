@@ -12,7 +12,7 @@
                 }
             </div>
             <div class="col text-center">
-                <h3 id="books_nameOfPictures"><a asp-page="/Expert/Index" asp-route-id="@Model.Id">@Model.FullName</a></h3>
+                <h3 id="books_nameOfPictures"><a asp-page="/Expert/Index" asp-route-id="@Model.Id">@Model.GetFullName()</a></h3>
                 <div class="col">
                     <div id="book_description">Дата рождения: @Model.BirthDate</div>
                 </div>

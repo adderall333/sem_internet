@@ -13,14 +13,13 @@ namespace ArmchairExpertsCom.Pages
     {
         public string Status { get; private set; }
         
-        private IWebHostEnvironment environment;
+        private readonly IWebHostEnvironment environment;
         
         public Registration(IWebHostEnvironment environment)
         {
             this.environment = environment;
         }
-        
-        
+
         public void OnGet()
         {
             if (HttpContext.Session.GetString("auth_key") != null)

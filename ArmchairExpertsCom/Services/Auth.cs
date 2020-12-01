@@ -27,7 +27,8 @@ namespace ArmchairExpertsCom.Services
             var user = new User
             {
                 Login = login,
-                FullName = surname + " " + name,
+                FirstName = name,
+                LastName = surname,
                 BirthDate = birthday,
                 PasswordKey = key,
                 Role = "user",
@@ -37,7 +38,7 @@ namespace ArmchairExpertsCom.Services
             {
                 var image = new Image
                 {
-                    Path = "\\img" + imageName
+                    Path = "\\img\\" + imageName
                 };
                 image.Save();
                 user.Images.Add(image);
@@ -74,13 +75,38 @@ namespace ArmchairExpertsCom.Services
         }
         
         public static bool IsOtherUser(HttpContext context) 
+            => context.Request.Query["id"].Count > 0 &&
+               GetUser(context).Id != int.Parse(context.Request.Query["id"]);
+        
+        public static bool IsPossibleToSubscribe(HttpContext context) 
             => IsAuthenticated(context) &&
                context.Request.Query["id"].Count > 0 &&
                GetUser(context).Id != int.Parse(context.Request.Query["id"]);
 
         public static bool IsSubscribed(HttpContext context)
-            => IsOtherUser(context) && 
+            => IsPossibleToSubscribe(context) && 
                GetUser(context).Subscribes
                 .Contains(Repository.Get<User>(u => u.Id == int.Parse(context.Request.Query["id"])));
+
+        public static void EditProfile(User user, string name, string surname, string birthday, string imageName)
+        {
+            user.FirstName = name ?? user.FirstName;
+            user.LastName = surname ?? user.LastName;
+            user.BirthDate = birthday ?? user.BirthDate;
+            
+            if (!string.IsNullOrEmpty(imageName))
+            {
+                var image = new Image
+                {
+                    Path = "\\img\\" + imageName
+                };
+                image.Save();
+                user.Images.Clear();
+                user.Images.Add(image);
+            }
+            
+            user.Save();
+            Repository.SaveChanges();
+        }
     }
 }

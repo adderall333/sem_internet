@@ -1,0 +1,73 @@
+﻿@page
+@using ArmchairExpertsCom.Models
+@model ArmchairExpertsCom.Pages.Expert.Privacy
+
+@{
+    Layout = "Shared/_ProfileLayout";
+    ViewData["Title"] = "Настройки приватности";
+
+    var privacy = (PrivacySettings) Model.Expert.Privacy.First();
+}
+
+<div class="topBackground">
+    <div class="container" style="padding-bottom: 15px; padding-top: 15px;">
+        <form method="post">
+            <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                @if (privacy.AreWatchedOpen)
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" name="watched" checked>
+                }
+                else
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" name="watched">
+                }
+                <label class="custom-control-label" for="customCheck1">Просмотренное/прочитанное могут видеть все пользователи</label>
+            </div>
+            <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                @if (privacy.AreSubscribesOpen)
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck2" name="subscribes" checked>
+                }
+                else
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck2" name="subscribes">
+                }
+                <label class="custom-control-label" for="customCheck2">Подписки могут видеть все пользователи</label>
+            </div>
+            <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                @if (privacy.AreReviewsOpen)
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck3" name="reviews" checked>
+                }
+                else
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck3" name="reviews">
+                }
+                <label class="custom-control-label" for="customCheck3">Рецензии могут видеть все пользователи</label>
+            </div>
+            <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                @if (privacy.AreSelectionsOpen)
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck4" name="selections" checked>
+                }
+                else
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck4" name="selections">
+                }
+                <label class="custom-control-label" for="customCheck4">Подборки могут видеть все пользователи</label>
+            </div>
+            <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                @if (privacy.ArePendingOpen)
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck5" name="pending" checked>
+                }
+                else
+                {
+                    <input type="checkbox" class="custom-control-input" id="customCheck5" name="pending">
+                }
+                <label class="custom-control-label" for="customCheck5">Отложенное могут видеть все пользователи</label>
+            </div>
+            <button class="btn btn-light">Изменить</button>
+        </form>
+    </div>
+</div>

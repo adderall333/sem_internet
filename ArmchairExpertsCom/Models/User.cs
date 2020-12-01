@@ -13,6 +13,7 @@ namespace ArmchairExpertsCom.Models
             PendingFilms = new DbSet(this);
             PendingSerials = new DbSet(this);
             Selections = new DbSet(this);
+            Privacy = new DbSet(this);
         }
         
         [MetaData]
@@ -26,7 +27,8 @@ namespace ArmchairExpertsCom.Models
         
         
         public int Id { get; set; }
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Login { get; set; }
         public string PasswordKey { get; set; }
         public string BirthDate { get; set; }
@@ -51,6 +53,9 @@ namespace ArmchairExpertsCom.Models
         [ForeignKey(typeof(Selection))]
         public DbSet Selections { get; private set; }
         
+        [ForeignKey(typeof(PrivacySettings))]
+        public DbSet Privacy { get; private set; }
+        
         
         public void Save()
         {
@@ -67,10 +72,15 @@ namespace ArmchairExpertsCom.Models
         {
             IsDeleted = true;
         }
+
+        public string GetFullName()
+        {
+            return FirstName + " " + LastName;
+        }
         
         public override string ToString()
         {
-            return $"{Id}.{FullName}";
+            return $"{Id}.{GetFullName()}";
         }
     }
 }

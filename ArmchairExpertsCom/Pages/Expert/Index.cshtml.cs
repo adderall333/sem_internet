@@ -14,7 +14,7 @@ namespace ArmchairExpertsCom.Pages.Expert
         
         public IActionResult OnGet(int? id)
         {
-            if (id is null)
+            if (!Auth.IsOtherUser(HttpContext))
             {
                 Expert = Auth.GetUser(HttpContext);
             

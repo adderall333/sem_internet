@@ -16,7 +16,7 @@ namespace ArmchairExpertsCom.Pages.Expert
         
         public IActionResult OnGet(int? id)
         {
-            if (id is null)
+            if (!Auth.IsOtherUser(HttpContext))
             {
                 Expert = Auth.GetUser(HttpContext);
             
@@ -26,6 +26,8 @@ namespace ArmchairExpertsCom.Pages.Expert
             else
             {
                 Expert = Repository.Get<User>(u => u.Id == id);
+                if (!((PrivacySettings) Expert.Privacy.First()).AreWatchedOpen)
+                    return Redirect($"/Expert/PrivacyLimit?id={id}");
             }
             
             Evaluations = Repository.Filter<FilmEvaluation>(fe => fe.User.First() == Expert);

@@ -1,0 +1,38 @@
+﻿@page
+@using ArmchairExpertsCom.Services
+@model ArmchairExpertsCom.Pages.Expert.Edit
+
+@{
+    Layout = "Shared/_ProfileLayout";
+    ViewData["Title"] = "Редактирование профиля";
+}
+
+<div class="topBackground">
+    <div class="container" style="padding-bottom: 15px; padding-top: 15px;">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="name">Имя</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Имя" value="@Model.Expert.FirstName">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="surname">Фамилия</label>
+                    <input type="text" class="form-control" id="surname" name="surname" placeholder="Фамилия" value="@Model.Expert.LastName">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="birthday">Дата рождения</label>
+                    <input type="text" class="form-control" id="birthday" name="birthday" placeholder="Дата" value="@Model.Expert.BirthDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Изменить фото</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <input type="submit" class="btn btn-light" value="Изменить">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

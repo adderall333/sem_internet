@@ -67,11 +67,11 @@
                         }
                     </div>
                     <div class="col text-center">
-                        <h3 id="books_nameOfPictures">@Model.Expert.FullName</h3>
+                        <h3 id="books_nameOfPictures">@Model.Expert.GetFullName()</h3>
                         <div class="col">
                             <div id="book_description">Дата рождения: @Model.Expert.BirthDate</div>
                         </div>
-                        @if (Auth.IsOtherUser(Context))
+                        @if (Auth.IsPossibleToSubscribe(Context))
                         {
                             <div>
                                 <form method="post">
@@ -93,6 +93,25 @@
                 </div>
             </div>
         </div>
+        
+        @if (Auth.IsAuthenticated(Context) && !Auth.IsOtherUser(Context))
+        {
+            <div class="topBackground">
+                <div class="container">
+                    <div class="row text-center" style="padding-top: 15px; padding-bottom: 15px;">
+                        <div class="col">
+                            <a class="btn btn-light" asp-page="/Expert/Edit">Редактировать профиль</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-light" asp-page="/Expert/Privacy">Настройки приватности</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-danger" asp-page="/Expert/Delete">Удалить профиль</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         
         <div class="filterBackground bg-light my-0">
             <div class="container">
@@ -176,9 +195,6 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    
-</footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

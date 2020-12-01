@@ -200,5 +200,65 @@ namespace ArmchairExpertsCom.Services
             
             Repository.SaveChanges();
         }
+
+        public static void DeleteProfile(User user)
+        {
+            foreach (var evaluation in Repository.Filter<BookEvaluation>(e => e.User.Contains(user)))
+            {
+                evaluation.Delete();
+            }
+            foreach (var evaluation in Repository.Filter<FilmEvaluation>(e => e.User.Contains(user)))
+            {
+                evaluation.Delete();
+            }
+            foreach (var evaluation in Repository.Filter<SerialEvaluation>(e => e.User.Contains(user)))
+            {
+                evaluation.Delete();
+            }
+            
+            foreach (var review in Repository.Filter<BookReview>(e => e.User.Contains(user)))
+            {
+                review.Delete();
+            }
+            foreach (var review in Repository.Filter<FilmReview>(e => e.User.Contains(user)))
+            {
+                review.Delete();
+            }
+            foreach (var review in Repository.Filter<SerialReview>(e => e.User.Contains(user)))
+            {
+                review.Delete();
+            }
+
+            foreach (var comment in Repository.Filter<Comment>(e => e.User.Contains(user)))
+            {
+                comment.Delete();
+            }
+            foreach (var selection in Repository.Filter<Selection>(e => e.User.Contains(user)))
+            {
+                selection.Delete();
+            }
+            
+            user.Delete();
+            Repository.SaveChanges();
+        }
+
+        public static void ChangePrivacySettings(
+            User user, 
+            bool watched,
+            bool subscribes,
+            bool reviews,
+            bool selections,
+            bool pending)
+        {
+            var privacy = (PrivacySettings) user.Privacy.First();
+            privacy.AreWatchedOpen = watched;
+            privacy.AreSubscribesOpen = subscribes;
+            privacy.AreReviewsOpen = reviews;
+            privacy.AreSelectionsOpen = selections;
+            privacy.ArePendingOpen = pending;
+            
+            privacy.Save();
+            Repository.SaveChanges();
+        }
     }
 }
