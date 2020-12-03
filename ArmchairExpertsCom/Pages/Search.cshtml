@@ -6,7 +6,74 @@
     ViewData["Title"] = "Поиск";
 }
 
-@foreach (var model in Model.FoundModels)
+@if (Model.FoundUsers.Any())
 {
-    @await Html.PartialAsync("PreviewPartial", model);
+    <div class="topBackground">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center" id="wall">Пользователи</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    foreach (var user in Model.FoundUsers)
+    {
+        @await Html.PartialAsync("UserPreviewPartial", user);
+    }
+}
+
+@if (Model.FoundBooks.Any())
+{
+    <div class="topBackground">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center" id="wall">Книги</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    foreach (var book in Model.FoundBooks)
+    {
+        @await Html.PartialAsync("PreviewPartial", book);
+    }
+}
+
+@if (Model.FoundFilms.Any())
+{
+    <div class="topBackground">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center" id="wall">Фильмы</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    foreach (var film in Model.FoundFilms)
+    {
+        @await Html.PartialAsync("PreviewPartial", film);
+    }
+}
+
+@if (Model.FoundSerials.Any())
+{
+    <div class="topBackground">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center" id="wall">Сериалы</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    foreach (var serial in Model.FoundSerials)
+    {
+        @await Html.PartialAsync("PreviewPartial", serial);
+    }
 }

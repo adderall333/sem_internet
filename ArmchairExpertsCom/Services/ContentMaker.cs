@@ -97,18 +97,6 @@ namespace ArmchairExpertsCom.Services
                                    b.Authors.Contains(searchString, StringComparison.OrdinalIgnoreCase));
         }
 
-        public static IEnumerable<IArtwork> SearchAll(string searchString)
-        {
-            foreach (var film in SearchFilms(searchString))
-                yield return film;
-
-            foreach (var serial in SearchSerials(searchString))
-                yield return serial;
-
-            foreach (var book in SearchBooks(searchString))
-                yield return book;
-        }
-
         public static IEnumerable<User> GetSimilarUsers(User currentUser)
         {
             return Repository
@@ -170,6 +158,16 @@ namespace ArmchairExpertsCom.Services
                              Repository.Filter<SerialEvaluation>(e => e.Serial.First() == serial).Count(),
                 _ => throw new ArgumentException()
             };
+        }
+
+        public static IEnumerable<User> SearchUsers(string searchString)
+        {
+            return searchString is null
+                ? new User[] { }
+                : Repository.Filter<User>(user =>
+                    user.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                    user.LastName.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                    user.Login.Contains(searchString, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
