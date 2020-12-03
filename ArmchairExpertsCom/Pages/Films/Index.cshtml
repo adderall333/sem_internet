@@ -4,6 +4,8 @@
 
 @{
     ViewData["Title"] = "Фильмы";
+    var searchString = Request.Query["searchString"];
+    var sort = Request.Query["sort"];
 }
 
 <p></p>
@@ -16,15 +18,16 @@
                         Сортировать
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-route-sort="alphabet">По алфавиту</a>
-                        <a class="dropdown-item" asp-route-sort="rating">По рейтингу</a>
-                        <a class="dropdown-item" asp-route-sort="new">Сначала новые</a>
-                        <a class="dropdown-item" asp-route-sort="old">Сначала старые</a>
+                        <a class="dropdown-item" asp-route-sort="alphabet" asp-route-searchstring="@searchString">По алфавиту</a>
+                        <a class="dropdown-item" asp-route-sort="rating" asp-route-searchstring="@searchString">По рейтингу</a>
+                        <a class="dropdown-item" asp-route-sort="new" asp-route-searchstring="@searchString">Сначала новые</a>
+                        <a class="dropdown-item" asp-route-sort="old" asp-route-searchstring="@searchString">Сначала старые</a>
                     </div>
                 </div>
             </div>
-            <form class="form-inline mx-2 my-2 my-lg-0" method="post">
-                <input id = "widthForFilter" class="form-control mr-sm-2"  type="search" placeholder="Поиск" aria-label="Search" name="searchString">
+            <form class="form-inline mx-2 my-2 my-lg-0" method="get">
+                <input type="hidden" name="sort" value="@sort">
+                <input id="widthForFilter" class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" name="searchString" autocomplete="off">
                 <button class="btn my-2 my-sm-0" type="submit">Найти</button>
             </form>
         </div>

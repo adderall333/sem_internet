@@ -18,7 +18,7 @@ namespace ArmchairExpertsCom.Pages
                 Status = "Вы уже авторизованы";
         }
 
-        public IActionResult OnPost(string login, string password, string from)
+        public IActionResult OnPost(string login, string password, string from, string isPersistent)
         {
             if (HttpContext.Session.GetString("authKey") != null)
             {
@@ -38,6 +38,7 @@ namespace ArmchairExpertsCom.Pages
                 return Page();
             }
 
+            //todo
             HttpContext.Session.SetString("authKey", authKey);
             return Redirect($"/{from}");
         }

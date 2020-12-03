@@ -11,9 +11,10 @@ namespace ArmchairExpertsCom.Pages.Books
     {
         public IEnumerable<Book> AllBooks { get; private set; }
         
-        public void OnGet(int? genreId, string sort)
+        public void OnGet(int? genreId, string sort, string searchString)
         {
-            AllBooks = genreId is null ? Repository.All<Book>() : Repository
+            
+            AllBooks = genreId is null ? ContentMaker.SearchBooks(searchString) : Repository
                 .Get<BookGenre>(g => g.Id == genreId)
                 .Books
                 .Select(e => (Book) e);;
@@ -26,11 +27,6 @@ namespace ArmchairExpertsCom.Pages.Books
                 "old" => AllBooks.OrderBy(e => e.Year),
                 _ => AllBooks
             };
-        }
-
-        public void OnPost(string searchString)
-        {
-            AllBooks = ContentMaker.SearchBooks(searchString);
         }
     }
 }

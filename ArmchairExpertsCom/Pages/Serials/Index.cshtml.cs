@@ -11,9 +11,9 @@ namespace ArmchairExpertsCom.Pages.Serials
     {
         public IEnumerable<Serial> AllSerials { get; private set; }
         
-        public void OnGet(int? genreId, string sort)
+        public void OnGet(int? genreId, string sort, string searchString)
         {
-            AllSerials = genreId is null ? Repository.All<Serial>() : Repository
+            AllSerials = genreId is null ? ContentMaker.SearchSerials(searchString) : Repository
                 .Get<SerialGenre>(g => g.Id == genreId)
                 .Serials
                 .Select(e => (Serial) e);
@@ -26,11 +26,6 @@ namespace ArmchairExpertsCom.Pages.Serials
                 "old" => AllSerials.OrderBy(e => e.StartYear),
                 _ => AllSerials
             };
-        }
-
-        public void OnPost(string searchString)
-        {
-            AllSerials = ContentMaker.SearchSerials(searchString);
         }
     }
 }

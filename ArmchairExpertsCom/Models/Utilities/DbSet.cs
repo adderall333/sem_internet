@@ -87,5 +87,7 @@ namespace ArmchairExpertsCom.Models.Utilities
         {
             return GetEnumerator();
         }
+
+        public int Count() => modelsList.Count;
     }
 }

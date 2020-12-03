@@ -1,5 +1,21 @@
 ﻿@using ArmchairExpertsCom.Models
+@using ArmchairExpertsCom.Models.Interfaces
+@using ArmchairExpertsCom.Models.Utilities
 @using ArmchairExpertsCom.Services
+
+@{
+    var books = Repository.Filter<BookEvaluation>(e => e.User.First() == Model.Expert).Count();
+    var films = Repository.Filter<FilmEvaluation>(e => e.User.First() == Model.Expert).Count();
+    var serials = Repository.Filter<SerialEvaluation>(e => e.User.First() == Model.Expert).Count();
+    var reviews = Repository.Filter<BookReview>(e => e.User.First() == Model.Expert)
+        .Select(e => (IReview) e)
+        .Concat(Repository.Filter<FilmReview>(e => e.User.First() == Model.Expert))
+        .Concat(Repository.Filter<SerialReview>(e => e.User.First() == Model.Expert))
+        .Count();
+    var selections = Model.Expert.Selections.Count();
+    var subscribes = Repository.Filter<User>(u => u.Subscribes.Contains((User) Model.Expert)).Count();
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +85,12 @@
                     <div class="col text-center">
                         <h3 id="books_nameOfPictures">@Model.Expert.GetFullName()</h3>
                         <div class="col">
-                            <div id="book_description">Дата рождения: @Model.Expert.BirthDate</div>
+                            <div id="book_description">Прочитано книг: @books</div>
+                            <div id="book_description">Просмотрено фильмов: @films</div>
+                            <div id="book_description">Просмотрено сериалов: @serials</div>
+                            <div id="book_description">Написано рецензий: @reviews</div>
+                            <div id="book_description">Количество подборок: @selections</div>
+                            <div id="book_description">Количество подписчиков: @subscribes</div>
                         </div>
                         @if (Auth.IsPossibleToSubscribe(Context))
                         {

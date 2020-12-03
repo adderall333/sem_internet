@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Interfaces;
@@ -72,28 +73,28 @@ namespace ArmchairExpertsCom.Services
 
         public static IEnumerable<Film> SearchFilms(string searchString)
         {
-            return Repository
-                .Filter<Film>(f => f.Title.Contains(searchString) ||
-                                        f.Actors.Contains(searchString) ||
-                                        f.Description.Contains(searchString) ||
-                                        f.Producers.Contains(searchString));
+            return searchString is null ? Repository.All<Film>() : Repository
+                .Filter<Film>(f => f.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                        f.Actors.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                        f.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                        f.Producers.Contains(searchString, StringComparison.OrdinalIgnoreCase));
         }
         
         public static IEnumerable<Serial> SearchSerials(string searchString)
         {
-            return Repository
-                .Filter<Serial>(s => s.Title.Contains(searchString) ||
-                                   s.Actors.Contains(searchString) ||
-                                   s.Description.Contains(searchString) ||
-                                   s.Producers.Contains(searchString));
+            return searchString is null ? Repository.All<Serial>() : Repository
+                .Filter<Serial>(s => s.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                   s.Actors.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                   s.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                   s.Producers.Contains(searchString, StringComparison.OrdinalIgnoreCase));
         }
 
         public static IEnumerable<Book> SearchBooks(string searchString)
         {
-            return Repository
-                .Filter<Book>(b => b.Title.Contains(searchString) ||
-                                   b.Description.Contains(searchString) ||
-                                   b.Authors.Contains(searchString));
+            return searchString is null ? Repository.All<Book>() : Repository
+                .Filter<Book>(b => b.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                   b.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                   b.Authors.Contains(searchString, StringComparison.OrdinalIgnoreCase));
         }
 
         public static IEnumerable<IArtwork> SearchAll(string searchString)
@@ -106,6 +107,69 @@ namespace ArmchairExpertsCom.Services
 
             foreach (var book in SearchBooks(searchString))
                 yield return book;
+        }
+
+        public static IEnumerable<User> GetSimilarUsers(User currentUser)
+        {
+            return Repository
+                .Filter<User>(user => user != currentUser)
+                .OrderBy(user => ClosenessPoints(user, currentUser))
+                .Take(9);
+        }
+
+        private static int ClosenessPoints(User user1, User user2)
+        {
+            var result = 0;
+            
+            foreach (var evaluation in Repository.Filter<BookEvaluation>(e => e.User.First() == user1))
+            {
+                var sameEvaluation = Repository
+                    .Get<BookEvaluation>(e => e.User.First() == user2 && e.Book == evaluation.Book);
+
+                result += sameEvaluation is null ? 0 : 10 - Math.Abs(evaluation.Value - sameEvaluation.Value);
+            }
+            
+            foreach (var evaluation in Repository.Filter<FilmEvaluation>(e => e.User.First() == user1))
+            {
+                var sameEvaluation = Repository
+                    .Get<FilmEvaluation>(e => e.User.First() == user2 && e.Film == evaluation.Film);
+
+                result += sameEvaluation is null ? 0 : 10 - Math.Abs(evaluation.Value - sameEvaluation.Value);
+            }
+            
+            foreach (var evaluation in Repository.Filter<SerialEvaluation>(e => e.User.First() == user1))
+            {
+                var sameEvaluation = Repository
+                    .Get<SerialEvaluation>(e => e.User.First() == user2 && e.Serial == evaluation.Serial);
+
+                result += sameEvaluation is null ? 0 : 10 - Math.Abs(evaluation.Value - sameEvaluation.Value);
+            }
+
+            return result;
+        }
+
+        public static IEnumerable<IArtwork> GetMostPopular()
+        {
+            return Repository
+                .All<Book>().Select(e => (IArtwork) e)
+                .Concat(Repository.All<Film>())
+                .Concat(Repository.All<Serial>())
+                .OrderByDescending(GetPopularity)
+                .Take(9);
+        }
+
+        private static double GetPopularity(IArtwork artwork)
+        {
+            return artwork switch
+            {
+                Book book => GetRating(book) *
+                             Repository.Filter<BookEvaluation>(e => e.Book.First() == book).Count(),
+                Film film => GetRating(film) *
+                             Repository.Filter<FilmEvaluation>(e => e.Film.First() == film).Count(),
+                Serial serial => GetRating(serial) *
+                             Repository.Filter<SerialEvaluation>(e => e.Serial.First() == serial).Count(),
+                _ => throw new ArgumentException()
+            };
         }
     }
 }

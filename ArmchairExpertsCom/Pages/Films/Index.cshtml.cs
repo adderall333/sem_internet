@@ -11,9 +11,9 @@ namespace ArmchairExpertsCom.Pages.Films
     {
         public IEnumerable<Film> AllFilms { get; private set; }
         
-        public void OnGet(int? genreId, string sort)
+        public void OnGet(int? genreId, string sort, string searchString)
         {
-            AllFilms = genreId is null ? Repository.All<Film>() : Repository
+            AllFilms = genreId is null ? ContentMaker.SearchFilms(searchString) : Repository
                 .Get<FilmGenre>(g => g.Id == genreId)
                 .Films
                 .Select(e => (Film) e);
@@ -26,11 +26,6 @@ namespace ArmchairExpertsCom.Pages.Films
                 "old" => AllFilms.OrderBy(e => e.Year),
                 _ => AllFilms
             };
-        }
-
-        public void OnPost(string searchString)
-        {
-            AllFilms = ContentMaker.SearchFilms(searchString);
         }
     }
 }
