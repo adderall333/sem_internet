@@ -30,7 +30,7 @@ namespace ArmchairExpertsCom.Models.Utilities
             NewModels = new List<IModel>();
             foreach (var model in models)
             {
-                Add(model);
+                modelsList.Add(model);
             }
             RemovedModels = new List<IModel>();
         }

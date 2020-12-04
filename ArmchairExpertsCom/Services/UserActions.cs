@@ -15,6 +15,13 @@ namespace ArmchairExpertsCom.Services
             if (value < 0 || value > 10)
                 throw new ArgumentException();
 
+            var previousEvaluation = Repository.Get<BookEvaluation>(e => e.Book.First() == book &&
+                                                                         e.User.First() == user);
+            previousEvaluation.Book.Clear();
+            previousEvaluation.User.Clear();
+            previousEvaluation?.Delete();
+
+
             var evaluation = new BookEvaluation {Value = value};
             evaluation.Book.Add(book);
             evaluation.User.Add(user);
@@ -31,6 +38,12 @@ namespace ArmchairExpertsCom.Services
             if (value < 0 || value > 10)
                 throw new ArgumentException();
             
+            var previousEvaluation = Repository.Get<FilmEvaluation>(e => e.Film.First() == film &&
+                                                                         e.User.First() == user);
+            previousEvaluation.Film.Clear();
+            previousEvaluation.User.Clear();
+            previousEvaluation?.Delete();
+            
             var evaluation = new FilmEvaluation {Value = value};
             evaluation.Film.Add(film);
             evaluation.User.Add(user);
@@ -46,6 +59,12 @@ namespace ArmchairExpertsCom.Services
         {
             if (value < 0 || value > 10)
                 throw new ArgumentException();
+            
+            var previousEvaluation = Repository.Get<SerialEvaluation>(e => e.Serial.First() == serial &&
+                                                                         e.User.First() == user);
+            previousEvaluation.Serial.Clear();
+            previousEvaluation.User.Clear();
+            previousEvaluation?.Delete();
             
             var evaluation = new SerialEvaluation {Value = value};
             evaluation.Serial.Add(serial);

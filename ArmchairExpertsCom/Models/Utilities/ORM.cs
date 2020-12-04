@@ -11,7 +11,7 @@ namespace ArmchairExpertsCom.Models.Utilities
     public static class ORM
     { 
         private const string ConnectionString =
-            "Host=localhost;Username=postgres;Password=qweasd123;Database=armchair_experts";
+            "Host=localhost;Username=postgres;Password=qweasd123;Database=armchair_experts_v2";
         
         public static void Insert(IModel model)
         {
