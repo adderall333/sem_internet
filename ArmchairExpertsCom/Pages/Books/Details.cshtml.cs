@@ -72,5 +72,20 @@ namespace ArmchairExpertsCom.Pages.Books
 
             return Redirect(Request.QueryString.Value);
         }
+        
+        public IActionResult OnPostComment(string text, int reviewId)
+        {
+            var user = Auth.GetUser(HttpContext);
+            
+            if (user is null)
+                return Redirect($"/login?from=books/details?id={Request.Query["id"]}");
+            
+            Book = Repository.Get<Book>(book => book.Id == int.Parse(Request.Query["id"]));
+            var review = Repository.Get<BookReview>(e => e.Id == reviewId);
+            
+            UserActions.WriteComment(user, review, text);
+            
+            return Redirect(Request.QueryString.Value);
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace ArmchairExpertsCom.Pages
         public IActionResult OnGet()
         {
             HttpContext.Session.Clear();
+            Response.Cookies.Delete("authKey");
             return Redirect("/");
         }
     }

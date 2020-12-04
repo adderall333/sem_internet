@@ -62,16 +62,24 @@ namespace ArmchairExpertsCom.Services
 
         public static User GetUser(HttpContext context)
         {
-            var authKey = context.Session.GetString("authKey");
-            return authKey is null
-                ? null
-                : Repository.Get<User>(u => IsCorrectAuthKey(u.PasswordKey, u.Login, authKey));
+            var sessionAuthKey = context.Session.GetString("authKey");
+            var cookieAuthKey = context.Request.Cookies["authKey"];
+
+            switch (sessionAuthKey)
+            {
+                case null when cookieAuthKey is null:
+                    return null;
+                case null:
+                    context.Session.SetString("authKey", cookieAuthKey);
+                    break;
+            }
+
+            return Repository.Get<User>(u => IsCorrectAuthKey(u.PasswordKey, u.Login, sessionAuthKey));
         }
 
         public static bool IsAuthenticated(HttpContext context)
         {
-            var authKey = context.Session.GetString("authKey");
-            return Repository.Get<User>(u => IsCorrectAuthKey(u.PasswordKey, u.Login, authKey)) != null;
+            return GetUser(context) != null;
         }
         
         public static bool IsOtherUser(HttpContext context) 

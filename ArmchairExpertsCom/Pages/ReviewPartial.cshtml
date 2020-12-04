@@ -42,23 +42,26 @@
         </div>         
 
        
-
+        <div>
+            <form method="post" asp-page-handler="comment" asp-route-id="@Model.Artwork.First().Id">
+                <div class="form-group">
+                    <input type="hidden" name="reviewId" value="@Model.Id">
+                    <label>Текст комментария:</label>
+                    <textarea class="form-control" rows="7" name="text"></textarea>
+                </div>
+                <button class="btn btn-light">Отправить</button>
+            </form>
+        </div>
         <div class="row">
             <div class="col-md-12 dropdown">
-                <a class="nav-link active" id = "book_description" href="javascript:void(0)" onclick="showHide('hidden')">Посмотреть комментарии</a>
+                <a class="nav-link active" id = "book_description" href="javascript:void(0)" onclick="showHide('hidden')">Комментарии</a>
             </div>
         </div>
         <div id="hidden" style="display: none;">
-            Тут будут комментарии
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 dropdown">
-                <a class="nav-link active" id = "book_description" href="javascript:void(0)" onclick="showHide('hidden')">Посмотреть комментарии</a>
-            </div>
-        </div>
-        <div id="hidden" style="display: none;">
-            Тут будут комментарии
+            @foreach (Comment comment in Model.Comments)
+            {
+                @await Html.PartialAsync("CommentPartial", comment);
+            }
         </div>
     </div>
 </div>

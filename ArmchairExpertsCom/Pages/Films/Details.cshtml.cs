@@ -73,5 +73,20 @@ namespace ArmchairExpertsCom.Pages.Films
 
             return Redirect(Request.QueryString.Value);
         }
+
+        public IActionResult OnPostComment(string text, int reviewId)
+        {
+            var user = Auth.GetUser(HttpContext);
+            
+            if (user is null)
+                return Redirect($"/login?from=films/details?id={Request.Query["id"]}");
+            
+            Film = Repository.Get<Film>(film => film.Id == int.Parse(Request.Query["id"]));
+            var review = Repository.Get<FilmReview>(e => e.Id == reviewId);
+            
+            UserActions.WriteComment(user, review, text);
+            
+            return Redirect(Request.QueryString.Value);
+        }
     }
 }

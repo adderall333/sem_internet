@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +40,17 @@ namespace ArmchairExpertsCom.Pages
             }
 
             //todo
-            HttpContext.Session.SetString("authKey", authKey);
+            if (isPersistent == "on")
+            {
+                HttpContext.Response.Cookies.Delete("authKey");
+                HttpContext.Response.Cookies.Append("authKey", authKey, 
+                    new CookieOptions {Expires = DateTimeOffset.MaxValue});
+            }
+            else
+            {
+                HttpContext.Session.SetString("authKey", authKey);
+            }
+            
             return Redirect($"/{from}");
         }
     }

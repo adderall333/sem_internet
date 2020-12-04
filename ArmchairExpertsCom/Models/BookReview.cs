@@ -7,6 +7,7 @@ namespace ArmchairExpertsCom.Models
     {
         public BookReview()
         {
+            Artwork = new DbSet(this);
             User = new DbSet(this);
             Book = new DbSet(this);
             Comments = new DbSet(this);
@@ -24,7 +25,10 @@ namespace ArmchairExpertsCom.Models
         
         public int Id { get; set; }
         public string Text { get; set; }
-        
+
+
+        [ForeignKey(typeof(Book))] 
+        public DbSet Artwork { get; set; }
         
         [ForeignKey(typeof(User))]
         public DbSet User { get; private set; }

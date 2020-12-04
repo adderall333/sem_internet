@@ -1,0 +1,23 @@
+﻿@using ArmchairExpertsCom.Models
+@model Comment
+
+@{
+    var user = (User) Model.User.First();
+    var image = (Image) user.Images.First();
+}
+
+<div>
+    <div class="row">
+        <div class="col-md-1">
+            <img src="@image.Path" style=" border-radius: 100%; height: 50px; width: 50px;">
+        </div>
+        <div class="col-md-4">
+            <h5><a asp-page="/Expert/Index" asp-route-id="@user.Id">@user.GetFullName()</a></h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @Model.Text
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ namespace ArmchairExpertsCom.Models
     {
         public SerialReview()
         {
+            Artwork = new DbSet(this);
             User = new DbSet(this);
             Serial = new DbSet(this);
             Comments = new DbSet(this);
@@ -24,6 +25,9 @@ namespace ArmchairExpertsCom.Models
         public int Id { get; set; }
         public string Text { get; set; }
         
+        
+        [ForeignKey(typeof(Serial))]
+        public DbSet Artwork { get; set; }
         
         [ForeignKey(typeof(User))]
         public DbSet User { get; private set; }

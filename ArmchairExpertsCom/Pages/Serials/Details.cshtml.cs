@@ -73,5 +73,20 @@ namespace ArmchairExpertsCom.Pages.Serials
 
             return Redirect(Request.QueryString.Value);
         }
+        
+        public IActionResult OnPostComment(string text, int reviewId)
+        {
+            var user = Auth.GetUser(HttpContext);
+            
+            if (user is null)
+                return Redirect($"/login?from=serials/details?id={Request.Query["id"]}");
+            
+            Serial = Repository.Get<Serial>(serial => serial.Id == int.Parse(Request.Query["id"]));
+            var review = Repository.Get<SerialReview>(e => e.Id == reviewId);
+            
+            UserActions.WriteComment(user, review, text);
+            
+            return Redirect(Request.QueryString.Value);
+        }
     }
 }
