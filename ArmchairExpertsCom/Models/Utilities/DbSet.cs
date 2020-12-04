@@ -53,8 +53,7 @@ namespace ArmchairExpertsCom.Models.Utilities
             modelsList.Remove(model);
             if (NewModels.Contains(model))
                 NewModels.Remove(model);
-            else
-                RemovedModels.Add(model);
+            RemovedModels.Add(model);
         }
 
         public void Clear()

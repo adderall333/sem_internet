@@ -95,7 +95,7 @@
                         @if (Auth.IsPossibleToSubscribe(Context))
                         {
                             <div>
-                                <form method="post">
+                                <form method="post" asp-page="/Expert/Subscribe">
                                     <input type="hidden" name="id" value="@Model.Expert.Id">
                                     <button class="btn btn-light">
                                         @if (Auth.IsSubscribed(Context))

@@ -90,7 +90,7 @@ namespace ArmchairExpertsCom.Models.Utilities
             var query = "";
             if (model1.GetType() == typeof(User) && model2.GetType() == typeof(User))
                 query = $"delete from {GetStagingTableName(model1.GetType(), model2.GetType())} " +
-                        $"subscriber_id = {model1.Id} and " +
+                        $"where subscriber_id = {model1.Id} and " +
                         $"subscribe_id = {model2.Id}";
             else
                 query = $"delete from {GetStagingTableName(model1.GetType(), model2.GetType())} " +
