@@ -32,6 +32,7 @@ namespace ArmchairExpertsCom.Pages
             string surname,
             string birthday,
             string password,
+            string email,
             IFormFile image)
         {
             if (HttpContext.Session.GetString("authKey") != null)
@@ -46,17 +47,16 @@ namespace ArmchairExpertsCom.Pages
                 return Page();
             }
 
-            if (!Auth.Registration(login, name, surname, birthday, password, image?.FileName, out var authKey))
+            if (!Auth.Registration(login, name, surname, birthday, password, email, image?.FileName, out var authKey))
             {
-                Status = "Пользователь с таким Login уже существует";
-                return Page();
+                return BadRequest();
             }
 
             if (image != null)
             {
                 var path = Path.Combine(environment.ContentRootPath, "wwwroot", "img\\" , image.FileName);
                 using var fileStream = new FileStream(path, FileMode.Create);
-                image.CopyToAsync(fileStream);
+                image.CopyTo(fileStream);
             }
             
             HttpContext.Session.SetString("authKey", authKey);

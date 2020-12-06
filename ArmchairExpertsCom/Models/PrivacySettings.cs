@@ -8,6 +8,11 @@ namespace ArmchairExpertsCom.Models
         public PrivacySettings()
         {
             User = new DbSet(this);
+            AreWatchedOpen = true;
+            AreSubscribesOpen = true;
+            AreReviewsOpen = true;
+            AreSelectionsOpen = true;
+            ArePendingOpen = true;
         }
         
         [MetaData]

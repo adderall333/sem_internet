@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Xml;
 using ArmchairExpertsCom.Models;
 using ArmchairExpertsCom.Models.Utilities;
 using ArmchairExpertsCom.Pages;
@@ -10,17 +12,30 @@ namespace ArmchairExpertsCom.Services
 {
     public static class Auth
     {
+        private static readonly Regex NameRegex = new Regex(@"[А-Я][а-я]+");
+
+        private static readonly Regex EmailRegex =
+            new Regex(@"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)");
+        
         public static bool Registration(
             string login, 
             string name, 
             string surname,
             string birthday, 
             string password,
+            string email,
             string imageName,
             out string authKey)
         {
             var key = Cipher.GetKey(password);
             authKey = Cipher.GetKey(key + login);
+            
+            if (!NameRegex.IsMatch(name) || !NameRegex.IsMatch(surname))
+                return false;
+            
+            if (email != null && !EmailRegex.IsMatch(email))
+                return false;
+            
             if (Repository.Filter<User>(p => p.Login == login).Any())
                 return false;
             
@@ -43,6 +58,8 @@ namespace ArmchairExpertsCom.Services
                 image.Save();
                 user.Images.Add(image);
             }
+            
+            user.Privacy.Add(new PrivacySettings());
             
             user.Save();
             Repository.SaveChanges();
