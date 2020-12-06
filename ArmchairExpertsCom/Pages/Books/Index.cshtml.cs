@@ -9,24 +9,18 @@ namespace ArmchairExpertsCom.Pages.Books
 {
     public class Index : PageModel
     {
-        public IEnumerable<Book> AllBooks { get; private set; }
+        public int BooksCount { get; private set; }
         
-        public void OnGet(int? genreId, string sort, string searchString)
+        public void OnGet(int? genreId, string searchString)
         {
-            
-            AllBooks = genreId is null ? ContentMaker.SearchBooks(searchString) : Repository
-                .Get<BookGenre>(g => g.Id == genreId)
-                .Books
-                .Select(e => (Book) e);;
-            
-            AllBooks = sort switch
-            {
-                "alphabet" => AllBooks.OrderBy(e => e.Title),
-                "rating" => AllBooks.OrderBy(ContentMaker.GetRating),
-                "new" => AllBooks.OrderByDescending(e => e.Year),
-                "old" => AllBooks.OrderBy(e => e.Year),
-                _ => AllBooks
-            };
+            BooksCount = genreId is null
+                ? ContentMaker.SearchBooks(searchString).Count()
+                : Repository
+                    .Get<BookGenre>(g => g.Id == genreId)
+                    .Books
+                    .Select(e => (Book) e)
+                    .Intersect(ContentMaker.SearchBooks(searchString))
+                    .Count();
         }
     }
 }

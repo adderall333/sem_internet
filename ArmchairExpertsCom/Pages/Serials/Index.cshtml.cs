@@ -9,23 +9,18 @@ namespace ArmchairExpertsCom.Pages.Serials
 {
     public class Index : PageModel
     {
-        public IEnumerable<Serial> AllSerials { get; private set; }
+        public int SerialsCount { get; private set; }
         
-        public void OnGet(int? genreId, string sort, string searchString)
+        public void OnGet(int? genreId, string searchString)
         {
-            AllSerials = genreId is null ? ContentMaker.SearchSerials(searchString) : Repository
-                .Get<SerialGenre>(g => g.Id == genreId)
-                .Serials
-                .Select(e => (Serial) e);
-            
-            AllSerials = sort switch
-            {
-                "alphabet" => AllSerials.OrderBy(e => e.Title),
-                "rating" => AllSerials.OrderBy(ContentMaker.GetRating),
-                "new" => AllSerials.OrderByDescending(e => e.StartYear),
-                "old" => AllSerials.OrderBy(e => e.StartYear),
-                _ => AllSerials
-            };
+            SerialsCount = genreId is null
+                ? ContentMaker.SearchBooks(searchString).Count()
+                : Repository
+                    .Get<SerialGenre>(g => g.Id == genreId)
+                    .Serials
+                    .Select(e => (Serial) e)
+                    .Intersect(ContentMaker.SearchSerials(searchString))
+                    .Count();
         }
     }
 }

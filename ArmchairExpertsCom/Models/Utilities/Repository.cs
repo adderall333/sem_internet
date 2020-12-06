@@ -69,6 +69,11 @@ namespace ArmchairExpertsCom.Models.Utilities
             return Data[typeof(T)].Select(e => (T) e).Where(condition);
         }
 
+        public static int Count<T>()
+        {
+            return Data[typeof(T)].Count;
+        }
+
         public static T Get<T>(Func<T, bool> condition)
             where T : class
         {

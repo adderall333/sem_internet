@@ -1,0 +1,11 @@
+﻿@page
+@model ArmchairExpertsCom.Pages.Books.Content
+
+@{
+    Layout = null;
+}
+
+@foreach (var book in Model.Books)
+{
+    @await Html.PartialAsync("PreviewPartial", book)
+}

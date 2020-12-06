@@ -9,23 +9,18 @@ namespace ArmchairExpertsCom.Pages.Films
 {
     public class Index : PageModel
     {
-        public IEnumerable<Film> AllFilms { get; private set; }
+        public int FilmsCount { get; private set; }
         
-        public void OnGet(int? genreId, string sort, string searchString)
+        public void OnGet(int? genreId, string searchString)
         {
-            AllFilms = genreId is null ? ContentMaker.SearchFilms(searchString) : Repository
-                .Get<FilmGenre>(g => g.Id == genreId)
-                .Films
-                .Select(e => (Film) e);
-            
-            AllFilms = sort switch
-            {
-                "alphabet" => AllFilms.OrderBy(e => e.Title),
-                "rating" => AllFilms.OrderBy(ContentMaker.GetRating),
-                "new" => AllFilms.OrderByDescending(e => e.Year),
-                "old" => AllFilms.OrderBy(e => e.Year),
-                _ => AllFilms
-            };
+            FilmsCount = genreId is null
+                ? ContentMaker.SearchBooks(searchString).Count()
+                : Repository
+                    .Get<FilmGenre>(g => g.Id == genreId)
+                    .Films
+                    .Select(e => (Film) e)
+                    .Intersect(ContentMaker.SearchFilms(searchString))
+                    .Count();
         }
     }
 }

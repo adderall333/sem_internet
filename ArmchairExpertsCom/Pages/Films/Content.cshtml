@@ -1,0 +1,11 @@
+﻿@page
+@model ArmchairExpertsCom.Pages.Films.Content
+
+@{
+    Layout = null;
+}
+
+@foreach (var film in Model.Films)
+{
+    @await Html.PartialAsync("PreviewPartial", film)
+}

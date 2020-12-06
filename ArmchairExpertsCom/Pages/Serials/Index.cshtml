@@ -6,35 +6,82 @@
     ViewData["Title"] = "Сериалы";
     var searchString = Request.Query["searchString"];
     var sort = Request.Query["sort"];
+    var genreId = Request.Query["genreId"];
 }
 
-<p></p>
-<div class="filterBackground bg-light my-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3" id="filterButton">
-                <div class="dropdown text-center my-2" >
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Сортировать
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-route-sort="alphabet" asp-route-searchstring="@searchString">По алфавиту</a>
-                        <a class="dropdown-item" asp-route-sort="rating" asp-route-searchstring="@searchString">По рейтингу</a>
-                        <a class="dropdown-item" asp-route-sort="new" asp-route-searchstring="@searchString">Сначала новые</a>
-                        <a class="dropdown-item" asp-route-sort="old" asp-route-searchstring="@searchString">Сначала старые</a>
+<div id="infinite-scroll">
+    <p></p>
+    <div class="filterBackground bg-light my-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" id="filterButton">
+                    <div class="dropdown text-center my-2" >
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Сортировать
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-route-genreId="@genreId" asp-route-sort="alphabet" asp-route-searchstring="@searchString">По алфавиту</a>
+                            <a class="dropdown-item" asp-route-genreId="@genreId" asp-route-sort="rating" asp-route-searchstring="@searchString">По рейтингу</a>
+                            <a class="dropdown-item" asp-route-genreId="@genreId" asp-route-sort="new" asp-route-searchstring="@searchString">Сначала новые</a>
+                            <a class="dropdown-item" asp-route-genreId="@genreId" asp-route-sort="old" asp-route-searchstring="@searchString">Сначала старые</a>
+                        </div>
                     </div>
                 </div>
+                <form class="form-inline mx-2 my-2 my-lg-0" method="get">
+                    @if (genreId.Count > 0)
+                    {
+                        <input type="hidden" name="genreId" value="@genreId">
+                    }
+                    @if (sort.Count > 0)
+                    {
+                        <input type="hidden" name="sort" value="@sort">
+                    }
+                    <input id="widthForFilter" class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" name="searchString" autocomplete="off">
+                    <button class="btn my-2 my-sm-0" type="submit">Найти</button>
+                </form>
             </div>
-            <form class="form-inline mx-2 my-2 my-lg-0" method="get">
-                <input type="hidden" name="sort" value="@sort">
-                <input id="widthForFilter" class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" name="searchString" autocomplete="off">
-                <button class="btn my-2 my-sm-0" type="submit">Найти</button>
-            </form>
         </div>
     </div>
 </div>
 
-@foreach (var serial in Model.AllSerials)
-{
-    @await Html.PartialAsync("PreviewPartial", serial)
+<script>
+var startFrom = 0;
+var inProgress = false;
+
+function getQueryParameter(key, value){
+    if (value.length == 0){
+        return "";
+    }     
+    
+    return "&" + key + "=" + value;
 }
+
+function getContent() {
+    if (startFrom > @Model.SerialsCount)
+        return;
+    inProgress = true;
+    var query = '/serials/content?count=' + startFrom + 
+        getQueryParameter("genreId", "@genreId") + 
+        getQueryParameter("sort", "@sort") + 
+        getQueryParameter("searchString", "@Html.Raw(searchString)");
+    fetch(query)
+          .then((response) => {
+            return response.text();
+          })
+          .then((data) => {
+              $("#infinite-scroll").append(data);
+              inProgress = false;
+          });
+    startFrom += 5;
+}
+
+getContent();
+
+if ($("#infinite-scroll").length > 0){
+    $(window).scroll(function () {
+       if($(window).scrollTop() + $(window).height() >= $(document).height() - 200) {
+           getContent();
+       }
+    });
+} 
+</script>
