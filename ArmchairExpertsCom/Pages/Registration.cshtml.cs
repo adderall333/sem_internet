@@ -22,7 +22,7 @@ namespace ArmchairExpertsCom.Pages
 
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("auth_key") != null)
+            if (HttpContext.Session.GetString("authKey") != null)
                 Status = "Вы уже авторизованы";
         }
 
