@@ -17,8 +17,8 @@ namespace ArmchairExpertsCom.Services
 
             var previousEvaluation = Repository.Get<BookEvaluation>(e => e.Book.First() == book &&
                                                                          e.User.First() == user);
-            previousEvaluation.Book.Clear();
-            previousEvaluation.User.Clear();
+            previousEvaluation?.Book.Clear();
+            previousEvaluation?.User.Clear();
             previousEvaluation?.Delete();
 
 
@@ -40,8 +40,8 @@ namespace ArmchairExpertsCom.Services
             
             var previousEvaluation = Repository.Get<FilmEvaluation>(e => e.Film.First() == film &&
                                                                          e.User.First() == user);
-            previousEvaluation.Film.Clear();
-            previousEvaluation.User.Clear();
+            previousEvaluation?.Film.Clear();
+            previousEvaluation?.User.Clear();
             previousEvaluation?.Delete();
             
             var evaluation = new FilmEvaluation {Value = value};
@@ -62,8 +62,8 @@ namespace ArmchairExpertsCom.Services
             
             var previousEvaluation = Repository.Get<SerialEvaluation>(e => e.Serial.First() == serial &&
                                                                          e.User.First() == user);
-            previousEvaluation.Serial.Clear();
-            previousEvaluation.User.Clear();
+            previousEvaluation?.Serial.Clear();
+            previousEvaluation?.User.Clear();
             previousEvaluation?.Delete();
             
             var evaluation = new SerialEvaluation {Value = value};
