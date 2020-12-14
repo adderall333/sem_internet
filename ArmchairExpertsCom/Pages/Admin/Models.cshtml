@@ -17,7 +17,7 @@
     <br>
     @foreach (var e in Model.ModelsList)
     {
-        <a asp-page="/Admin/Edit" asp-route-type="@e.GetType().Name" asp-route-id="@e.Id">@e.ToString()</a>
+        <a asp-page="Edit" asp-route-type="@e.GetType().Name" asp-route-id="@e.Id">@e.ToString()</a>
         <br>
     }
 </div>

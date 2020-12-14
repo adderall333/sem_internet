@@ -9,7 +9,6 @@ namespace ArmchairExpertsCom.Models
         {
             Artwork = new DbSet(this);
             User = new DbSet(this);
-            Serial = new DbSet(this);
             Comments = new DbSet(this);
         }
         [MetaData]
@@ -31,9 +30,6 @@ namespace ArmchairExpertsCom.Models
         
         [ForeignKey(typeof(User))]
         public DbSet User { get; private set; }
-        
-        [ForeignKey(typeof(Serial))]
-        public DbSet Serial { get; private set; }
 
         [ForeignKey(typeof(Comment))]
         public DbSet Comments { get; private set; }

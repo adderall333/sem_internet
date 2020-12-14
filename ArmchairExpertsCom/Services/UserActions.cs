@@ -137,7 +137,7 @@ namespace ArmchairExpertsCom.Services
         {
             var review = new BookReview {Text = text};
             review.User.Add(user);
-            review.Book.Add(book);
+            review.Artwork.Add(book);
             review.Save();
             
             book.Reviews.Add(review);
@@ -151,7 +151,7 @@ namespace ArmchairExpertsCom.Services
         {
             var review = new FilmReview {Text = text};
             review.User.Add(user);
-            review.Film.Add(film);
+            review.Artwork.Add(film);
             review.Save();
             
             film.Reviews.Add(review);
@@ -165,7 +165,7 @@ namespace ArmchairExpertsCom.Services
         {
             var review = new SerialReview {Text = text};
             review.User.Add(user);
-            review.Serial.Add(serial);
+            review.Artwork.Add(serial);
             review.Save();
             
             serial.Reviews.Add(review);
