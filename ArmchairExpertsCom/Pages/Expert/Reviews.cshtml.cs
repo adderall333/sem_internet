@@ -13,7 +13,7 @@ namespace ArmchairExpertsCom.Pages.Expert
     public class Reviews : PageModel
     {
         public User Expert { get; private set; }
-        public IEnumerable<IReview> AllReviews { get; private set; }
+        public List<IReview> AllReviews { get; private set; }
         
         public IActionResult OnGet(int? id)
         {
@@ -32,15 +32,16 @@ namespace ArmchairExpertsCom.Pages.Expert
             }
             
             AllReviews = Repository
-                .GetModelsByType(typeof(BookReview), false)
+                .All<BookReview>()
                 .Select(r => (IReview) r)
                 .Concat(Repository
-                    .GetModelsByType(typeof(FilmReview), false)
+                    .All<FilmReview>()
                     .Select(r => (IReview) r))
                 .Concat(Repository
-                    .GetModelsByType(typeof(SerialReview), false)
+                    .All<SerialReview>()
                     .Select(r => (IReview) r))
-                .Where(r => r.User.First() == Expert);
+                .Where(r => r.User.First() == Expert)
+                .ToList();
             return Page();
         }
     }

@@ -44,10 +44,6 @@ namespace ArmchairExpertsCom
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
 
             app.UseSession();
             app.UseStaticFiles();

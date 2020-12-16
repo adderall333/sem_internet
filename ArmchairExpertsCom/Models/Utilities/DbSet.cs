@@ -32,6 +32,7 @@ namespace ArmchairExpertsCom.Models.Utilities
             {
                 modelsList.Add(model);
             }
+            
             RemovedModels = new List<IModel>();
         }
         

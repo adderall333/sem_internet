@@ -115,12 +115,14 @@ namespace ArmchairExpertsCom.Models.Utilities
             {
                 if (dbSet == null)
                     continue;
-                
+
                 foreach (var model in dbSet.NewModels)
                     ORM.AddRelation(dbSet.Parent, model);
+                dbSet.NewModels.Clear();
 
                 foreach (var model in dbSet.RemovedModels)
                     ORM.DeleteRelation(dbSet.Parent, model);
+                dbSet.RemovedModels.Clear(); 
             }
         }
 
@@ -155,14 +157,6 @@ namespace ArmchairExpertsCom.Models.Utilities
             var type = isAdminCreated 
                 ? AdminCreatedTypes.First(t => t.Name.ToLower() == typeName)
                 : Types.First(t => t.Name.ToLower() == typeName);
-            return Data[type];
-        }
-        
-        public static List<IModel> GetModelsByType(Type currentType, bool isAdminCreated)
-        {
-            var type = isAdminCreated 
-                ? AdminCreatedTypes.First(t => t == currentType)
-                : Types.First(t => t == currentType);
             return Data[type];
         }
         

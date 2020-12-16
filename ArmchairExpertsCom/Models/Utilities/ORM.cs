@@ -11,7 +11,7 @@ namespace ArmchairExpertsCom.Models.Utilities
     public static class ORM
     { 
         private const string ConnectionString =
-            "Host=localhost;Username=postgres;Password=qweasd123;Database=armchair_experts_v2";
+            "Host=localhost;Username=postgres;Password=qweasd123;Database=armchair_experts";
         
         public static void Insert(IModel model)
         {
@@ -206,6 +206,35 @@ namespace ArmchairExpertsCom.Models.Utilities
         private static bool IsEarlierThan(this string str1, string str2)
         {
             return String.Compare(str1, str2, StringComparison.Ordinal) > 0;
+        }
+
+        public static void Clean(string tableName)
+        {
+            var relations = new int[100, 100];
+            var query = $"select * from {tableName}";
+            
+            var connection = GetConnection();
+            connection.Open();
+            var reader = new NpgsqlCommand(query, connection).ExecuteReader();
+
+            while (reader.Read())
+            {
+                var a = reader.GetInt32(0);
+                var b = reader.GetInt32(1);
+                if (relations[a, b] == 0)
+                {
+                    relations[a, b] = 1;
+                }
+                else
+                {
+                    var deleteQuery = $"delete from {tableName} " +
+                                      $"where {tableName.Split("_")[0]}_id = {a} and" +
+                                      $"{tableName.Split("_")[1]}_id = {b}";
+                    new NpgsqlCommand(deleteQuery, connection);
+                }
+            }
+            
+            connection.Close();
         }
     }
 }

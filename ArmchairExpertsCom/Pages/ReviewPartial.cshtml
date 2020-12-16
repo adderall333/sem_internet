@@ -7,15 +7,22 @@
     var user = (User) Model.User.First();
     var image = (Image) user.Images.First();
 
-    var evaluationType = Model.GetType().Name switch
-        {
-            "BookReview" => typeof(BookEvaluation), 
-            "FilmReview" => typeof(FilmEvaluation), 
-            "SerialReview" => typeof(SerialEvaluation), 
-            _ => throw new ArgumentException()
-        };
-
-    var evaluation = (IEvaluation) Repository.GetModelsByType(evaluationType, false).First();
+    var evaluation = Model switch 
+    {
+        BookReview _ => Repository
+            .Filter<BookEvaluation>(e => e.User.First() == user && e.Book.First() == Model.Artwork.First())
+            .Select(e => (IEvaluation) e)
+            .First(),
+        FilmReview _ => Repository
+            .Filter<FilmEvaluation>(e => e.User.First() == user && e.Film.First() == Model.Artwork.First())
+            .Select(e => (IEvaluation) e)
+            .First(),
+        SerialReview _ => Repository
+            .Filter<SerialEvaluation>(e => e.User.First() == user && e.Serial.First() == Model.Artwork.First())
+            .Select(e => (IEvaluation) e)
+            .First(),
+        _ => throw new ArgumentException()
+    };
 }
 
 <div class="topBackground">
