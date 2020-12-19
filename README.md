@@ -21,3 +21,9 @@
 * Bootstrap
 * JQuery
 * FetchAPI
+
+---
+
+#### Интеграция базы данных:
+* Нужно создать новую пустую базу данных (postgres) и применить в ней SQL из файла "database" (находится в корне репозитория).
+* Когда база данных создана, вставьте её название вместо "armchair_experts" в 14-ой строке файла ArmchairExpertsCom/Models/Utilities/ORM.cs
