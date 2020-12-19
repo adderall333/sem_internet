@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArmchairExpertsCom.Models;
+using ArmchairExpertsCom.Models.Interfaces;
 using ArmchairExpertsCom.Models.Utilities;
 using ArmchairExpertsCom.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -74,20 +75,18 @@ namespace ArmchairExpertsCom.Pages.Selections
                 .ToList();
 
             var selection = UserActions.CreateSelection(CurrentUser, title, text);
-            foreach (var book in Books.Select(b => ReadBooks[b]))
-            {
-                UserActions.AddToSelection(CurrentUser, selection, book);
-            }
-            foreach (var film in Films.Select(f => WatchedFilms[f]))
-            {
-                UserActions.AddToSelection(CurrentUser, selection, film);
-            }
-            foreach (var serial in Serials.Select(s => WatchedSerials[s]))
-            {
-                UserActions.AddToSelection(CurrentUser, selection, serial);
-            }
             
-            return Page();
+            var artworks = Books.Select(b => ReadBooks[b]).Cast<IArtwork>().ToList();
+            artworks.AddRange(Films.Select(f => WatchedFilms[f]));
+            artworks.AddRange(Serials.Select(s => WatchedSerials[s]));
+
+            if (artworks.Count < 3) return Page();
+            foreach (var artwork in artworks)
+            {
+                UserActions.AddToSelection(CurrentUser, selection, artwork);
+            }
+
+            return Redirect($"/selections/details?id={selection.Id}");
         }
     }
 }
