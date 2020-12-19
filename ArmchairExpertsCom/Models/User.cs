@@ -70,6 +70,13 @@ namespace ArmchairExpertsCom.Models
         
         public void Delete()
         {
+            Images.Clear();
+            Subscribes.Clear();
+            PendingBooks.Clear();
+            PendingFilms.Clear();
+            PendingSerials.Clear();
+            Selections.Clear();
+            Privacy.Clear();
             IsDeleted = true;
         }
 

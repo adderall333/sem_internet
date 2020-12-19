@@ -48,6 +48,8 @@ namespace ArmchairExpertsCom.Models
         
         public void Delete()
         {
+            Artwork.Clear();
+            Comments.Clear();
             IsDeleted = true;
         }
     }

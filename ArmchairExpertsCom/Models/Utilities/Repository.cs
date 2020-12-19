@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using ArmchairExpertsCom.Models.Interfaces;
@@ -39,7 +38,7 @@ namespace ArmchairExpertsCom.Models.Utilities
         private static Dictionary<Type, List<IModel>> Data { get; set; } 
             = new Dictionary<Type, List<IModel>>();
 
-        public static bool IsLoaded { get; private set; }
+        private static bool IsLoaded { get; set; }
 
         public static Type GetType(string typeName)
         {
@@ -67,11 +66,6 @@ namespace ArmchairExpertsCom.Models.Utilities
         public static IEnumerable<T> Filter<T>(Func<T, bool> condition)
         {
             return Data[typeof(T)].Select(e => (T) e).Where(condition);
-        }
-
-        public static int Count<T>()
-        {
-            return Data[typeof(T)].Count;
         }
 
         public static T Get<T>(Func<T, bool> condition)
@@ -104,6 +98,7 @@ namespace ArmchairExpertsCom.Models.Utilities
                 if (model.IsDeleted)
                 {
                     ORM.Delete(model);
+                    DeleteModel(model);
                 }
             }
 
@@ -135,13 +130,6 @@ namespace ArmchairExpertsCom.Models.Utilities
             IsLoaded = true;
         }
 
-        public static void Refresh()
-        {
-            LoadData();
-            LoadRelations();
-            IsLoaded = true;
-        }
-
         public static Dictionary<Type, List<IModel>> GetAdminCreatedData()
         {
             var data = new Dictionary<Type, List<IModel>>();
@@ -158,6 +146,11 @@ namespace ArmchairExpertsCom.Models.Utilities
                 ? AdminCreatedTypes.First(t => t.Name.ToLower() == typeName)
                 : Types.First(t => t.Name.ToLower() == typeName);
             return Data[type];
+        }
+
+        private static void DeleteModel(dynamic model)
+        {
+            Data[model.GetType()].Remove(model);
         }
         
         private static void LoadData()

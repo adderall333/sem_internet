@@ -42,6 +42,7 @@ namespace ArmchairExpertsCom.Models
 
         public void Delete()
         {
+            Film.Clear();
             IsDeleted = true;
         }
     }

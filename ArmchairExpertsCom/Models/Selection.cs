@@ -58,6 +58,10 @@ namespace ArmchairExpertsCom.Models
         
         public void Delete()
         {
+            Books.Clear();
+            Films.Clear();
+            Serials.Clear();
+            Comments.Clear();
             IsDeleted = true;
         }
 

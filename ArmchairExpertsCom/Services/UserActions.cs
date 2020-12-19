@@ -256,6 +256,16 @@ namespace ArmchairExpertsCom.Services
             {
                 selection.Delete();
             }
+
+            foreach (var image in user.Images)
+            {
+                image.Delete();
+            }
+
+            foreach (var privacy in user.Privacy)
+            {
+                privacy.Delete();
+            }
             
             user.Delete();
             Repository.SaveChanges();

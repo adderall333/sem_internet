@@ -45,6 +45,7 @@ namespace ArmchairExpertsCom.Models
         
         public void Delete()
         {
+            Serial.Clear();
             IsDeleted = true;
         }
     }
