@@ -1,0 +1,2360 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.4
+-- Dumped by pg_dump version 12.4
+
+-- Started on 2020-12-16 22:57:59
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 202 (class 1259 OID 26483)
+-- Name: book; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.book (
+    id integer NOT NULL,
+    title character varying(150) NOT NULL,
+    description character varying(1000) NOT NULL,
+    year integer NOT NULL,
+    authors character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.book OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 26489)
+-- Name: book_bookevaluation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.book_bookevaluation (
+    book_id integer,
+    bookevaluation_id integer
+);
+
+
+ALTER TABLE public.book_bookevaluation OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 26492)
+-- Name: book_bookgenre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.book_bookgenre (
+    book_id integer NOT NULL,
+    bookgenre_id integer NOT NULL
+);
+
+
+ALTER TABLE public.book_bookgenre OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 26495)
+-- Name: book_bookreview; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.book_bookreview (
+    book_id integer NOT NULL,
+    bookreview_id integer NOT NULL
+);
+
+
+ALTER TABLE public.book_bookreview OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 26498)
+-- Name: book_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.book_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.book_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3177 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;
+
+
+--
+-- TOC entry 207 (class 1259 OID 26500)
+-- Name: book_image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.book_image (
+    book_id integer NOT NULL,
+    image_id integer NOT NULL
+);
+
+
+ALTER TABLE public.book_image OWNER TO postgres;
+
+--
+-- TOC entry 208 (class 1259 OID 26503)
+-- Name: book_selection; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.book_selection (
+    book_id integer NOT NULL,
+    selection_id integer NOT NULL
+);
+
+
+ALTER TABLE public.book_selection OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 26506)
+-- Name: book_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.book_user (
+    book_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.book_user OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 26509)
+-- Name: bookevaluation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bookevaluation (
+    id integer NOT NULL,
+    value integer NOT NULL
+);
+
+
+ALTER TABLE public.bookevaluation OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 26512)
+-- Name: bookevaluation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.bookevaluation_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bookevaluation_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3178 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: bookevaluation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.bookevaluation_id_seq OWNED BY public.bookevaluation.id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 26514)
+-- Name: bookevaluation_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bookevaluation_user (
+    bookevaluation_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.bookevaluation_user OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 26517)
+-- Name: bookgenre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bookgenre (
+    id integer NOT NULL,
+    name character varying(50)
+);
+
+
+ALTER TABLE public.bookgenre OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 26520)
+-- Name: bookgenre_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.bookgenre_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bookgenre_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3179 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: bookgenre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.bookgenre_id_seq OWNED BY public.bookgenre.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 26522)
+-- Name: bookreview; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bookreview (
+    id integer NOT NULL,
+    text character varying(5000) NOT NULL
+);
+
+
+ALTER TABLE public.bookreview OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 26528)
+-- Name: bookreview_comment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bookreview_comment (
+    bookreview_id integer NOT NULL,
+    comment_id integer NOT NULL
+);
+
+
+ALTER TABLE public.bookreview_comment OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 26531)
+-- Name: bookreview_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.bookreview_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bookreview_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3180 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: bookreview_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.bookreview_id_seq OWNED BY public.bookreview.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 26533)
+-- Name: bookreview_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bookreview_user (
+    bookreview_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.bookreview_user OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 26536)
+-- Name: comment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comment (
+    id integer NOT NULL,
+    text character varying(1000) NOT NULL
+);
+
+
+ALTER TABLE public.comment OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 26542)
+-- Name: comment_filmreview; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comment_filmreview (
+    comment_id integer NOT NULL,
+    filmreview_id integer NOT NULL
+);
+
+
+ALTER TABLE public.comment_filmreview OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 26545)
+-- Name: comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.comment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.comment_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3181 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.comment_id_seq OWNED BY public.comment.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 26547)
+-- Name: comment_selection; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comment_selection (
+    comment_id integer NOT NULL,
+    selection_id integer NOT NULL
+);
+
+
+ALTER TABLE public.comment_selection OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 26550)
+-- Name: comment_serialreview; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comment_serialreview (
+    comment_id integer NOT NULL,
+    serialreview_id integer NOT NULL
+);
+
+
+ALTER TABLE public.comment_serialreview OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 26553)
+-- Name: comment_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comment_user (
+    comment_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.comment_user OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 26556)
+-- Name: film; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.film (
+    id integer NOT NULL,
+    title character varying(150) NOT NULL,
+    description character varying(1000) NOT NULL,
+    year integer NOT NULL,
+    producers character varying(100) NOT NULL,
+    actors character varying(500) NOT NULL
+);
+
+
+ALTER TABLE public.film OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 26562)
+-- Name: film_filmevaluation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.film_filmevaluation (
+    film_id integer,
+    filmevaluation_id integer
+);
+
+
+ALTER TABLE public.film_filmevaluation OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 26565)
+-- Name: film_filmgenre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.film_filmgenre (
+    film_id integer NOT NULL,
+    filmgenre_id integer NOT NULL
+);
+
+
+ALTER TABLE public.film_filmgenre OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 26568)
+-- Name: film_filmreview; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.film_filmreview (
+    film_id integer NOT NULL,
+    filmreview_id integer NOT NULL
+);
+
+
+ALTER TABLE public.film_filmreview OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 26571)
+-- Name: film_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.film_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.film_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3182 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: film_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.film_id_seq OWNED BY public.film.id;
+
+
+--
+-- TOC entry 230 (class 1259 OID 26573)
+-- Name: film_image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.film_image (
+    film_id integer NOT NULL,
+    image_id integer NOT NULL
+);
+
+
+ALTER TABLE public.film_image OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 26576)
+-- Name: film_selection; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.film_selection (
+    film_id integer NOT NULL,
+    selection_id integer NOT NULL
+);
+
+
+ALTER TABLE public.film_selection OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 26579)
+-- Name: film_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.film_user (
+    film_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.film_user OWNER TO postgres;
+
+--
+-- TOC entry 233 (class 1259 OID 26582)
+-- Name: filmevaluation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.filmevaluation (
+    id integer NOT NULL,
+    value integer NOT NULL
+);
+
+
+ALTER TABLE public.filmevaluation OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 26585)
+-- Name: filmevaluation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.filmevaluation_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.filmevaluation_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3183 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: filmevaluation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.filmevaluation_id_seq OWNED BY public.filmevaluation.id;
+
+
+--
+-- TOC entry 235 (class 1259 OID 26587)
+-- Name: filmevaluation_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.filmevaluation_user (
+    filmevaluation_id integer,
+    user_id integer
+);
+
+
+ALTER TABLE public.filmevaluation_user OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 26590)
+-- Name: filmgenre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.filmgenre (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.filmgenre OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 26593)
+-- Name: filmgenre_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.filmgenre_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.filmgenre_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3184 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: filmgenre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.filmgenre_id_seq OWNED BY public.filmgenre.id;
+
+
+--
+-- TOC entry 238 (class 1259 OID 26595)
+-- Name: filmreview; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.filmreview (
+    id integer NOT NULL,
+    text character varying(5000) NOT NULL
+);
+
+
+ALTER TABLE public.filmreview OWNER TO postgres;
+
+--
+-- TOC entry 239 (class 1259 OID 26601)
+-- Name: filmreview_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.filmreview_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.filmreview_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3185 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: filmreview_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.filmreview_id_seq OWNED BY public.filmreview.id;
+
+
+--
+-- TOC entry 240 (class 1259 OID 26603)
+-- Name: filmreview_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.filmreview_user (
+    filmreview_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.filmreview_user OWNER TO postgres;
+
+--
+-- TOC entry 241 (class 1259 OID 26606)
+-- Name: image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.image (
+    id integer NOT NULL,
+    path character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.image OWNER TO postgres;
+
+--
+-- TOC entry 242 (class 1259 OID 26609)
+-- Name: image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.image_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.image_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3186 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.image_id_seq OWNED BY public.image.id;
+
+
+--
+-- TOC entry 243 (class 1259 OID 26611)
+-- Name: image_serial; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.image_serial (
+    image_id integer NOT NULL,
+    serial_id integer NOT NULL
+);
+
+
+ALTER TABLE public.image_serial OWNER TO postgres;
+
+--
+-- TOC entry 244 (class 1259 OID 26614)
+-- Name: image_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.image_user (
+    image_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.image_user OWNER TO postgres;
+
+--
+-- TOC entry 245 (class 1259 OID 26617)
+-- Name: privacysettings; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.privacysettings (
+    id integer NOT NULL,
+    arewatchedopen boolean DEFAULT true,
+    aresubscribesopen boolean DEFAULT true,
+    arereviewsopen boolean DEFAULT true,
+    areselectionsopen boolean DEFAULT true,
+    arependingopen boolean DEFAULT true
+);
+
+
+ALTER TABLE public.privacysettings OWNER TO postgres;
+
+--
+-- TOC entry 246 (class 1259 OID 26625)
+-- Name: privacysettings_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.privacysettings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.privacysettings_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3187 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: privacysettings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.privacysettings_id_seq OWNED BY public.privacysettings.id;
+
+
+--
+-- TOC entry 247 (class 1259 OID 26627)
+-- Name: privacysettings_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.privacysettings_user (
+    privacysettings_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.privacysettings_user OWNER TO postgres;
+
+--
+-- TOC entry 248 (class 1259 OID 26630)
+-- Name: selection; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.selection (
+    id integer NOT NULL,
+    title character varying(100) NOT NULL,
+    text character varying(1000)
+);
+
+
+ALTER TABLE public.selection OWNER TO postgres;
+
+--
+-- TOC entry 249 (class 1259 OID 26636)
+-- Name: selection_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.selection_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.selection_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3188 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: selection_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.selection_id_seq OWNED BY public.selection.id;
+
+
+--
+-- TOC entry 250 (class 1259 OID 26638)
+-- Name: selection_serial; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.selection_serial (
+    selection_id integer NOT NULL,
+    serial_id integer NOT NULL
+);
+
+
+ALTER TABLE public.selection_serial OWNER TO postgres;
+
+--
+-- TOC entry 251 (class 1259 OID 26641)
+-- Name: selection_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.selection_user (
+    selection_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.selection_user OWNER TO postgres;
+
+--
+-- TOC entry 252 (class 1259 OID 26644)
+-- Name: serial; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serial (
+    id integer NOT NULL,
+    title character varying(150) NOT NULL,
+    description character varying(1000) NOT NULL,
+    startyear integer NOT NULL,
+    endyear integer NOT NULL,
+    producers character varying(100) NOT NULL,
+    actors character varying(500) NOT NULL
+);
+
+
+ALTER TABLE public.serial OWNER TO postgres;
+
+--
+-- TOC entry 253 (class 1259 OID 26650)
+-- Name: serial_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.serial_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.serial_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3189 (class 0 OID 0)
+-- Dependencies: 253
+-- Name: serial_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.serial_id_seq OWNED BY public.serial.id;
+
+
+--
+-- TOC entry 254 (class 1259 OID 26652)
+-- Name: serial_serialevaluation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serial_serialevaluation (
+    serial_id integer NOT NULL,
+    serialevaluation_id integer NOT NULL
+);
+
+
+ALTER TABLE public.serial_serialevaluation OWNER TO postgres;
+
+--
+-- TOC entry 255 (class 1259 OID 26655)
+-- Name: serial_serialgenre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serial_serialgenre (
+    serial_id integer NOT NULL,
+    serialgenre_id integer NOT NULL
+);
+
+
+ALTER TABLE public.serial_serialgenre OWNER TO postgres;
+
+--
+-- TOC entry 256 (class 1259 OID 26658)
+-- Name: serial_serialreview; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serial_serialreview (
+    serial_id integer NOT NULL,
+    serialreview_id integer NOT NULL
+);
+
+
+ALTER TABLE public.serial_serialreview OWNER TO postgres;
+
+--
+-- TOC entry 257 (class 1259 OID 26661)
+-- Name: serial_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serial_user (
+    serial_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.serial_user OWNER TO postgres;
+
+--
+-- TOC entry 258 (class 1259 OID 26664)
+-- Name: serialevaluation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serialevaluation (
+    id integer NOT NULL,
+    value integer NOT NULL
+);
+
+
+ALTER TABLE public.serialevaluation OWNER TO postgres;
+
+--
+-- TOC entry 259 (class 1259 OID 26667)
+-- Name: serialevaluation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.serialevaluation_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.serialevaluation_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3190 (class 0 OID 0)
+-- Dependencies: 259
+-- Name: serialevaluation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.serialevaluation_id_seq OWNED BY public.serialevaluation.id;
+
+
+--
+-- TOC entry 260 (class 1259 OID 26669)
+-- Name: serialevaluation_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serialevaluation_user (
+    serialevaluation_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.serialevaluation_user OWNER TO postgres;
+
+--
+-- TOC entry 261 (class 1259 OID 26672)
+-- Name: serialgenre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serialgenre (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.serialgenre OWNER TO postgres;
+
+--
+-- TOC entry 262 (class 1259 OID 26675)
+-- Name: serialgenre_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.serialgenre_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.serialgenre_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3191 (class 0 OID 0)
+-- Dependencies: 262
+-- Name: serialgenre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.serialgenre_id_seq OWNED BY public.serialgenre.id;
+
+
+--
+-- TOC entry 263 (class 1259 OID 26677)
+-- Name: serialreview; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serialreview (
+    id integer NOT NULL,
+    text character varying(5000) NOT NULL
+);
+
+
+ALTER TABLE public.serialreview OWNER TO postgres;
+
+--
+-- TOC entry 264 (class 1259 OID 26683)
+-- Name: serialreview_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.serialreview_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.serialreview_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3192 (class 0 OID 0)
+-- Dependencies: 264
+-- Name: serialreview_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.serialreview_id_seq OWNED BY public.serialreview.id;
+
+
+--
+-- TOC entry 265 (class 1259 OID 26685)
+-- Name: serialreview_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.serialreview_user (
+    serialreview_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.serialreview_user OWNER TO postgres;
+
+--
+-- TOC entry 266 (class 1259 OID 26688)
+-- Name: user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."user" (
+    id integer NOT NULL,
+    firstname character varying(100) NOT NULL,
+    login character varying(30) NOT NULL,
+    passwordkey character varying(30) NOT NULL,
+    birthdate character varying(20) NOT NULL,
+    role character varying(20) NOT NULL,
+    lastname character varying(30)
+);
+
+
+ALTER TABLE public."user" OWNER TO postgres;
+
+--
+-- TOC entry 267 (class 1259 OID 26691)
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3193 (class 0 OID 0)
+-- Dependencies: 267
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
+
+
+--
+-- TOC entry 268 (class 1259 OID 26693)
+-- Name: user_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_user (
+    subscriber_id integer NOT NULL,
+    subscribe_id integer NOT NULL
+);
+
+
+ALTER TABLE public.user_user OWNER TO postgres;
+
+--
+-- TOC entry 2923 (class 2604 OID 26696)
+-- Name: book id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id_seq'::regclass);
+
+
+--
+-- TOC entry 2924 (class 2604 OID 26697)
+-- Name: bookevaluation id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bookevaluation ALTER COLUMN id SET DEFAULT nextval('public.bookevaluation_id_seq'::regclass);
+
+
+--
+-- TOC entry 2925 (class 2604 OID 26698)
+-- Name: bookgenre id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bookgenre ALTER COLUMN id SET DEFAULT nextval('public.bookgenre_id_seq'::regclass);
+
+
+--
+-- TOC entry 2926 (class 2604 OID 26699)
+-- Name: bookreview id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bookreview ALTER COLUMN id SET DEFAULT nextval('public.bookreview_id_seq'::regclass);
+
+
+--
+-- TOC entry 2927 (class 2604 OID 26700)
+-- Name: comment id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comment ALTER COLUMN id SET DEFAULT nextval('public.comment_id_seq'::regclass);
+
+
+--
+-- TOC entry 2928 (class 2604 OID 26701)
+-- Name: film id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.film ALTER COLUMN id SET DEFAULT nextval('public.film_id_seq'::regclass);
+
+
+--
+-- TOC entry 2929 (class 2604 OID 26702)
+-- Name: filmevaluation id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filmevaluation ALTER COLUMN id SET DEFAULT nextval('public.filmevaluation_id_seq'::regclass);
+
+
+--
+-- TOC entry 2930 (class 2604 OID 26703)
+-- Name: filmgenre id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filmgenre ALTER COLUMN id SET DEFAULT nextval('public.filmgenre_id_seq'::regclass);
+
+
+--
+-- TOC entry 2931 (class 2604 OID 26704)
+-- Name: filmreview id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filmreview ALTER COLUMN id SET DEFAULT nextval('public.filmreview_id_seq'::regclass);
+
+
+--
+-- TOC entry 2932 (class 2604 OID 26705)
+-- Name: image id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.image ALTER COLUMN id SET DEFAULT nextval('public.image_id_seq'::regclass);
+
+
+--
+-- TOC entry 2938 (class 2604 OID 26706)
+-- Name: privacysettings id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.privacysettings ALTER COLUMN id SET DEFAULT nextval('public.privacysettings_id_seq'::regclass);
+
+
+--
+-- TOC entry 2939 (class 2604 OID 26707)
+-- Name: selection id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.selection ALTER COLUMN id SET DEFAULT nextval('public.selection_id_seq'::regclass);
+
+
+--
+-- TOC entry 2940 (class 2604 OID 26708)
+-- Name: serial id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.serial ALTER COLUMN id SET DEFAULT nextval('public.serial_id_seq'::regclass);
+
+
+--
+-- TOC entry 2941 (class 2604 OID 26709)
+-- Name: serialevaluation id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.serialevaluation ALTER COLUMN id SET DEFAULT nextval('public.serialevaluation_id_seq'::regclass);
+
+
+--
+-- TOC entry 2942 (class 2604 OID 26710)
+-- Name: serialgenre id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.serialgenre ALTER COLUMN id SET DEFAULT nextval('public.serialgenre_id_seq'::regclass);
+
+
+--
+-- TOC entry 2943 (class 2604 OID 26711)
+-- Name: serialreview id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.serialreview ALTER COLUMN id SET DEFAULT nextval('public.serialreview_id_seq'::regclass);
+
+
+--
+-- TOC entry 2944 (class 2604 OID 26712)
+-- Name: user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+--
+-- TOC entry 3105 (class 0 OID 26483)
+-- Dependencies: 202
+-- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.book VALUES (2, 'Герой нашего времени', 'Первый в русской прозе лирико-психологический роман, написанный Михаилом Юрьевичем Лермонтовым в 1838-1840 годах. Классика русской литературы. Впервые роман был издан в Санкт-Петербурге в типографии Ильи Глазунова и Кº в 1840 г. в 2 книгах.', 1840, 'М. Ю. Лермонтов');
+INSERT INTO public.book VALUES (3, 'Финансист', 'Роман американского писателя Теодора Драйзера, опубликованный в 1912 году, первый из цикла «Трилогия желания». Главный герой трилогии - Фрэнк Каупервуд. В основу положена история жизни американского миллионера Чарльза Йеркса. Наиболее распространённый перевод на русский язык М. Волосова.', 1912, 'Теодор Драйзер');
+INSERT INTO public.book VALUES (4, 'Приключения Шерлока Холмса', 'Сборник из 12 детективных рассказов, созданных Артуром Конаном Дойлом.', 1892, 'Артур Конан Дойл');
+INSERT INTO public.book VALUES (5, 'Мы', 'Фантастический роман-антиутопия Евгения Замятина с элементами сатиры. Действие разворачивается приблизительно в тридцать втором веке. Этот роман описывает общество жёсткого тоталитарного контроля над личностью, идейно основанное на тейлоризме, сциентизме и отрицании фантазии, управляемое «избираемым» на безальтернативной основе «Благодетелем».', 1988, 'Евгений Замятин');
+INSERT INTO public.book VALUES (6, 'Турецкий Гамбит', 'Книга Бориса Акунина из серии «Приключения Эраста Фандорина». Акунин задумал серию «Приключения Эраста Фандорина» как краткое изложение всех жанров детектива, каждый роман представлял собой новый жанр.', 1998, 'Борис Акунин');
+INSERT INTO public.book VALUES (7, 'Солярис', 'Фантастический роман Станислава Лема, описывающий взаимоотношения людей будущего c разумным Океаном планеты Солярис.', 1961, 'Станислав Лем');
+INSERT INTO public.book VALUES (8, 'Шум и ярость', 'Роман американского писателя Уильяма Фолкнера, опубликованный в 1929 году. «Шум и ярость», четвёртый роман Фолкнера, долгое время не имел коммерческой популярности. Он стал известен два года спустя, на волне успеха романа «Святилище». В романе используется несколько стилей повествования, в том числе техника потока сознания, введённая такими европейскими писателями XX века, как Джеймс Джойс и Вирджиния Вулф.', 1929, 'Уильям Фолкнер');
+INSERT INTO public.book VALUES (9, 'Гарри Поттер и философский камень', 'Первый роман в серии книг про юного волшебника Гарри Поттера, написанный Дж. К. Роулинг. В нём рассказывается, как Гарри узнает, что он волшебник, встречает близких друзей и немало врагов в Школе Чародейства и Волшебства «Хогвартс», а также с помощью своих друзей пресекает попытку возвращения злого волшебника Лорда Волан-де-Морта, который убил родителей Гарри.', 1997, 'Джоан Роулинг');
+INSERT INTO public.book VALUES (10, 'Война и мир', 'Роман-эпопея Льва Николаевича Толстого, описывающий русское общество в эпоху войн против Наполеона в 1805-1812 годах. Эпилог романа доводит повествование до 1820 года.', 1869, 'Л. Н. Толстой');
+INSERT INTO public.book VALUES (11, 'Отцы и дети', 'Роман И. С. Тургенева, написанный в 1860-1861 годах и опубликованный в 1862 году. В обстановке «великих реформ» книга стала сенсацией и привлекла к себе всеобщее внимание, а образ главного героя Евгения Базарова был воспринят как воплощение нового, пореформенного поколения, став примером для подражания молодёжи 1860-х гг. Свойственные Базарову бескомпромиссность, отсутствие преклонения перед авторитетами и старыми истинами, приоритет полезного над прекрасным стали идеалами первого поколения пореформенной интеллигенции.', 1862, 'И. С. Тургенев');
+
+
+--
+-- TOC entry 3106 (class 0 OID 26489)
+-- Dependencies: 203
+-- Data for Name: book_bookevaluation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.book_bookevaluation VALUES (2, 3);
+INSERT INTO public.book_bookevaluation VALUES (3, 4);
+INSERT INTO public.book_bookevaluation VALUES (4, 5);
+INSERT INTO public.book_bookevaluation VALUES (5, 6);
+INSERT INTO public.book_bookevaluation VALUES (6, 7);
+INSERT INTO public.book_bookevaluation VALUES (7, 8);
+INSERT INTO public.book_bookevaluation VALUES (8, 9);
+INSERT INTO public.book_bookevaluation VALUES (9, 10);
+INSERT INTO public.book_bookevaluation VALUES (10, 11);
+INSERT INTO public.book_bookevaluation VALUES (11, 12);
+
+
+--
+-- TOC entry 3107 (class 0 OID 26492)
+-- Dependencies: 204
+-- Data for Name: book_bookgenre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.book_bookgenre VALUES (2, 1);
+INSERT INTO public.book_bookgenre VALUES (2, 2);
+INSERT INTO public.book_bookgenre VALUES (3, 1);
+INSERT INTO public.book_bookgenre VALUES (4, 33);
+INSERT INTO public.book_bookgenre VALUES (5, 1);
+INSERT INTO public.book_bookgenre VALUES (5, 34);
+INSERT INTO public.book_bookgenre VALUES (6, 33);
+INSERT INTO public.book_bookgenre VALUES (7, 1);
+INSERT INTO public.book_bookgenre VALUES (7, 2);
+INSERT INTO public.book_bookgenre VALUES (7, 35);
+INSERT INTO public.book_bookgenre VALUES (8, 1);
+INSERT INTO public.book_bookgenre VALUES (9, 3);
+INSERT INTO public.book_bookgenre VALUES (9, 36);
+INSERT INTO public.book_bookgenre VALUES (10, 1);
+INSERT INTO public.book_bookgenre VALUES (10, 27);
+INSERT INTO public.book_bookgenre VALUES (11, 1);
+
+
+--
+-- TOC entry 3108 (class 0 OID 26495)
+-- Dependencies: 205
+-- Data for Name: book_bookreview; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3110 (class 0 OID 26500)
+-- Dependencies: 207
+-- Data for Name: book_image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.book_image VALUES (2, 17);
+INSERT INTO public.book_image VALUES (3, 39);
+INSERT INTO public.book_image VALUES (4, 40);
+INSERT INTO public.book_image VALUES (5, 41);
+INSERT INTO public.book_image VALUES (6, 42);
+INSERT INTO public.book_image VALUES (7, 43);
+INSERT INTO public.book_image VALUES (8, 44);
+INSERT INTO public.book_image VALUES (9, 45);
+INSERT INTO public.book_image VALUES (10, 46);
+INSERT INTO public.book_image VALUES (11, 47);
+
+
+--
+-- TOC entry 3111 (class 0 OID 26503)
+-- Dependencies: 208
+-- Data for Name: book_selection; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3112 (class 0 OID 26506)
+-- Dependencies: 209
+-- Data for Name: book_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3113 (class 0 OID 26509)
+-- Dependencies: 210
+-- Data for Name: bookevaluation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.bookevaluation VALUES (3, 10);
+INSERT INTO public.bookevaluation VALUES (4, 10);
+INSERT INTO public.bookevaluation VALUES (5, 10);
+INSERT INTO public.bookevaluation VALUES (6, 8);
+INSERT INTO public.bookevaluation VALUES (7, 9);
+INSERT INTO public.bookevaluation VALUES (8, 9);
+INSERT INTO public.bookevaluation VALUES (9, 9);
+INSERT INTO public.bookevaluation VALUES (10, 8);
+INSERT INTO public.bookevaluation VALUES (11, 10);
+INSERT INTO public.bookevaluation VALUES (12, 10);
+
+
+--
+-- TOC entry 3115 (class 0 OID 26514)
+-- Dependencies: 212
+-- Data for Name: bookevaluation_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.bookevaluation_user VALUES (3, 16);
+INSERT INTO public.bookevaluation_user VALUES (4, 16);
+INSERT INTO public.bookevaluation_user VALUES (5, 16);
+INSERT INTO public.bookevaluation_user VALUES (6, 16);
+INSERT INTO public.bookevaluation_user VALUES (7, 16);
+INSERT INTO public.bookevaluation_user VALUES (8, 16);
+INSERT INTO public.bookevaluation_user VALUES (9, 16);
+INSERT INTO public.bookevaluation_user VALUES (10, 16);
+INSERT INTO public.bookevaluation_user VALUES (11, 16);
+INSERT INTO public.bookevaluation_user VALUES (12, 16);
+
+
+--
+-- TOC entry 3116 (class 0 OID 26517)
+-- Dependencies: 213
+-- Data for Name: bookgenre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.bookgenre VALUES (1, 'Роман');
+INSERT INTO public.bookgenre VALUES (2, 'Психология');
+INSERT INTO public.bookgenre VALUES (3, 'Приключение');
+INSERT INTO public.bookgenre VALUES (4, 'Повесть');
+INSERT INTO public.bookgenre VALUES (25, 'Пьеса');
+INSERT INTO public.bookgenre VALUES (26, 'Рассказ');
+INSERT INTO public.bookgenre VALUES (27, 'Эпопея');
+INSERT INTO public.bookgenre VALUES (28, 'Комедия');
+INSERT INTO public.bookgenre VALUES (29, 'Трагедия');
+INSERT INTO public.bookgenre VALUES (30, 'Драма');
+INSERT INTO public.bookgenre VALUES (31, 'Ужасы');
+INSERT INTO public.bookgenre VALUES (32, 'Поэма');
+INSERT INTO public.bookgenre VALUES (33, 'Детектив');
+INSERT INTO public.bookgenre VALUES (34, 'Антиутопия');
+INSERT INTO public.bookgenre VALUES (35, 'Фантастика');
+INSERT INTO public.bookgenre VALUES (36, 'Фэнтези');
+
+
+--
+-- TOC entry 3118 (class 0 OID 26522)
+-- Dependencies: 215
+-- Data for Name: bookreview; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3119 (class 0 OID 26528)
+-- Dependencies: 216
+-- Data for Name: bookreview_comment; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3121 (class 0 OID 26533)
+-- Dependencies: 218
+-- Data for Name: bookreview_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3122 (class 0 OID 26536)
+-- Dependencies: 219
+-- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3123 (class 0 OID 26542)
+-- Dependencies: 220
+-- Data for Name: comment_filmreview; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3125 (class 0 OID 26547)
+-- Dependencies: 222
+-- Data for Name: comment_selection; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3126 (class 0 OID 26550)
+-- Dependencies: 223
+-- Data for Name: comment_serialreview; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3127 (class 0 OID 26553)
+-- Dependencies: 224
+-- Data for Name: comment_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3128 (class 0 OID 26556)
+-- Dependencies: 225
+-- Data for Name: film; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.film VALUES (1, 'Криминальное чтиво', 'Двое бандитов Винсент Вега и Джулс Винфилд ведут философские беседы в перерывах между разборками и решением проблем с должниками криминального босса Марселласа Уоллеса. В первой истории Винсент проводит незабываемый вечер с женой Марселласа Мией. Во второй рассказывается о боксёре Бутче Кулидже, купленном Уоллесом, чтобы сдать бой. В третьей истории Винсент и Джулс по нелепой случайности попадают в неприятности.', 1994, 'Квентин Тарантино', 'Джон Траволта, Сэмюел Л. Джексон, Брюс Уиллис, Ума Турман, Винг Реймз, Тим Рот');
+INSERT INTO public.film VALUES (2, 'Поймай меня, если сможешь', 'Фрэнк Эбегнейл успел поработать врачом, адвокатом и пилотом на пассажирской авиалинии – и все это до достижения полного совершеннолетия в 21 год. Мастер в обмане и жульничестве, он также обладал искусством подделки документов, что в конечном счете принесло ему миллионы долларов, которые он получил по фальшивым чекам.', 2002, 'Стивен Спилберг', 'Леонардо ДиКаприо, Том Хэнкс, Кристофер Уокен, Мартин Шин, Натали Бай, Эми Адамс');
+INSERT INTO public.film VALUES (3, 'Реквием по мечте', 'Каждый стремится к своей заветной мечте. Сара Голдфарб мечтала сняться в известном телешоу, ее сын Гарольд с другом Тайроном — сказочно разбогатеть, подруга Гарольда Мэрион грезила о собственном модном магазине, но на их пути были всевозможные препятствия. Все они выбирают неочевидные пути достижения своих целей, и мечты по-прежнему остаются недостижимыми, а жизни героев рушатся безвозвратно.', 2000, 'Даррен Аронофски', 'Джаред Лето, Марлон Уайанс, Дженнифер Коннелли, Эллен Бёрстин, Кристофер Макдональд, Луиза Лэссер');
+INSERT INTO public.film VALUES (4, 'Социальная сеть', 'В фильме рассказывается история создания одной из самых популярных в Интернете социальных сетей - Facebook. Оглушительный успех этой сети среди пользователей по всему миру навсегда изменил жизнь студентов-однокурсников гарвардского университета, которые основали ее в 2004 году и за несколько лет стали самыми молодыми мультимиллионерами в США.', 2010, 'Дэвид Финчер', 'Джесси Айзенберг, Эндрю Гарфилд, Джастин Тимберлейк, Арми Хаммер, Макс Мингелла');
+INSERT INTO public.film VALUES (5, 'Эффект Бабочки', 'Мальчик Эван перенял от своего отца-психопата, ныне запертого в доме для умалишённых, странную болезнь — он не помнит некоторых эпизодов своей жизни, причем в эти моменты происходили довольно странные, а то и ужасные события. Возмужав и поступив в колледж, Эван делает удивительное открытие. Читая дневники, которые он писал в детстве по совету врача, Эван может возвращаться в детство и своими действиями менять будущее.', 2003, ' Эрик Бресс, Дж. Макки Грубер', 'Эштон Кутчер, Эми Смарт, Элден Хенсон, Уильям Ли Скотт, Джон Патрик Амедори, Кевин Шмидт, Ирина Горовая');
+INSERT INTO public.film VALUES (6, 'Американская история Х', 'Лидер местной банды скинхедов Дерек Виньярд прочно удерживает авторитет в своём районе. Убеждённый в своей правоте, он беспощадно расправляется с теми, кто имеет не белый цвет кожи. Независимость и смелость Дерека вызывают восхищение у его младшего брата Дэнни, который уже тоже сделал свой выбор.  Но зверское убийство двух чернокожих парней, совершённое Дереком, разделяет дороги братьев: Дерек оказывается в тюрьме, где существует свой расклад сил, а Дэнни на свободе успешно продолжает дело брата. До тех пор, пока их пути не пересеклись вновь…', 1998, 'Тони Кэй', 'Эдвард Нортон, Эдвард Ферлонг, Беверли Д`Анджело, Дженнифер Лиен, Итан Сапли');
+INSERT INTO public.film VALUES (7, 'Бойцовский клуб', 'Сотрудник страховой компании страдает хронической бессонницей и отчаянно пытается вырваться из мучительно скучной жизни. Однажды в очередной командировке он встречает некоего Тайлера Дёрдена — харизматического торговца мылом с извращенной философией. Тайлер уверен, что самосовершенствование — удел слабых, а единственное, ради чего стоит жить — саморазрушение.  Проходит немного времени, и вот уже новые друзья лупят друг друга почем зря на стоянке перед баром, и очищающий мордобой доставляет им высшее блаженство. Приобщая других мужчин к простым радостям физической жестокости, они основывают тайный Бойцовский клуб, который начинает пользоваться невероятной популярностью.', 1999, 'Дэвид Финчер', 'Эдвард Нортон, Брэд Питт, Хелена Бонем Картер, Мит Лоаф, Зэк Гренье, Холт Маккэллани, Джаред Лето');
+INSERT INTO public.film VALUES (8, 'Молчание ягнят', 'Психопат похищает и убивает молодых женщин по всему Среднему Западу Америки. ФБР, уверенное в том, что все преступления совершены одним и тем же человеком, поручает агенту Клариссе Старлинг встретиться с заключенным-маньяком, который мог бы объяснить следствию психологические мотивы серийного убийцы и тем самым вывести на его след.  Заключенный, доктор психиатрии Ганнибал Лектер, отбывает наказание за убийства и каннибализм. Он согласен помочь Клариссе лишь в том случае, если она попотчует его больное воображение подробностями своей сложной личной жизни. Такие двусмысленные отношения не только порождают в душе Клариссы внутренний конфликт, но и сталкивают ее лицом к лицу с помешанным до гениальности убийцей.', 1990, 'Джонатан Демме', 'Джоди Фостер, Энтони Хопкинс, Брук Смит, Скотт Гленн, Тед Левайн, Энтони Хилд, Кейси Леммонс');
+INSERT INTO public.film VALUES (9, 'Отступники', 'Два лучших выпускника полицейской академии оказались по разные стороны баррикады: один из них – агент мафии в рядах правоохранительных органов, другой – «крот», внедрённый в мафию. Каждый считает своим долгом обнаружить и уничтожить противника, но постоянная жизнь в искажённых реалиях меняет внутренний мир героев.', 2006, 'Мартин Скорсезе', 'Леонардо ДиКаприо, Мэтт Дэймон, Джек Никлсон, Марк Уолберг, Мартин Шин, Рэй Уинстон, Вера Фармига');
+INSERT INTO public.film VALUES (10, 'Игры разума', 'От всемирной известности до греховных глубин — все это познал на своей шкуре Джон Форбс Нэш-младший. Математический гений, он на заре своей карьеры сделал титаническую работу в области теории игр, которая перевернула этот раздел математики и практически принесла ему международную известность.  Однако буквально в то же время заносчивый и пользующийся успехом у женщин Нэш получает удар судьбы, который переворачивает уже его собственную жизнь.', 2001, 'Рон Ховард', 'Рассел Кроу, Эд Харрис, Дженнифр Коннели, Кристофер Палмер, Пол Беттани, Адам Голдберг, Джош Лукас');
+
+
+--
+-- TOC entry 3129 (class 0 OID 26562)
+-- Dependencies: 226
+-- Data for Name: film_filmevaluation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.film_filmevaluation VALUES (1, 2);
+INSERT INTO public.film_filmevaluation VALUES (1, 14);
+INSERT INTO public.film_filmevaluation VALUES (2, 3);
+INSERT INTO public.film_filmevaluation VALUES (2, 16);
+INSERT INTO public.film_filmevaluation VALUES (3, 4);
+INSERT INTO public.film_filmevaluation VALUES (4, 5);
+INSERT INTO public.film_filmevaluation VALUES (5, 6);
+INSERT INTO public.film_filmevaluation VALUES (5, 15);
+INSERT INTO public.film_filmevaluation VALUES (6, 7);
+INSERT INTO public.film_filmevaluation VALUES (7, 8);
+INSERT INTO public.film_filmevaluation VALUES (8, 9);
+INSERT INTO public.film_filmevaluation VALUES (8, 13);
+INSERT INTO public.film_filmevaluation VALUES (9, 10);
+INSERT INTO public.film_filmevaluation VALUES (10, 11);
+INSERT INTO public.film_filmevaluation VALUES (10, 17);
+
+
+--
+-- TOC entry 3130 (class 0 OID 26565)
+-- Dependencies: 227
+-- Data for Name: film_filmgenre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.film_filmgenre VALUES (1, 1);
+INSERT INTO public.film_filmgenre VALUES (1, 15);
+INSERT INTO public.film_filmgenre VALUES (1, 18);
+INSERT INTO public.film_filmgenre VALUES (1, 19);
+INSERT INTO public.film_filmgenre VALUES (2, 13);
+INSERT INTO public.film_filmgenre VALUES (2, 18);
+INSERT INTO public.film_filmgenre VALUES (2, 19);
+INSERT INTO public.film_filmgenre VALUES (3, 5);
+INSERT INTO public.film_filmgenre VALUES (4, 5);
+INSERT INTO public.film_filmgenre VALUES (4, 13);
+INSERT INTO public.film_filmgenre VALUES (5, 5);
+INSERT INTO public.film_filmgenre VALUES (5, 10);
+INSERT INTO public.film_filmgenre VALUES (5, 15);
+INSERT INTO public.film_filmgenre VALUES (6, 5);
+INSERT INTO public.film_filmgenre VALUES (7, 5);
+INSERT INTO public.film_filmgenre VALUES (7, 15);
+INSERT INTO public.film_filmgenre VALUES (7, 19);
+INSERT INTO public.film_filmgenre VALUES (8, 1);
+INSERT INTO public.film_filmgenre VALUES (8, 5);
+INSERT INTO public.film_filmgenre VALUES (8, 8);
+INSERT INTO public.film_filmgenre VALUES (8, 15);
+INSERT INTO public.film_filmgenre VALUES (8, 19);
+INSERT INTO public.film_filmgenre VALUES (9, 5);
+INSERT INTO public.film_filmgenre VALUES (9, 9);
+INSERT INTO public.film_filmgenre VALUES (9, 15);
+INSERT INTO public.film_filmgenre VALUES (9, 19);
+INSERT INTO public.film_filmgenre VALUES (10, 5);
+INSERT INTO public.film_filmgenre VALUES (10, 9);
+INSERT INTO public.film_filmgenre VALUES (10, 10);
+INSERT INTO public.film_filmgenre VALUES (10, 13);
+
+
+--
+-- TOC entry 3131 (class 0 OID 26568)
+-- Dependencies: 228
+-- Data for Name: film_filmreview; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.film_filmreview VALUES (8, 3);
+
+
+--
+-- TOC entry 3133 (class 0 OID 26573)
+-- Dependencies: 230
+-- Data for Name: film_image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.film_image VALUES (1, 18);
+INSERT INTO public.film_image VALUES (2, 20);
+INSERT INTO public.film_image VALUES (3, 21);
+INSERT INTO public.film_image VALUES (4, 22);
+INSERT INTO public.film_image VALUES (5, 23);
+INSERT INTO public.film_image VALUES (6, 24);
+INSERT INTO public.film_image VALUES (7, 25);
+INSERT INTO public.film_image VALUES (8, 26);
+INSERT INTO public.film_image VALUES (9, 27);
+INSERT INTO public.film_image VALUES (10, 28);
+
+
+--
+-- TOC entry 3134 (class 0 OID 26576)
+-- Dependencies: 231
+-- Data for Name: film_selection; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.film_selection VALUES (1, 1);
+INSERT INTO public.film_selection VALUES (6, 1);
+INSERT INTO public.film_selection VALUES (7, 1);
+INSERT INTO public.film_selection VALUES (8, 1);
+
+
+--
+-- TOC entry 3135 (class 0 OID 26579)
+-- Dependencies: 232
+-- Data for Name: film_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3136 (class 0 OID 26582)
+-- Dependencies: 233
+-- Data for Name: filmevaluation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.filmevaluation VALUES (2, 10);
+INSERT INTO public.filmevaluation VALUES (3, 10);
+INSERT INTO public.filmevaluation VALUES (4, 10);
+INSERT INTO public.filmevaluation VALUES (5, 10);
+INSERT INTO public.filmevaluation VALUES (6, 10);
+INSERT INTO public.filmevaluation VALUES (7, 10);
+INSERT INTO public.filmevaluation VALUES (8, 10);
+INSERT INTO public.filmevaluation VALUES (9, 10);
+INSERT INTO public.filmevaluation VALUES (10, 10);
+INSERT INTO public.filmevaluation VALUES (11, 10);
+INSERT INTO public.filmevaluation VALUES (13, 8);
+INSERT INTO public.filmevaluation VALUES (14, 9);
+INSERT INTO public.filmevaluation VALUES (15, 7);
+INSERT INTO public.filmevaluation VALUES (16, 9);
+INSERT INTO public.filmevaluation VALUES (17, 8);
+
+
+--
+-- TOC entry 3138 (class 0 OID 26587)
+-- Dependencies: 235
+-- Data for Name: filmevaluation_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.filmevaluation_user VALUES (2, 16);
+INSERT INTO public.filmevaluation_user VALUES (3, 16);
+INSERT INTO public.filmevaluation_user VALUES (4, 16);
+INSERT INTO public.filmevaluation_user VALUES (5, 16);
+INSERT INTO public.filmevaluation_user VALUES (6, 16);
+INSERT INTO public.filmevaluation_user VALUES (7, 16);
+INSERT INTO public.filmevaluation_user VALUES (8, 16);
+INSERT INTO public.filmevaluation_user VALUES (9, 16);
+INSERT INTO public.filmevaluation_user VALUES (10, 16);
+INSERT INTO public.filmevaluation_user VALUES (11, 16);
+INSERT INTO public.filmevaluation_user VALUES (13, 17);
+INSERT INTO public.filmevaluation_user VALUES (14, 17);
+INSERT INTO public.filmevaluation_user VALUES (15, 17);
+INSERT INTO public.filmevaluation_user VALUES (16, 17);
+INSERT INTO public.filmevaluation_user VALUES (17, 17);
+
+
+--
+-- TOC entry 3139 (class 0 OID 26590)
+-- Dependencies: 236
+-- Data for Name: filmgenre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.filmgenre VALUES (1, 'Ужасы');
+INSERT INTO public.filmgenre VALUES (2, 'Фентези');
+INSERT INTO public.filmgenre VALUES (3, 'Военный');
+INSERT INTO public.filmgenre VALUES (4, 'Приключения');
+INSERT INTO public.filmgenre VALUES (5, 'Драма');
+INSERT INTO public.filmgenre VALUES (6, 'Мистика');
+INSERT INTO public.filmgenre VALUES (8, 'Детектив');
+INSERT INTO public.filmgenre VALUES (9, 'Мелодрамма');
+INSERT INTO public.filmgenre VALUES (10, 'Фантастика');
+INSERT INTO public.filmgenre VALUES (11, 'Боевик');
+INSERT INTO public.filmgenre VALUES (12, 'Исторический');
+INSERT INTO public.filmgenre VALUES (13, 'Биография');
+INSERT INTO public.filmgenre VALUES (14, 'Вестерн');
+INSERT INTO public.filmgenre VALUES (15, 'Триллер');
+INSERT INTO public.filmgenre VALUES (16, 'Мультфильм');
+INSERT INTO public.filmgenre VALUES (17, 'Мюзикл');
+INSERT INTO public.filmgenre VALUES (18, 'Комедия');
+INSERT INTO public.filmgenre VALUES (19, 'Криминал');
+
+
+--
+-- TOC entry 3141 (class 0 OID 26595)
+-- Dependencies: 238
+-- Data for Name: filmreview; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.filmreview VALUES (3, 'Мой кинематограф!
+Вряд ли он заговорит с вами…
+
+(примерно 7-ая минута фильма)
+
+Молчание ягнят
+
+Джонатан Демме (дядя Теда Демме, который в свою очередь прославился фильмом “Кокаин” с Деппом) пришел в кинематограф давным-давно. Мужик успел поставить даже серию про лейтенанта Коломбо в 1978 году. Работал на ТВ, опять же. Все бы ничего, но только звезд с неба явно не хватало.
+
+Ситуация изменилась в один момент, когда Джонатан прочитал роман Томаса Харриса о Ганнибале Лекторе. Взвалив на свои плечи экранизацию – Демме выстрелил в 1991 году. Да так, что картина собрала целых 5 Оскаров (актер, актриса, фильм, адаптированный сценарий и самое главное – режиссер).
+
+Заслуженно или нет? Да, черт возьми! Чтобы вам там не говорили про “Красного дракона” с Нортоном или про первую экранизацию Харриса от Майкла Манна (Охотник на людей) – Джонатан Демме разорвал всех в клочья. Шикарный психологический триллер, гениальная актерка Хопкинса, крепкая режиссура Джонатана.
+
+Две любимейших сцены! Первая – момент, когда Хопкинс дотрагивается до Фостер. Это очень страшная и одновременно сексуальная сцена. Ты понимаешь, что после нее, Лектер навсегда останется в голове Клариссы. Стена, которая ограждала агента ФБР от психопата – разрушена. Браво, постановщик, браво.
+
+Вторая – конечно же, Буффало Билл, ребятушки. Кто смотрел (а “Молчание ягнят” смотрели все), тот догадался. Буффало красит губы, ресницы. Накидывает халатик и начинает танцевать под Q Lazzarus – “Goodbye Horses”. Кто додумался включить именно данную песню – целую тебя в лобик. Прощай, лошадка. Изумительная сцена.
+
+Два монстра. Лектер жрет людей. Буффало сдирает кожу с женщин. Между ними – такая маленькая, такая ранимая, такая трогательная, такая нежная, Кларисса. Она будет сильной. Иначе никак. Иначе не выжить. Она перестанет слышать по ночам плачь ягнят. Аплодирую Джоди Фостер. Переживал за ее героиню всем сердцем (особенно в доме у Билла).
+
+Классика. Один из лучших триллеров 90-ых.
+
+Берегите своих женщин.');
+
+
+--
+-- TOC entry 3143 (class 0 OID 26603)
+-- Dependencies: 240
+-- Data for Name: filmreview_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.filmreview_user VALUES (3, 17);
+
+
+--
+-- TOC entry 3144 (class 0 OID 26606)
+-- Dependencies: 241
+-- Data for Name: image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.image VALUES (16, '\img\photo_2018-03-08_23-05-12.jpg');
+INSERT INTO public.image VALUES (17, '\img\geroy_nashego_vremeni.png');
+INSERT INTO public.image VALUES (18, '\img\pulp_fiction.jpg');
+INSERT INTO public.image VALUES (20, '\img\catch_me_if_you_can.webp');
+INSERT INTO public.image VALUES (21, '\img\requiem_for_a_dream.webp');
+INSERT INTO public.image VALUES (22, '\img\the_social_network.webp');
+INSERT INTO public.image VALUES (23, '\img\the_butterfly_effect.webp');
+INSERT INTO public.image VALUES (24, '\img\american_history_x.webp');
+INSERT INTO public.image VALUES (25, '\img\fight_club.webp');
+INSERT INTO public.image VALUES (26, '\img\the_silence_of_the_lambs.webp');
+INSERT INTO public.image VALUES (27, '\img\the_departed.webp');
+INSERT INTO public.image VALUES (28, '\img\a_beautiful_mind.webp');
+INSERT INTO public.image VALUES (29, '\img\mr_robot.webp');
+INSERT INTO public.image VALUES (30, '\img\skam.webp');
+INSERT INTO public.image VALUES (31, '\img\the_big_bang_theory.webp');
+INSERT INTO public.image VALUES (32, '\img\game_of_thrones.webp');
+INSERT INTO public.image VALUES (33, '\img\house_m_d.webp');
+INSERT INTO public.image VALUES (34, '\img\suits.webp');
+INSERT INTO public.image VALUES (35, '\img\sherlock.webp');
+INSERT INTO public.image VALUES (19, '\img\twin_peaks.webp');
+INSERT INTO public.image VALUES (36, '\img\the_queens_gambit.webp');
+INSERT INTO public.image VALUES (37, '\img\how_i_met_your_mother.webp');
+INSERT INTO public.image VALUES (38, '\img\kritik_avatar.webp');
+INSERT INTO public.image VALUES (39, '\img\the_financier.jpg');
+INSERT INTO public.image VALUES (40, '\img\the_adventures_of_sherlock_holmes.jpg');
+INSERT INTO public.image VALUES (41, '\img\mi.jpg');
+INSERT INTO public.image VALUES (42, '\img\tureckii_gambit.jpg');
+INSERT INTO public.image VALUES (43, '\img\solaris.jpg');
+INSERT INTO public.image VALUES (44, '\img\the_sound_and_the_fury.jpg');
+INSERT INTO public.image VALUES (45, '\img\harry_potter_and_the_philosophers_stone.jpg');
+INSERT INTO public.image VALUES (46, '\img\woina_i_mir.jpg');
+INSERT INTO public.image VALUES (47, '\img\otsy_i_deti.jpg');
+INSERT INTO public.image VALUES (48, '\img\hqW8zGH4Wag.jpg');
+
+
+--
+-- TOC entry 3146 (class 0 OID 26611)
+-- Dependencies: 243
+-- Data for Name: image_serial; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.image_serial VALUES (19, 1);
+INSERT INTO public.image_serial VALUES (29, 2);
+INSERT INTO public.image_serial VALUES (30, 3);
+INSERT INTO public.image_serial VALUES (31, 4);
+INSERT INTO public.image_serial VALUES (32, 5);
+INSERT INTO public.image_serial VALUES (33, 6);
+INSERT INTO public.image_serial VALUES (34, 7);
+INSERT INTO public.image_serial VALUES (35, 8);
+INSERT INTO public.image_serial VALUES (36, 9);
+INSERT INTO public.image_serial VALUES (37, 10);
+
+
+--
+-- TOC entry 3147 (class 0 OID 26614)
+-- Dependencies: 244
+-- Data for Name: image_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.image_user VALUES (16, 16);
+INSERT INTO public.image_user VALUES (38, 17);
+
+
+--
+-- TOC entry 3148 (class 0 OID 26617)
+-- Dependencies: 245
+-- Data for Name: privacysettings; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.privacysettings VALUES (2, true, true, true, true, true);
+INSERT INTO public.privacysettings VALUES (1, false, false, true, true, false);
+
+
+--
+-- TOC entry 3150 (class 0 OID 26627)
+-- Dependencies: 247
+-- Data for Name: privacysettings_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.privacysettings_user VALUES (1, 16);
+INSERT INTO public.privacysettings_user VALUES (2, 17);
+
+
+--
+-- TOC entry 3151 (class 0 OID 26630)
+-- Dependencies: 248
+-- Data for Name: selection; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.selection VALUES (1, 'Фильмы до 00-х', 'Очень крутое кино! Всем советую!!! ');
+
+
+--
+-- TOC entry 3153 (class 0 OID 26638)
+-- Dependencies: 250
+-- Data for Name: selection_serial; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3154 (class 0 OID 26641)
+-- Dependencies: 251
+-- Data for Name: selection_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.selection_user VALUES (1, 16);
+
+
+--
+-- TOC entry 3155 (class 0 OID 26644)
+-- Dependencies: 252
+-- Data for Name: serial; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serial VALUES (1, 'Твин пикс', 'История начинается с известия о находке обнаженного тела старшеклассницы Лоры Палмер, завёрнутого в полиэтилен и выброшенного волнами на берег озера. В ходе расследования перед внимательными взглядами агента Купера, шерифа Трумана и его помощников проходят разные жители Твин Пикс. Постепенно зритель открывает для себя темную и страшную сторону жизни обитателей на первый взгляд тихого и мирного городка.', 1990, 2017, 'Дэвид Линч, Марк Фрост', 'Кайл Маклахлен, Майкл Онткин, Шерил Ли, Лара Флинн Бойл, Шерилин Фенн, Рей Уайз');
+INSERT INTO public.serial VALUES (2, 'Мистер робот', 'История молодого программиста Эллиота, страдающего социофобией и решившего, что единственный приемлемый для него способ взаимодействия с людьми — это профессия хакера. Таким образом, он быстро оказывается в том самом месте, где пересекаются интересы его работодателя — фирмы, занимающейся кибербезопасностью, — и подпольных организаций, которые пытаются его завербовать с целью обрушения самых могучих американских корпораций.', 2015, 2019, 'Сэм Эсмейл, Джим МакКэй, Триша Брок', 'Рами Малек, Кристиан Слэйтер, Карли Чаикин, Мартин Вальстрём, Портия Даблдэй, Майкл Кристофер, Грэйс Гаммер');
+INSERT INTO public.serial VALUES (3, 'Скам', 'Сериал о жизни пяти подруг из старшей школы «Hartvig Nissens» в Осло. На примере Евы, Нуры, Вильде, Крис и Саны мы можем увидеть, какие события переживают норвежские подростки в повседневной жизни: первая любовь и измены, дружба и предательство, общественное порицание и популярность и, конечно, подготовка к выпуску.', 2015, 2017, 'Жюли Андем', 'Юсефине Фрида, Иман Мескини, Ульрикке Фалк, Лиза Тейге, Тарьей Садвик Му, Марлон Лангеланд, Герман Томмераас, Томас Хэйес');
+INSERT INTO public.serial VALUES (4, 'Теория большого взрыва', 'Два блестящих физика Леонард и Шелдон - великие умы, которые понимают, как устроена вселенная. Но их гениальность ничуть не помогает им общаться с людьми, особенно с женщинами. Всё начинает меняться, когда напротив них поселяется красавица Пенни.  Стоит также отметить пару странных друзей этих физиков: Воловиц который любит употреблять фразы на разных языках, включая русский, а Раджеш Кутрапали теряет дар речи при виде женщин.', 2007, 2019, ' Марк Сендроуски, Энтони Рич, Питер Чакос', 'Джоннэ Галэки, Джим Парсонс, Кэили Куоко, Саймон Хелберг, Кунал Нэйэр, Мелисса Рауш, Майем Биалик');
+INSERT INTO public.serial VALUES (5, 'Игра престолов', 'К концу подходит время благоденствия, и лето, длившееся почти десятилетие, угасает. Вокруг средоточия власти Семи королевств, Железного трона, зреет заговор, и в это непростое время король решает искать поддержки у друга юности Эддарда Старка. В мире, где все — от короля до наемника — рвутся к власти, плетут интриги и готовы вонзить нож в спину, есть место и благородству, состраданию и любви. Между тем, никто не замечает пробуждение тьмы из легенд далеко на Севере — и лишь Стена защищает живых к югу от нее.', 2011, 2019, 'Дэвид Наттер, Алан Тейлор, Алекс Грейвз', 'Питер Динклейдж, Лина Хиди, Эмилия Кларк, Кит Харингтон, Софи Тёрнер, Мэйси Уильямс, Николай Костер-Вальдау, Иэн Глен');
+INSERT INTO public.serial VALUES (6, 'Доктор Хаус', 'Сериал рассказывает о команде врачей, которые должны правильно поставить диагноз пациенту и спасти его. Возглавляет команду доктор Грегори Хаус, который ходит с тростью после того, как его мышечный инфаркт в правой ноге слишком поздно правильно диагностировали. Как врач Хаус просто гений, но сам не отличается проникновенностью в общении с больными и с удовольствием избегает их, если только есть возможность. Он сам всё время проводит в борьбе с собственной болью, а трость в его руке только подчеркивает его жесткую, ядовитую манеру общения. Порой его поведение можно назвать почти бесчеловечным, и при этом он прекрасный врач, обладающий нетипичным умом и безупречным инстинктом, что снискало ему глубокое уважение. Будучи инфекционистом, он ещё и замечательный диагност, который любит разгадывать медицинские загадки, чтобы спасти кому-то жизнь. Если бы все было по его воле, то Хаус лечил бы больных не выходя из своего кабинета.', 2004, 2012, 'Грег Яйтанс, Деран Сарафян, Дэвид Стрейтон', 'Хью Лори, Роберт Шон Леонард, Лиза Эдельштейн, Омар Эппс, Джесси Спенсер, Дженнифер Моррисон, Питер Джекобсон, Оливия Уайлд');
+INSERT INTO public.serial VALUES (7, 'Форс-мажоры', 'Убегая после неудачной попытки сбыта наркотиков, юрист-самоучка Майк Росс, выдающий себя за выпускника Гарварда, попадает на собеседование к одному из лучших адвокатов по сделкам Нью-Йорка Харви Спектру.  Устав от скучных соискателей, мечтающих «верой и правдой служить букве закона», Харви рискует и нанимает Майка: у парня врожденный талант и фотографическая память. Так рождается один из самых неоднозначных, но, в то же время, и самых блестящих адвокатских тандемов на Манхэттене.', 2011, 2019, ' Майкл Смит, Антон Кроппер, Крис Мисиано', 'Гэбриел Махт, Рик Хоффман, Сара Раферти, Патрик Джей Адамс, Меган Маркл, Джина Торрес, Аманда Шул');
+INSERT INTO public.serial VALUES (8, 'Шерлок', 'События разворачиваются в наши дни. Он прошел Афганистан, остался инвалидом. По возвращении в родные края встречается с загадочным, но своеобразным гениальным человеком. Тот в поиске соседа по квартире. Лондон, 2010 год. Происходят необъяснимые убийства. Скотланд-Ярд без понятия, за что хвататься. Существует лишь один человек, который в силах разрешить проблемы и найти ответы на сложные вопросы.', 2010, 2017, 'Пол МакГиган, Ник Харран, Коки Гидройч', 'Бенедикт Камбербетч, Мартин Фриман, Уна Стаббс, Руперт Грейвз, Луиза Брили, Марк Гэтисс, Эндрб Скотт, Аманда Аббингтон');
+INSERT INTO public.serial VALUES (9, 'Ход Королевы', 'Штат Кентукки, 1957 год. После смерти матери 9-летняя Элизабет Хармон остаётся сиротой и отправляется в католический приют. В этом заведении детям регулярно дают «витамины», и по совету другой подопечной Бет оставляет зелёные капсулы на ночь. Там же девочка знакомится с пожилым уборщиком Шайбелем, которого просит научить её играть в шахматы. Днём, сбежав со скучных занятий под предлогом помыть тряпку, Бет играет с мистером Шайбелем в его подвальной подсобке, а ночью, приняв зелёную капсулу, прокручивает шахматные партии на потолке общей спальни. Через несколько лет девочку удочерят, у неё начнётся совсем другая жизнь, но главную роль в ней будет играть любовь к шахматам.', 2020, 2020, 'Скотт Фрэнк', 'Аня Тейлор-Джой, Мариэль Хэллер, Моусес Ингрэм, Айла Джонстон, Билл Кэмп, Гарри Меллинг, Томас Сэнгстэр');
+INSERT INTO public.serial VALUES (10, 'Как я встретил вашу маму', '«Как я встретил вашу маму» — комедия про Теда и про то, как он влюбился. Все неприятности начинаются с того, что лучший друг Теда, Маршалл, вдруг неожиданно сообщает, что он хочет сделать предложение своей давней подруге Лили, воспитательнице детского сада. К тому времени Тед понимает, что ему нужно прилагать больше усилий, если он действительно надеется найти свою настоящую любовь. Помогает ему в этих поисках его друг Барни - убеждённый холостяк, вечно со своим, иногда чересчур, мнением на всё происходящее, со склонностью к костюмам и верным способом знакомиться с девушками. Когда Тед встречает Робин, он решает, что это любовь с первого взгляда, но у судьбы в запасе есть кое-что ещё.', 2005, 2014, ' Памела Фрайман, Роб Гринберг, Майкл Дж', 'Джош Рэндор, Нил Патрик Харрис, Коби Смолдерс, Джейсон Сигел, Элисон Хэннигэн, Кристин Милиоти, ');
+
+
+--
+-- TOC entry 3157 (class 0 OID 26652)
+-- Dependencies: 254
+-- Data for Name: serial_serialevaluation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serial_serialevaluation VALUES (2, 15);
+INSERT INTO public.serial_serialevaluation VALUES (1, 4);
+INSERT INTO public.serial_serialevaluation VALUES (2, 5);
+INSERT INTO public.serial_serialevaluation VALUES (3, 6);
+INSERT INTO public.serial_serialevaluation VALUES (4, 7);
+INSERT INTO public.serial_serialevaluation VALUES (5, 8);
+INSERT INTO public.serial_serialevaluation VALUES (6, 9);
+INSERT INTO public.serial_serialevaluation VALUES (7, 10);
+INSERT INTO public.serial_serialevaluation VALUES (8, 11);
+INSERT INTO public.serial_serialevaluation VALUES (9, 12);
+INSERT INTO public.serial_serialevaluation VALUES (9, 14);
+INSERT INTO public.serial_serialevaluation VALUES (10, 13);
+
+
+--
+-- TOC entry 3158 (class 0 OID 26655)
+-- Dependencies: 255
+-- Data for Name: serial_serialgenre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serial_serialgenre VALUES (1, 5);
+INSERT INTO public.serial_serialgenre VALUES (1, 7);
+INSERT INTO public.serial_serialgenre VALUES (1, 9);
+INSERT INTO public.serial_serialgenre VALUES (1, 14);
+INSERT INTO public.serial_serialgenre VALUES (1, 18);
+INSERT INTO public.serial_serialgenre VALUES (2, 2);
+INSERT INTO public.serial_serialgenre VALUES (2, 5);
+INSERT INTO public.serial_serialgenre VALUES (2, 14);
+INSERT INTO public.serial_serialgenre VALUES (2, 18);
+INSERT INTO public.serial_serialgenre VALUES (3, 5);
+INSERT INTO public.serial_serialgenre VALUES (3, 8);
+INSERT INTO public.serial_serialgenre VALUES (4, 4);
+INSERT INTO public.serial_serialgenre VALUES (4, 8);
+INSERT INTO public.serial_serialgenre VALUES (4, 17);
+INSERT INTO public.serial_serialgenre VALUES (5, 2);
+INSERT INTO public.serial_serialgenre VALUES (5, 4);
+INSERT INTO public.serial_serialgenre VALUES (5, 5);
+INSERT INTO public.serial_serialgenre VALUES (5, 8);
+INSERT INTO public.serial_serialgenre VALUES (5, 10);
+INSERT INTO public.serial_serialgenre VALUES (6, 5);
+INSERT INTO public.serial_serialgenre VALUES (6, 7);
+INSERT INTO public.serial_serialgenre VALUES (7, 5);
+INSERT INTO public.serial_serialgenre VALUES (7, 7);
+INSERT INTO public.serial_serialgenre VALUES (7, 14);
+INSERT INTO public.serial_serialgenre VALUES (7, 17);
+INSERT INTO public.serial_serialgenre VALUES (7, 18);
+INSERT INTO public.serial_serialgenre VALUES (8, 5);
+INSERT INTO public.serial_serialgenre VALUES (8, 7);
+INSERT INTO public.serial_serialgenre VALUES (8, 8);
+INSERT INTO public.serial_serialgenre VALUES (8, 14);
+INSERT INTO public.serial_serialgenre VALUES (8, 18);
+INSERT INTO public.serial_serialgenre VALUES (9, 5);
+INSERT INTO public.serial_serialgenre VALUES (9, 9);
+INSERT INTO public.serial_serialgenre VALUES (9, 19);
+INSERT INTO public.serial_serialgenre VALUES (10, 5);
+INSERT INTO public.serial_serialgenre VALUES (10, 8);
+INSERT INTO public.serial_serialgenre VALUES (10, 10);
+INSERT INTO public.serial_serialgenre VALUES (10, 17);
+
+
+--
+-- TOC entry 3159 (class 0 OID 26658)
+-- Dependencies: 256
+-- Data for Name: serial_serialreview; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serial_serialreview VALUES (1, 1);
+INSERT INTO public.serial_serialreview VALUES (2, 2);
+
+
+--
+-- TOC entry 3160 (class 0 OID 26661)
+-- Dependencies: 257
+-- Data for Name: serial_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3161 (class 0 OID 26664)
+-- Dependencies: 258
+-- Data for Name: serialevaluation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serialevaluation VALUES (4, 10);
+INSERT INTO public.serialevaluation VALUES (5, 10);
+INSERT INTO public.serialevaluation VALUES (6, 10);
+INSERT INTO public.serialevaluation VALUES (7, 10);
+INSERT INTO public.serialevaluation VALUES (8, 10);
+INSERT INTO public.serialevaluation VALUES (9, 10);
+INSERT INTO public.serialevaluation VALUES (10, 10);
+INSERT INTO public.serialevaluation VALUES (11, 10);
+INSERT INTO public.serialevaluation VALUES (12, 10);
+INSERT INTO public.serialevaluation VALUES (13, 10);
+INSERT INTO public.serialevaluation VALUES (14, 7);
+INSERT INTO public.serialevaluation VALUES (15, 9);
+
+
+--
+-- TOC entry 3163 (class 0 OID 26669)
+-- Dependencies: 260
+-- Data for Name: serialevaluation_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serialevaluation_user VALUES (15, 17);
+INSERT INTO public.serialevaluation_user VALUES (4, 16);
+INSERT INTO public.serialevaluation_user VALUES (5, 16);
+INSERT INTO public.serialevaluation_user VALUES (6, 16);
+INSERT INTO public.serialevaluation_user VALUES (7, 16);
+INSERT INTO public.serialevaluation_user VALUES (8, 16);
+INSERT INTO public.serialevaluation_user VALUES (9, 16);
+INSERT INTO public.serialevaluation_user VALUES (10, 16);
+INSERT INTO public.serialevaluation_user VALUES (11, 16);
+INSERT INTO public.serialevaluation_user VALUES (12, 16);
+INSERT INTO public.serialevaluation_user VALUES (13, 16);
+INSERT INTO public.serialevaluation_user VALUES (14, 17);
+
+
+--
+-- TOC entry 3164 (class 0 OID 26672)
+-- Dependencies: 261
+-- Data for Name: serialgenre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serialgenre VALUES (1, 'Ужасы');
+INSERT INTO public.serialgenre VALUES (2, 'Фентези');
+INSERT INTO public.serialgenre VALUES (3, 'Военный');
+INSERT INTO public.serialgenre VALUES (4, 'Приключения');
+INSERT INTO public.serialgenre VALUES (5, 'Драма');
+INSERT INTO public.serialgenre VALUES (6, 'Мистика');
+INSERT INTO public.serialgenre VALUES (7, 'Детектив');
+INSERT INTO public.serialgenre VALUES (8, 'Мелодрамма');
+INSERT INTO public.serialgenre VALUES (9, 'Фантастика');
+INSERT INTO public.serialgenre VALUES (10, 'Боевик');
+INSERT INTO public.serialgenre VALUES (11, 'Исторический');
+INSERT INTO public.serialgenre VALUES (12, 'Биография');
+INSERT INTO public.serialgenre VALUES (13, 'Вестерн');
+INSERT INTO public.serialgenre VALUES (14, 'Триллер');
+INSERT INTO public.serialgenre VALUES (15, 'Мультфильм');
+INSERT INTO public.serialgenre VALUES (16, 'Мюзикл');
+INSERT INTO public.serialgenre VALUES (17, 'Комедия');
+INSERT INTO public.serialgenre VALUES (18, 'Криминал');
+INSERT INTO public.serialgenre VALUES (19, 'Спорт');
+
+
+--
+-- TOC entry 3166 (class 0 OID 26677)
+-- Dependencies: 263
+-- Data for Name: serialreview; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serialreview VALUES (1, 'Настоящая магия от Дэвида Линча
+Впервые я посмотрел “Твин Пикс” где-то после анонса третьего сезона. Я часто слышал об этом сериале. Даже родители смотрели его когда-то в девяностых, но отзывались о нем довольно холодно, говорили, что это очень перемудренный и артхаусный сериал. И поэтому мне с детства “Твин Пикс” казался чем-то не недосягаемым, что я никогда не смогу понять, ведь если даже взрослые люди не могут разобраться, то куда уж мне.
+
+И вот, выходит новость, что “Твин Пикс” возвращается спустя 25 лет с тем же оригинальным актерским составом. Это стало для меня отличным поводом посмотреть тот самый сериал девяностых, а потом уже и перейти к новому сезону, что будет срежиссирован лично Линчем.
+
+Итак, первый сезон впечатлил. “Твин Пикс” оказался одновременно теплым и ламповым, но также и пугал своей неизвестностью. Меня безумно заинтересовала та самая красная комната, которая в последствии оказалась Черным Вигвамом, хотя это тоже не совсем так (споры интернете ведутся до сих пор). Это место уже успело стать культовым и пародировалось во многих других лентах, взять даже всеми любимый мультсериал “Гравити Фолз”, который много всего позаимствовал именно из “Твин Пикса”.');
+INSERT INTO public.serialreview VALUES (2, '3 сезон «Мистера Робота» можно официально назвать лучшим за всю историю существования сериала. Режиссер Сэм Эсмейл учится на своих ошибках, каждый раз стараясь адаптировать историю, ее подачу и стилистику под зрителей любой категории.');
+
+
+--
+-- TOC entry 3168 (class 0 OID 26685)
+-- Dependencies: 265
+-- Data for Name: serialreview_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.serialreview_user VALUES (1, 16);
+INSERT INTO public.serialreview_user VALUES (2, 17);
+
+
+--
+-- TOC entry 3169 (class 0 OID 26688)
+-- Dependencies: 266
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public."user" VALUES (16, 'Артем', 'artem', '�a������X�^� �v�@', '26.05.2001', 'admin', 'Сагадеев');
+INSERT INTO public."user" VALUES (17, 'Иван', 'kritik', '�a������X�^� �v�@', '13.10.1998', 'user', 'Андреев');
+
+
+--
+-- TOC entry 3171 (class 0 OID 26693)
+-- Dependencies: 268
+-- Data for Name: user_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.user_user VALUES (17, 16);
+
+
+--
+-- TOC entry 3194 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.book_id_seq', 11, true);
+
+
+--
+-- TOC entry 3195 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: bookevaluation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.bookevaluation_id_seq', 12, true);
+
+
+--
+-- TOC entry 3196 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: bookgenre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.bookgenre_id_seq', 36, true);
+
+
+--
+-- TOC entry 3197 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: bookreview_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.bookreview_id_seq', 1, false);
+
+
+--
+-- TOC entry 3198 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.comment_id_seq', 1, false);
+
+
+--
+-- TOC entry 3199 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: film_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.film_id_seq', 10, true);
+
+
+--
+-- TOC entry 3200 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: filmevaluation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.filmevaluation_id_seq', 17, true);
+
+
+--
+-- TOC entry 3201 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: filmgenre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.filmgenre_id_seq', 19, true);
+
+
+--
+-- TOC entry 3202 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: filmreview_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.filmreview_id_seq', 3, true);
+
+
+--
+-- TOC entry 3203 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.image_id_seq', 48, true);
+
+
+--
+-- TOC entry 3204 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: privacysettings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.privacysettings_id_seq', 2, true);
+
+
+--
+-- TOC entry 3205 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: selection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.selection_id_seq', 1, true);
+
+
+--
+-- TOC entry 3206 (class 0 OID 0)
+-- Dependencies: 253
+-- Name: serial_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.serial_id_seq', 10, true);
+
+
+--
+-- TOC entry 3207 (class 0 OID 0)
+-- Dependencies: 259
+-- Name: serialevaluation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.serialevaluation_id_seq', 15, true);
+
+
+--
+-- TOC entry 3208 (class 0 OID 0)
+-- Dependencies: 262
+-- Name: serialgenre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.serialgenre_id_seq', 19, true);
+
+
+--
+-- TOC entry 3209 (class 0 OID 0)
+-- Dependencies: 264
+-- Name: serialreview_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.serialreview_id_seq', 2, true);
+
+
+--
+-- TOC entry 3210 (class 0 OID 0)
+-- Dependencies: 267
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_id_seq', 17, true);
+
+
+--
+-- TOC entry 2946 (class 2606 OID 26714)
+-- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.book
+    ADD CONSTRAINT book_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2948 (class 2606 OID 26716)
+-- Name: bookevaluation bookevaluation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bookevaluation
+    ADD CONSTRAINT bookevaluation_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2950 (class 2606 OID 26718)
+-- Name: bookgenre bookgenre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bookgenre
+    ADD CONSTRAINT bookgenre_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2952 (class 2606 OID 26720)
+-- Name: bookreview bookreview_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bookreview
+    ADD CONSTRAINT bookreview_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2954 (class 2606 OID 26722)
+-- Name: comment comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comment
+    ADD CONSTRAINT comment_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2956 (class 2606 OID 26724)
+-- Name: film film_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.film
+    ADD CONSTRAINT film_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2958 (class 2606 OID 26726)
+-- Name: filmevaluation filmevaluation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filmevaluation
+    ADD CONSTRAINT filmevaluation_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2960 (class 2606 OID 26728)
+-- Name: filmgenre filmgenre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filmgenre
+    ADD CONSTRAINT filmgenre_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2962 (class 2606 OID 26730)
+-- Name: filmreview filmreview_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filmreview
+    ADD CONSTRAINT filmreview_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2964 (class 2606 OID 26732)
+-- Name: image image_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.image
+    ADD CONSTRAINT image_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2966 (class 2606 OID 26734)
+-- Name: privacysettings privacysettings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.privacysettings
+    ADD CONSTRAINT privacysettings_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2968 (class 2606 OID 26736)
+-- Name: selection selection_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.selection
+    ADD CONSTRAINT selection_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2970 (class 2606 OID 26738)
+-- Name: serial serial_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.serial
+    ADD CONSTRAINT serial_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2972 (class 2606 OID 26740)
+-- Name: serialevaluation serialevaluation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.serialevaluation
+    ADD CONSTRAINT serialevaluation_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2974 (class 2606 OID 26742)
+-- Name: serialgenre serialgenre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.serialgenre
+    ADD CONSTRAINT serialgenre_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2976 (class 2606 OID 26744)
+-- Name: serialreview serialreview_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.serialreview
+    ADD CONSTRAINT serialreview_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2978 (class 2606 OID 26746)
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+-- Completed on 2020-12-16 22:58:00
+
+--
+-- PostgreSQL database dump complete
+--
+
