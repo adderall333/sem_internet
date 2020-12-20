@@ -88,6 +88,7 @@ namespace ArmchairExpertsCom.Services
                     return null;
                 case null:
                     context.Session.SetString("authKey", cookieAuthKey);
+                    sessionAuthKey = cookieAuthKey;
                     break;
             }
 
