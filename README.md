@@ -18,7 +18,7 @@
 * Razor Pages
 * PostgreSQL
 * Npgsql
-* Bootstrap
+* Bootstrap 4
 * JQuery
 * FetchAPI
 
