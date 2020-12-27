@@ -1,29 +1,30 @@
-## Семестровая работа по информатике
-### Тема: интернет
-### Команда:
-* [Сагадеев Артем](https://github.com/adderall333) (backend)
-* [Галиева Раилина](https://github.com/RaiRG) (frontend)
-* [Туктаров Дамир](https://github.com/demxk) (product owner)
+## Semester work
+### Theme: internet
+### Task: internet service about books, films and serials with evaluatings, reviews, selections etc.
+### Team:
+* [Artem](https://github.com/adderall333) (backend)
+* [Railina](https://github.com/RaiRG) (frontend)
+* [Damir](https://github.com/demxk) (product owner)
 
 ---
 
-### Детали:
-* нельзя использовать ASPNET Core MVC
-* нельзя использовать Entity Framework
-* требуется реализовать свою авторизацию
-* требуется реализовать свой доступ к бд (DAO или Repository)
+### Details:
+* we can't use ASPNET Core MVC
+* we can't use Entity Framework
+* we need to implement our own auth system
+* we need to implement DAO or ORM
 
-### Использованные технологии:
+### Technologies:
 * ASP NET Core
 * Razor Pages
 * PostgreSQL
 * Npgsql
-* Bootstrap 4
+* Bootstrap
 * JQuery
 * FetchAPI
 
 ---
 
-#### Интеграция базы данных:
-* Нужно создать новую пустую базу данных (postgres) и применить в ней SQL из файла "database" (находится в корне репозитория).
-* Когда база данных создана, вставьте своё имя пользователя, пароль (в postgres) и название созданной бд в 14-ой строке файла ArmchairExpertsCom/Models/Utilities/ORM.cs
+#### How to integrate database with our test data:
+* You need to create a new database (postgres) and run there SQL code from file named "database" (located in the root of repo).
+* Then, you need to add your postgres username, password and name of database you created at the previous step into 14-th row of "ArmchairExpertsCom/Models/Utilities/ORM.cs"
