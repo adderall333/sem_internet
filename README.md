@@ -1,9 +1,9 @@
 ## Семестровая работа по информатике
 ### Тема: интернет
 ### Команда:
-* [Сагадеев Артем](https://github.com/adderall333) (dev1)
-* [Галиева Раилина](https://github.com/RaiRG) (dev2)
-* [Туктаров Дамир](https://github.com/demxk) (po)
+* [Сагадеев Артем](https://github.com/adderall333) (backend)
+* [Галиева Раилина](https://github.com/RaiRG) (frontend)
+* [Туктаров Дамир](https://github.com/demxk) (product owner)
 
 ---
 
