@@ -11,7 +11,7 @@ namespace ArmchairExpertsCom.Models.Utilities
     public static class ORM
     { 
         private const string ConnectionString =
-            "Host=localhost;Username=postgres;Password=qweasd123;Database=armchair_experts";
+            "Host=ec2-54-155-35-88.eu-west-1.compute.amazonaws.com;Username=bpbytgaeargjgy;Password=6b9ff1da9a623574b1fe2a3d391619ced29ca39c1411e5fc6a0818fa32c652a8;Database=dda0of1flfi88h;sslmode=Require;TrustServerCertificate=true";
         
         public static void Insert(IModel model)
         {
